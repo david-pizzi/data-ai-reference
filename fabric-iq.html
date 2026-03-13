@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2: Fabric IQ &amp; the Intelligence Layer — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ms-blue: #0078D4;
+    --ms-dark: #1B1A19;
+    --ms-dark-blue: #243A5E;
+    --ms-teal: #008575;
+    --ms-orange: #D83B01;
+    --ms-purple: #8661C5;
+    --ms-red: #D13438;
+    --bg: #F5F5F5;
+    --card: #FFFFFF;
+    --border: #E1E5E9;
+    --text: #1B1A19;
+    --muted: #605E5C;
+    --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Ubuntu', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+  .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+  .nav a:hover { color: #fff; }
+  .nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+  .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+  .nav a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+  .header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+  .card.blue::before { background: var(--ms-blue); }
+  .card.green::before { background: var(--ms-teal); }
+  .card.orange::before { background: var(--ms-orange); }
+  .card.purple::before { background: var(--ms-purple); }
+  .card.teal::before { background: var(--ms-teal); }
+  .card.red::before { background: var(--ms-red); }
+  .card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .card.blue .card-title { color: var(--ms-blue); }
+  .card.green .card-title { color: var(--ms-teal); }
+  .card.orange .card-title { color: var(--ms-orange); }
+  .card.purple .card-title { color: var(--ms-purple); }
+  .card.teal .card-title { color: var(--ms-teal); }
+  .card.red .card-title { color: var(--ms-red); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+  .decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+  .decision-table th { background: #D0E7F8; color: var(--ms-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--ms-blue); }
+  .decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .decision-table tr:last-child td { border-bottom: none; }
+  .decision-table tr:hover td { background: #F5F7FA; }
+  .decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
+  .decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
+  .decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom-color: var(--ms-purple); }
+  .decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom-color: var(--ms-orange); }
+  .decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom-color: var(--ms-red); }
+  .kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+  .kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+  .card.blue .kp::before { color: var(--ms-blue); }
+  .card.green .kp::before { color: var(--ms-teal); }
+  .card.orange .kp::before { color: var(--ms-orange); }
+  .card.purple .kp::before { color: var(--ms-purple); }
+  .card.teal .kp::before { color: var(--ms-teal); }
+  .card.red .kp::before { color: var(--ms-red); }
+  .kp:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 600; }
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+  .toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+  .toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+  .toc a:hover { border-bottom-color: var(--ms-blue); }
+  .footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+  .footer a { color: var(--ms-blue); text-decoration: none; }
+  .further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .further-reading a { color: var(--ms-blue); text-decoration: none; }
+  .further-reading a:hover { text-decoration: underline; }
+  .card.green .further-reading a { color: var(--ms-teal); }
+  .card.orange .further-reading a { color: var(--ms-orange); }
+  .card.purple .further-reading a { color: var(--ms-purple); }
+  .card.red .further-reading a { color: var(--ms-red); }
+
+  /* Tutorial steps */
+  .tutorial-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .tutorial-step:last-child { margin-bottom: 0; }
+  .step-num { background: var(--ms-orange); color: #fff; font-weight: 700; font-size: 12px; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-content { font-size: 14px; }
+  .step-content strong { font-weight: 700; }
+
+  /* Dropdown nav */
+  .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+  .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+  .nav-dropdown > a:hover { color: #fff; }
+  .nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .nav-dropdown:hover .dropdown-content { display: block; }
+  .dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+  .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { padding: 10px; background: white; }
+    .card { break-inside: avoid; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a class="active" href="fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <a class="md-link" href="../md/fabric-iq.md">Deep Dive (md)</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Phase 2: Fabric IQ &amp; the Intelligence Layer</h1>
+    <div class="subtitle">Weeks 2&ndash;3 &mdash; Ontology, Graph, Data Agents, Operations Agents &mdash; <a href="https://learn.microsoft.com/en-us/fabric/iq/overview" style="color:rgba(255,255,255,0.9);">Official Docs</a></div>
+  </div>
+  <div class="badge">Ontology &bull; Graph &bull; Data Agents<br>Operations Agents &bull; AI Foundry</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#goal">Goal</a>
+  <a href="#the-shift">The Shift</a>
+  <a href="#core-concepts">Core Concepts</a>
+  <a href="#ms-learn">MS Learn Modules</a>
+  <a href="#hands-on">Hands-On Tutorial</a>
+  <a href="#why-it-matters">Why This Matters</a>
+</div>
+
+<!-- GOAL -->
+<div id="goal" class="card blue">
+  <div class="card-title">Goal</div>
+  <div class="kp"><strong>Understand Fabric IQ</strong> &mdash; the newest and most strategically important workload in the Fabric platform</div>
+  <div class="kp"><strong>Where Microsoft is investing heavily:</strong> IQ represents the future direction of Fabric, moving beyond traditional data engineering and BI</div>
+  <div class="kp"><strong>Where creating IP will have the most impact:</strong> ontology design patterns, agent integration architectures, and customer adoption guidance are all greenfield territory</div>
+</div>
+
+<!-- THE SHIFT -->
+<div id="the-shift" class="card blue">
+  <div class="card-title">The Shift: Data Platform &rarr; Intelligence Platform</div>
+  <div class="kp"><strong>Before IQ:</strong> Fabric was a data platform &mdash; ingest, store, transform, query, report. Powerful, but fundamentally about moving and shaping data.</div>
+  <div class="kp"><strong>With IQ:</strong> Fabric becomes an intelligence platform. Instead of just storing and querying data, Fabric now <strong>understands business meaning</strong> through ontologies, <strong>reasons over relationships</strong> via graph, and <strong>acts through AI agents</strong>.</div>
+  <div class="kp"><strong>The progression:</strong> Data Lake &rarr; Lakehouse &rarr; Semantic Models &rarr; Ontology &rarr; Graph &rarr; Agents. Each step adds more meaning and more autonomy.</div>
+  <div class="kp"><strong>Key insight:</strong> IQ doesn't replace the existing Fabric workloads &mdash; it builds on top of them. OneLake stores the data, semantic models define measures, and IQ adds business context that enables AI agents to reason and act.</div>
+</div>
+
+<!-- CORE CONCEPTS -->
+<div id="core-concepts" class="card green">
+  <div class="card-title">Core Concepts</div>
+  <table class="decision-table green-header">
+    <tr><th style="width:18%;">Concept</th><th style="width:40%;">What It Is</th><th style="width:42%;">Why It Matters</th></tr>
+    <tr>
+      <td><strong>Ontology</strong></td>
+      <td>Machine-readable model of business vocabulary. Defines entity types (Customer, Product, Order), their properties, and relationships &mdash; all bound to real data in OneLake.</td>
+      <td>Semantic layer beyond BI. While semantic models define measures and aggregations, ontologies define <em>what things are</em> and <em>how they relate</em>. Foundation for AI agents to reason about business context.</td>
+    </tr>
+    <tr>
+      <td><strong>Graph</strong></td>
+      <td>Native graph storage and compute. Nodes represent entity instances, edges represent relationships. Supports GQL for traversals and path finding.</td>
+      <td>Ontology auto-generates a queryable graph. Enables questions like "which suppliers connect to our highest-risk products?" that are impractical with relational queries alone.</td>
+    </tr>
+    <tr>
+      <td><strong>Data Agents</strong></td>
+      <td>Virtual analysts that use the ontology as grounding. Convert natural language questions into structured queries against the graph and underlying data.</td>
+      <td>Grounded in ontology definitions, so answers are consistent and auditable. Not hallucinating &mdash; the agent reasons over defined business concepts and real data.</td>
+    </tr>
+    <tr>
+      <td><strong>Operations Agents</strong></td>
+      <td>Autonomous agents that monitor real-time streams, detect constraint violations, and trigger workflows. Use ontology rules as an operational playbook.</td>
+      <td>Connects to Azure AI Foundry for orchestration. Enables proactive, always-on business monitoring &mdash; not just dashboards you check, but agents that act when conditions are met.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- MS LEARN MODULES -->
+<div id="ms-learn" class="card teal">
+  <div class="card-title">MS Learn Modules</div>
+  <table class="decision-table teal-header">
+    <tr><th style="width:5%;">#</th><th style="width:45%;">Module</th><th style="width:15%;">Duration</th><th style="width:35%;">Link</th></tr>
+    <tr>
+      <td>1</td>
+      <td><strong>Understand Microsoft Fabric IQ fundamentals</strong></td>
+      <td>~30 min</td>
+      <td><a href="https://learn.microsoft.com/en-us/training/" target="_blank">MS Learn Training &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Fabric IQ Overview</strong> (documentation)</td>
+      <td>~20 min</td>
+      <td><a href="https://learn.microsoft.com/en-us/fabric/iq/overview" target="_blank">Fabric IQ Overview &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>What is Ontology?</strong> (documentation)</td>
+      <td>~20 min</td>
+      <td><a href="https://learn.microsoft.com/en-us/fabric/iq/ontology/overview" target="_blank">Ontology Overview &rarr;</a></td>
+    </tr>
+  </table>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/iq/overview" target="_blank">Full Fabric IQ Documentation &rarr;</a></div>
+</div>
+
+<!-- HANDS-ON TUTORIAL -->
+<div id="hands-on" class="card orange">
+  <div class="card-title">Hands-On: Ontology Tutorial (5 Parts)</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">End-to-end tutorial using the Lakeshore Retail sample dataset. Follow all 5 parts to build an ontology, explore the graph, and create a data agent.</p>
+  <div class="tutorial-step">
+    <div class="step-num">0</div>
+    <div class="step-content"><strong>Introduction and environment setup</strong> &mdash; Load the Lakeshore Retail sample data into your Fabric workspace. Set up the lakehouse and semantic model prerequisites.</div>
+  </div>
+  <div class="tutorial-step">
+    <div class="step-num">1</div>
+    <div class="step-content"><strong>Create an ontology</strong> &mdash; Build an ontology from a semantic model or directly from OneLake data. Define entity types, properties, and initial relationships.</div>
+  </div>
+  <div class="tutorial-step">
+    <div class="step-num">2</div>
+    <div class="step-content"><strong>Enrich the ontology</strong> &mdash; Add streaming data from Eventhouse, define additional relationships, and refine business rules and constraints.</div>
+  </div>
+  <div class="tutorial-step">
+    <div class="step-num">3</div>
+    <div class="step-content"><strong>Preview the ontology</strong> &mdash; Explore the instance graph visually. Run queries using business terms and see how entities connect.</div>
+  </div>
+  <div class="tutorial-step">
+    <div class="step-num">4</div>
+    <div class="step-content"><strong>Create a data agent</strong> &mdash; Ask natural language questions grounded in the ontology. See how the agent translates NL to structured queries and returns auditable answers.</div>
+  </div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/iq/ontology/tutorial-0-introduction" target="_blank">Start the Ontology Tutorial &rarr;</a></div>
+</div>
+
+<!-- WHY THIS MATTERS -->
+<div id="why-it-matters" class="card purple">
+  <div class="card-title">Why This Matters: Creating Reusable IP</div>
+  <div class="kp"><strong>Early-mover advantage:</strong> Understanding Fabric IQ early gives a significant edge. Most practitioners are still focused on traditional data engineering and BI workloads.</div>
+  <div class="kp"><strong>Ontology design patterns:</strong> Position to create reusable templates for common industry ontologies &mdash; retail, healthcare, financial services, public sector.</div>
+  <div class="kp"><strong>Agent integration architectures:</strong> Document how data agents and operations agents connect to Azure AI Foundry, Copilot Studio, and existing enterprise workflows.</div>
+  <div class="kp"><strong>Migration guidance:</strong> Help customers evolve from traditional BI semantic models to full ontology-backed intelligence &mdash; a natural upsell path from existing Fabric deployments.</div>
+  <div class="kp"><strong>The strategic angle:</strong> IQ is where Microsoft is investing for the next wave. Being someone who can articulate the ontology-to-agent story is a differentiated position in the field.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Phase 2: Fabric IQ &amp; the Intelligence Layer &mdash; Data &amp; AI Reference
+  <br>
+  <a class="md-link" href="../md/fabric-iq.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+</body>
+</html>

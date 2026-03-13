@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data &amp; AI — Reference Site</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ms-blue: #0078D4;
+    --ms-dark: #1B1A19;
+    --ms-dark-blue: #243A5E;
+    --ms-teal: #008575;
+    --ms-orange: #D83B01;
+    --ms-purple: #8661C5;
+    --ms-red: #D13438;
+    --bg: #F5F5F5;
+    --card: #FFFFFF;
+    --border: #E1E5E9;
+    --text: #1B1A19;
+    --muted: #605E5C;
+    --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Ubuntu', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+  .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+  .nav a:hover { color: #fff; }
+  .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+  .nav a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+  .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+  .nav-dropdown > a:hover { color: #fff; }
+  .nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .nav-dropdown:hover .dropdown-content { display: block; }
+  .dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+  .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+  .header { background: var(--accent-gradient); border-radius: 16px; padding: 40px 36px; margin-bottom: 16px; color: white; }
+  .header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 16px; opacity: 0.85; margin-top: 4px; }
+  .header .role { font-size: 13px; opacity: 0.65; margin-top: 8px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+  .card.blue::before { background: var(--ms-blue); }
+  .card.green::before { background: var(--ms-teal); }
+  .card.orange::before { background: var(--ms-orange); }
+  .card.purple::before { background: var(--ms-purple); }
+  .card.red::before { background: var(--ms-red); }
+  .card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+  .card.blue .card-title { color: var(--ms-blue); }
+  .card.green .card-title { color: var(--ms-teal); }
+  .card.orange .card-title { color: var(--ms-orange); }
+  .card.purple .card-title { color: var(--ms-purple); }
+  .card.red .card-title { color: var(--ms-red); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+
+  /* Phase cards */
+  .phase-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; transition: box-shadow 0.2s, transform 0.15s; text-decoration: none; color: var(--text); display: block; }
+  .phase-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .phase-top { padding: 20px 24px 16px; }
+  .phase-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .phase-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .phase-weeks { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .phase-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .phase-bottom { padding: 12px 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; flex-wrap: wrap; }
+  .phase-sub { font-size: 12px; color: var(--muted); padding: 2px 8px; background: #F0F0F0; border-radius: 4px; }
+
+  .phase-card.c-blue { border-left: 4px solid var(--ms-blue); }
+  .phase-card.c-blue .phase-num, .phase-card.c-blue .phase-name { color: var(--ms-blue); }
+  .phase-card.c-purple { border-left: 4px solid var(--ms-purple); }
+  .phase-card.c-purple .phase-num, .phase-card.c-purple .phase-name { color: var(--ms-purple); }
+  .phase-card.c-teal { border-left: 4px solid var(--ms-teal); }
+  .phase-card.c-teal .phase-num, .phase-card.c-teal .phase-name { color: var(--ms-teal); }
+  .phase-card.c-orange { border-left: 4px solid var(--ms-orange); }
+  .phase-card.c-orange .phase-num, .phase-card.c-orange .phase-name { color: var(--ms-orange); }
+  .phase-card.c-red { border-left: 4px solid var(--ms-red); }
+  .phase-card.c-red .phase-num, .phase-card.c-red .phase-name { color: var(--ms-red); }
+
+  /* Summary table */
+  .summary-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+  .summary-table th { background: #D0E7F8; color: var(--ms-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--ms-blue); }
+  .summary-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover td { background: #F5F7FA; }
+  .summary-table a { color: var(--ms-blue); text-decoration: none; font-weight: 600; }
+  .summary-table a:hover { text-decoration: underline; }
+
+  .kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+  .kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+  .card.blue .kp::before { color: var(--ms-blue); }
+  .card.green .kp::before { color: var(--ms-teal); }
+
+  strong { font-weight: 600; }
+  .footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+  .footer a { color: var(--ms-blue); text-decoration: none; }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { padding: 10px; background: white; }
+    .card, .phase-card { break-inside: avoid; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a class="active" href="index.html">Home</a>
+  <a href="fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Data &amp; AI &mdash; Reference</h1>
+  <div class="subtitle">Microsoft Fabric &bull; Principles First &bull; Hands-On &bull; No Certification Grind</div>
+  <div class="role">Microsoft Fabric &bull; Azure Data &amp; AI &bull; Study Reference &bull; 2026</div>
+</div>
+
+<!-- APPROACH -->
+<div class="card blue">
+  <div class="card-title">Approach</div>
+  <div class="kp"><strong>Top-down:</strong> architecture and principles first, implementation details later</div>
+  <div class="kp"><strong>Philosophy:</strong> understand the "why" before the "how" &mdash; internal Microsoft training covers the deep skills</div>
+  <div class="kp"><strong>Format:</strong> each phase has a study guide (HTML) + deep dive (MD) + sub-topic pages</div>
+  <div class="kp"><strong>First thing to do:</strong> sign up for a free 60-day Fabric trial at <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-blue);">app.fabric.microsoft.com</a></div>
+</div>
+
+<!-- REFERENCE -->
+<div class="card green">
+  <div class="card-title">Reference Card</div>
+  <div class="kp"><a href="fabric-overview.html" style="color:var(--ms-teal);font-weight:600;">Microsoft Fabric Overview</a> &mdash; architecture, OneLake, 9 workloads, licensing, Fabric IQ, vs legacy services</div>
+</div>
+
+<!-- PHASE CARDS -->
+<div class="grid">
+
+  <a href="big-picture.html" class="phase-card c-blue">
+    <div class="phase-top">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-name">Big Picture</div>
+      <div class="phase-weeks">Week 1 &bull; ~2.5 hrs MS Learn + trial exploration</div>
+      <div class="phase-desc">What Fabric is, why Microsoft built it, how it replaces previous services, and where it's heading with IQ.</div>
+    </div>
+    <div class="phase-bottom">
+      <span class="phase-sub">Introduction to Fabric</span>
+      <span class="phase-sub">OneLake &amp; Storage</span>
+      <span class="phase-sub">Lakehouse &amp; Warehouse</span>
+      <span class="phase-sub">Admin &amp; Governance</span>
+    </div>
+  </a>
+
+  <a href="fabric-iq.html" class="phase-card c-purple">
+    <div class="phase-top">
+      <div class="phase-num">Phase 2</div>
+      <div class="phase-name">Fabric IQ</div>
+      <div class="phase-weeks">Weeks 2&ndash;3 &bull; ~1.5 hrs modules + ontology tutorial</div>
+      <div class="phase-desc">The newest and most strategic workload. Ontology, graph, data agents, operations agents &mdash; where Fabric is heading.</div>
+    </div>
+    <div class="phase-bottom">
+      <span class="phase-sub">Ontology Fundamentals</span>
+      <span class="phase-sub">Graph &amp; GQL</span>
+      <span class="phase-sub">Data Agents</span>
+      <span class="phase-sub">Operations Agents</span>
+    </div>
+  </a>
+
+  <a href="data-platform.html" class="phase-card c-teal">
+    <div class="phase-top">
+      <div class="phase-num">Phase 3</div>
+      <div class="phase-name">Data Platform</div>
+      <div class="phase-weeks">Weeks 3&ndash;5 &bull; ~4.5 hrs modules + hands-on</div>
+      <div class="phase-desc">Core data platform components: how data flows into, through, and out of Fabric. Patterns over syntax.</div>
+    </div>
+    <div class="phase-bottom">
+      <span class="phase-sub">Apache Spark</span>
+      <span class="phase-sub">Delta Lake</span>
+      <span class="phase-sub">Pipelines</span>
+      <span class="phase-sub">Dataflows Gen2</span>
+      <span class="phase-sub">Real-Time Intelligence</span>
+    </div>
+  </a>
+
+  <a href="semantic-bi.html" class="phase-card c-orange">
+    <div class="phase-top">
+      <div class="phase-num">Phase 4</div>
+      <div class="phase-name">Semantic &amp; BI</div>
+      <div class="phase-weeks">Weeks 5&ndash;6 &bull; ~2.5 hrs modules + hands-on</div>
+      <div class="phase-desc">How business users consume Fabric data. Semantic models are the bridge between data engineering and Fabric IQ.</div>
+    </div>
+    <div class="phase-bottom">
+      <span class="phase-sub">Semantic Models</span>
+      <span class="phase-sub">DAX Fundamentals</span>
+      <span class="phase-sub">Power BI &amp; DirectLake</span>
+      <span class="phase-sub">Data Science &amp; ML</span>
+    </div>
+  </a>
+
+</div>
+
+<a href="architecture.html" class="phase-card c-red" style="display:block;margin-bottom:18px;">
+  <div class="phase-top">
+    <div class="phase-num">Phase 5</div>
+    <div class="phase-name">Architecture &amp; Strategy</div>
+    <div class="phase-weeks">Week 7+ &bull; reading and strategic thinking</div>
+    <div class="phase-desc">Design patterns, migration guidance, and competitive positioning that turns platform knowledge into reusable IP.</div>
+  </div>
+  <div class="phase-bottom">
+    <span class="phase-sub">Data Mesh on Fabric</span>
+    <span class="phase-sub">Migration Patterns</span>
+    <span class="phase-sub">Competitive Landscape</span>
+    <span class="phase-sub">AI-Infused Analytics</span>
+  </div>
+</a>
+
+<!-- TIMELINE -->
+<div class="card blue">
+  <div class="card-title">Study Timeline</div>
+  <table class="summary-table">
+    <tr><th>Week</th><th>Phase</th><th>Focus</th><th>Hands-On</th></tr>
+    <tr><td><strong>1</strong></td><td><a href="big-picture.html">Big Picture</a></td><td>Platform architecture, OneLake, why Fabric exists</td><td>Explore the trial environment</td></tr>
+    <tr><td><strong>2&ndash;3</strong></td><td><a href="fabric-iq.html">Fabric IQ</a></td><td>Ontology, Graph, Data Agents, Operations Agents</td><td>Build an ontology (tutorial)</td></tr>
+    <tr><td><strong>3&ndash;5</strong></td><td><a href="data-platform.html">Data Platform</a></td><td>Lakehouse, Warehouse, Spark, Pipelines, RTI</td><td>End-to-end data flow</td></tr>
+    <tr><td><strong>5&ndash;6</strong></td><td><a href="semantic-bi.html">Semantic &amp; BI</a></td><td>Semantic models, Power BI, DirectLake</td><td>Semantic model &rarr; Ontology</td></tr>
+    <tr><td><strong>7+</strong></td><td><a href="architecture.html">Architecture</a></td><td>Design patterns, competitive positioning</td><td>Reading &amp; strategic thinking</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--muted);margin-top:12px;"><strong>Total:</strong> ~40&ndash;60 hours across 6&ndash;7 weeks. Self-paced Microsoft Learn modules and hands-on exploration. Adjust based on start date and notice period.</p>
+</div>
+
+<!-- KEY LINKS -->
+<div class="card green">
+  <div class="card-title">Key Links</div>
+  <div class="kp"><strong>Fabric Trial:</strong> <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">app.fabric.microsoft.com</a></div>
+  <div class="kp"><strong>Fabric Training Hub:</strong> <a href="https://learn.microsoft.com/en-us/training/fabric/" target="_blank" style="color:var(--ms-teal);">learn.microsoft.com/en-us/training/fabric/</a></div>
+  <div class="kp"><strong>Get Started Path:</strong> <a href="https://learn.microsoft.com/en-us/training/paths/get-started-fabric/" target="_blank" style="color:var(--ms-teal);">learn.microsoft.com/en-us/training/paths/get-started-fabric/</a></div>
+  <div class="kp"><strong>Fabric IQ Docs:</strong> <a href="https://learn.microsoft.com/en-us/fabric/iq/" target="_blank" style="color:var(--ms-teal);">learn.microsoft.com/en-us/fabric/iq/</a></div>
+  <div class="kp"><strong>Ontology Tutorial:</strong> <a href="https://learn.microsoft.com/en-us/fabric/iq/ontology/tutorial-0-introduction" target="_blank" style="color:var(--ms-teal);">learn.microsoft.com/en-us/fabric/iq/ontology/tutorial-0-introduction</a></div>
+  <div class="kp"><strong>Fabric Blog:</strong> <a href="https://blog.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">blog.fabric.microsoft.com</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Data &amp; AI Reference &bull; Microsoft Fabric &bull; 2026
+</div>
+
+</body>
+</html>

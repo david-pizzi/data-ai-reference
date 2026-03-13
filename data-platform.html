@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 3: The Data Platform Layer — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ms-blue: #0078D4;
+    --ms-dark: #1B1A19;
+    --ms-dark-blue: #243A5E;
+    --ms-teal: #008575;
+    --ms-orange: #D83B01;
+    --ms-purple: #8661C5;
+    --ms-red: #D13438;
+    --bg: #F5F5F5;
+    --card: #FFFFFF;
+    --border: #E1E5E9;
+    --text: #1B1A19;
+    --muted: #605E5C;
+    --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Ubuntu', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+  .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+  .nav a:hover { color: #fff; }
+  .nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+  .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+  .nav a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+  .header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+  .card.blue::before { background: var(--ms-blue); }
+  .card.green::before { background: var(--ms-teal); }
+  .card.orange::before { background: var(--ms-orange); }
+  .card.purple::before { background: var(--ms-purple); }
+  .card.teal::before { background: var(--ms-teal); }
+  .card.red::before { background: var(--ms-red); }
+  .card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .card.blue .card-title { color: var(--ms-blue); }
+  .card.green .card-title { color: var(--ms-teal); }
+  .card.orange .card-title { color: var(--ms-orange); }
+  .card.purple .card-title { color: var(--ms-purple); }
+  .card.teal .card-title { color: var(--ms-teal); }
+  .card.red .card-title { color: var(--ms-red); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+  .decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+  .decision-table th { background: #D0E7F8; color: var(--ms-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--ms-blue); }
+  .decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .decision-table tr:last-child td { border-bottom: none; }
+  .decision-table tr:hover td { background: #F5F7FA; }
+  .decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
+  .decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
+  .decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom-color: var(--ms-purple); }
+  .decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom-color: var(--ms-orange); }
+  .decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom-color: var(--ms-red); }
+  .kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+  .kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+  .card.blue .kp::before { color: var(--ms-blue); }
+  .card.green .kp::before { color: var(--ms-teal); }
+  .card.orange .kp::before { color: var(--ms-orange); }
+  .card.purple .kp::before { color: var(--ms-purple); }
+  .card.teal .kp::before { color: var(--ms-teal); }
+  .card.red .kp::before { color: var(--ms-red); }
+  .kp:last-child { margin-bottom: 0; }
+
+  /* Workload pills */
+  .wl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .wl-pill { border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border); background: var(--card); }
+  .wl-pill .wl-name { font-size: 13px; font-weight: 700; }
+  .wl-pill .wl-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .wl-pill.wl-blue { border-left: 4px solid var(--ms-blue); }
+  .wl-pill.wl-blue .wl-name { color: var(--ms-blue); }
+  .wl-pill.wl-teal { border-left: 4px solid var(--ms-teal); }
+  .wl-pill.wl-teal .wl-name { color: var(--ms-teal); }
+  .wl-pill.wl-orange { border-left: 4px solid var(--ms-orange); }
+  .wl-pill.wl-orange .wl-name { color: var(--ms-orange); }
+  .wl-pill.wl-purple { border-left: 4px solid var(--ms-purple); }
+  .wl-pill.wl-purple .wl-name { color: var(--ms-purple); }
+  .wl-pill.wl-red { border-left: 4px solid var(--ms-red); }
+  .wl-pill.wl-red .wl-name { color: var(--ms-red); }
+
+  /* Architecture flow */
+  .arch-flow { display: flex; gap: 0; align-items: stretch; margin: 8px 0; }
+  .arch-box { flex: 1; text-align: center; padding: 14px 8px; border-radius: 8px; border: 2px solid var(--border); }
+  .arch-box .af-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .arch-box .af-name { font-size: 13px; font-weight: 700; }
+  .arch-box .af-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .arch-arrow { font-size: 14px; flex-shrink: 0; padding: 0 3px; font-weight: 700; display: flex; align-items: center; }
+  .af-ingest { border-color: var(--ms-orange); background: #FCE4D6; }
+  .af-ingest .af-label, .af-ingest .af-name { color: var(--ms-orange); }
+  .af-transform { border-color: var(--ms-teal); background: #E2F2F0; }
+  .af-transform .af-label, .af-transform .af-name { color: var(--ms-teal); }
+  .af-store { border-color: var(--ms-blue); background: #D0E7F8; }
+  .af-store .af-label, .af-store .af-name { color: var(--ms-blue); }
+  .af-model { border-color: var(--ms-purple); background: #EDE5F5; }
+  .af-model .af-label, .af-model .af-name { color: var(--ms-purple); }
+  .af-report { border-color: var(--ms-blue); background: #E8F1FB; }
+  .af-report .af-label, .af-report .af-name { color: var(--ms-blue); }
+
+  strong { font-weight: 600; }
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+  .toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+  .toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+  .toc a:hover { border-bottom-color: var(--ms-blue); }
+  .footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+  .footer a { color: var(--ms-blue); text-decoration: none; }
+  .further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .further-reading a { color: var(--ms-blue); text-decoration: none; }
+  .further-reading a:hover { text-decoration: underline; }
+  .card.green .further-reading a { color: var(--ms-teal); }
+  .card.orange .further-reading a { color: var(--ms-orange); }
+  .card.purple .further-reading a { color: var(--ms-purple); }
+  .card.red .further-reading a { color: var(--ms-red); }
+
+  /* Dropdown nav */
+  .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+  .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+  .nav-dropdown > a:hover { color: #fff; }
+  .nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+  .dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .nav-dropdown:hover .dropdown-content { display: block; }
+  .dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+  .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .wl-grid { grid-template-columns: 1fr 1fr; }
+    .arch-flow { flex-wrap: wrap; }
+  }
+
+  @media print {
+    body { padding: 10px; background: white; }
+    .card { break-inside: avoid; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html">Home</a>
+  <a href="fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a class="active" href="data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <a class="md-link" href="../md/data-platform.md">Deep Dive (md)</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Phase 3: The Data Platform Layer</h1>
+    <div class="subtitle">Weeks 3&ndash;5 &mdash; Lakehouse, Warehouse, Spark, Pipelines, Real-Time Intelligence</div>
+  </div>
+  <div class="badge">Lakehouse &bull; Warehouse &bull; Spark<br>Pipelines &bull; Dataflows &bull; RTI</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#goal">Goal</a>
+  <a href="#ingestion">Data Ingestion &amp; Orchestration</a>
+  <a href="#patterns">Key Patterns</a>
+  <a href="#rti">Real-Time Intelligence</a>
+  <a href="#exercise">Hands-On Exercise</a>
+</div>
+
+<!-- GOAL -->
+<div id="goal" class="card blue">
+  <div class="card-title">Goal</div>
+  <div class="kp"><strong>Build working knowledge of core data platform components</strong> &mdash; how data flows into, through, and out of Fabric. Focus on understanding patterns and when to use each component, not memorising syntax.</div>
+  <div class="kp"><strong>By the end of Phase 3</strong> you should be able to explain Lakehouse vs Warehouse trade-offs, describe the medallion architecture, know when to use Pipelines vs Dataflows vs Notebooks, and understand how DirectLake connects it all to Power BI.</div>
+</div>
+
+<!-- DATA INGESTION & ORCHESTRATION MODULES -->
+<div id="ingestion" class="card green">
+  <div class="card-title">Data Ingestion &amp; Orchestration Modules</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Core MS Learn modules for Phase 3. Complete these in order &mdash; each builds on the previous.</p>
+  <table class="decision-table green-header">
+    <tr><th style="width:5%;">#</th><th style="width:45%;">Module</th><th style="width:15%;">Duration</th><th>Focus</th></tr>
+    <tr><td>1</td><td><strong>Use Apache Spark in Microsoft Fabric</strong></td><td>~45 min</td><td>Spark notebooks, compute engine, PySpark basics</td></tr>
+    <tr><td>2</td><td><strong>Work with Delta Lake tables in Microsoft Fabric</strong></td><td>~45 min</td><td>Universal table format, ACID transactions, time travel</td></tr>
+    <tr><td>3</td><td><strong>Orchestrate processes with Microsoft Fabric</strong></td><td>~30 min</td><td>Data Factory pipelines, activities, scheduling</td></tr>
+    <tr><td>4</td><td><strong>Ingest data with Dataflows Gen2 in Microsoft Fabric</strong></td><td>~30 min</td><td>Low-code transformation, Power Query Online</td></tr>
+  </table>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/training/paths/get-started-fabric/" target="_blank">Full Fabric Learning Path &rarr;</a></div>
+</div>
+
+<!-- KEY PATTERNS -->
+<div id="patterns" class="card blue">
+  <div class="card-title">Key Patterns</div>
+  <div class="kp"><strong>Medallion Architecture:</strong> Bronze (raw) &rarr; Silver (cleansed) &rarr; Gold (business-ready). Standard Fabric data engineering pattern. Each layer adds quality and structure. Bronze is append-only ingestion, Silver applies schema and deduplication, Gold is aggregated and optimised for consumption.</div>
+  <div class="kp"><strong>Lakehouse vs Warehouse:</strong> Lakehouses are file-based (Delta) with Spark + SQL. Warehouses are SQL-native with T-SQL. Both read from OneLake. Choose Lakehouse for data engineering and mixed workloads (Python, Spark, SQL). Choose Warehouse for pure SQL analytics with familiar T-SQL patterns.</div>
+  <div class="kp"><strong>Pipelines vs Dataflows vs Notebooks:</strong> Pipelines orchestrate workflows &mdash; they sequence and schedule activities but do not transform data themselves. Dataflows Gen2 are low-code Power Query transformations ideal for business analysts. Notebooks are code-first PySpark/SQL for engineers and data scientists.</div>
+  <div class="kp"><strong>DirectLake:</strong> Power BI reads Delta tables directly from OneLake without import or DirectQuery. Game-changer for performance &mdash; combines the speed of import mode with the freshness of DirectQuery. No data duplication, no scheduled refresh, sub-second queries on large datasets.</div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-medallion-lakehouse-architecture" target="_blank">Medallion Architecture in Fabric &rarr;</a></div>
+</div>
+
+<!-- REAL-TIME INTELLIGENCE -->
+<div id="rti" class="card orange">
+  <div class="card-title">Real-Time Intelligence</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Streaming and event-driven analytics within Fabric.</p>
+  <table class="decision-table orange-header">
+    <tr><th style="width:5%;">#</th><th style="width:45%;">Module</th><th style="width:15%;">Duration</th><th>Focus</th></tr>
+    <tr><td>1</td><td><strong>Get started with Real-Time Intelligence</strong></td><td>~30 min</td><td>Eventhouses, KQL, streaming ingestion basics</td></tr>
+    <tr><td>2</td><td><strong>Implement Real-Time Intelligence with Fabric</strong></td><td>~2 hrs</td><td>Applied Skill path &mdash; end-to-end RTI implementation</td></tr>
+  </table>
+  <div style="height:8px"></div>
+  <div class="kp"><strong>RTI feeds into Fabric IQ:</strong> Operations Agent monitors Eventstream data, Eventhouses feed ontology bindings. Full pipeline: Eventstream &rarr; Eventhouse &rarr; KQL Database &rarr; Ontology &rarr; Operations Agent.</div>
+  <div class="kp"><strong>Key components:</strong> Eventstream ingests real-time data (IoT, logs, clickstreams). Eventhouse stores and queries via KQL. Real-time dashboards auto-refresh. Activator triggers actions on conditions.</div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/overview" target="_blank">Real-Time Intelligence Overview &rarr;</a></div>
+</div>
+
+<!-- HANDS-ON EXERCISE -->
+<div id="exercise" class="card teal">
+  <div class="card-title">Hands-On Exercise</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Build a simple end-to-end flow in your Fabric trial to see the full picture from ingestion to report.</p>
+  <div class="kp"><strong>Step 1 &mdash; Ingest:</strong> Create a Lakehouse in your workspace. Use a Data Factory pipeline to ingest a sample dataset (e.g., NYC Taxi or AdventureWorks) into the Lakehouse Files section.</div>
+  <div class="kp"><strong>Step 2 &mdash; Transform:</strong> Open a Spark notebook (use built-in samples). Read the raw files, apply basic transformations (filter, rename columns, add calculated fields), and write the results as Delta tables in the Lakehouse Tables section.</div>
+  <div class="kp"><strong>Step 3 &mdash; Model:</strong> Open the Lakehouse SQL analytics endpoint. Verify your Delta tables appear as SQL tables. Explore the auto-generated semantic model.</div>
+  <div class="kp"><strong>Step 4 &mdash; Report:</strong> Connect Power BI to the Lakehouse using DirectLake mode. Build a simple report with a few visuals. Notice the performance &mdash; no import, no refresh, direct reads from OneLake.</div>
+  <div class="kp"><strong>Full picture:</strong> Pipeline (ingest) &rarr; Notebook (transform) &rarr; Delta tables (store) &rarr; DirectLake (connect) &rarr; Power BI (report). This is the core Fabric data platform pattern.</div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/get-started/end-to-end-tutorials" target="_blank">Fabric End-to-End Tutorials &rarr;</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Phase 3: The Data Platform Layer &mdash; Data &amp; AI Reference
+  <br>
+  <a class="md-link" href="../md/data-platform.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+</body>
+</html>
