@@ -14,9 +14,12 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
 .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
 .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
 .nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
 .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
 .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
 .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
@@ -27,17 +30,120 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
 .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .dropdown-content a.active { color: #fff; font-weight: 700; }
 .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
-.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
 .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
 .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; background: var(--ms-blue); }
-.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; color: var(--ms-blue); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* SIDE-BY-SIDE BOXES */
+.side-box { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
+.side-box .sb-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.side-box .sb-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.side-box.sb-blue { border-color: var(--ms-blue); }
+.side-box.sb-blue .sb-title { color: var(--ms-blue); }
+.side-box.sb-teal { border-color: var(--ms-teal); }
+.side-box.sb-teal .sb-title { color: var(--ms-teal); }
+.side-box.sb-orange { border-color: var(--ms-orange); }
+.side-box.sb-orange .sb-title { color: var(--ms-orange); }
+.side-box.sb-purple { border-color: var(--ms-purple); }
+.side-box.sb-purple .sb-title { color: var(--ms-purple); }
+
+/* DIAGRAM IMAGE — clickable thumbnail */
+.diagram { text-align: center; margin: 16px 0 8px 0; }
+.diagram img { max-width: 60%; border-radius: 8px; border: 1px solid var(--border); cursor: zoom-in; transition: opacity 0.15s; }
+.diagram img:hover { opacity: 0.85; }
+.diagram-caption { font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
+
+/* MODAL — full-size image viewer */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; padding: 24px; }
+.modal-overlay.open { display: flex; }
+.modal-overlay img { max-width: 95%; max-height: 95vh; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+.modal-close { position: fixed; top: 16px; right: 24px; color: #fff; font-size: 32px; font-weight: 300; cursor: pointer; z-index: 10000; line-height: 1; opacity: 0.7; }
+.modal-close:hover { opacity: 1; }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* CODE BLOCKS */
+.code-block { background: #1E1E1E; color: #D4D4D4; border-radius: 8px; padding: 16px 20px; font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 13px; line-height: 1.5; overflow-x: auto; margin: 12px 0; }
+.code-block .kw { color: #569CD6; }
+.code-block .fn { color: #DCDCAA; }
+.code-block .str { color: #CE9178; }
+.code-block .cm { color: #6A9955; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <div class="nav">
-  <a href="../index.html">Home</a>
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
   <a href="../fabric-overview.html">Fabric Overview</a>
   <span class="nav-sep"></span>
   <div class="nav-dropdown">
@@ -86,14 +192,316 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
       <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
     </div>
   </div>
+  <a class="md-link" href="../md/big-picture/lakehouse-warehouse.md">Deep Dive (md)</a>
 </div>
+
+<!-- HEADER -->
 <div class="header">
-  <h1>Lakehouse &amp; Warehouse</h1>
-  <div class="subtitle">Two approaches to structured analytics &mdash; Big Picture</div>
+  <div>
+    <h1>Lakehouse &amp; Warehouse</h1>
+    <div class="subtitle">Data warehouses in Microsoft Fabric &mdash; dimensional modeling, T-SQL, security &amp; monitoring &mdash; Big Picture</div>
+  </div>
+  <div class="badge">MS Learn Module<br>~39 min &middot; 9 Units</div>
 </div>
-<div class="card">
-  <div class="card-title">Coming Soon</div>
-  <p style="font-size:14px;color:var(--muted);">This page will be built during the study phase. Return to the <a href="../big-picture.html" style="color:var(--ms-blue);">Big Picture overview</a> for the full study guide.</p>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#dw-concepts">Data Warehouse Concepts</a>
+  <a href="#schemas">Star &amp; Snowflake Schemas</a>
+  <a href="#fabric-dw">Fabric Warehouse</a>
+  <a href="#ingest">Ingest &amp; Load</a>
+  <a href="#query">Query &amp; Transform</a>
+  <a href="#model">Data Modeling</a>
+  <a href="#security">Security &amp; Monitoring</a>
+  <a href="#quiz">Knowledge Check</a>
 </div>
+
+<!-- DATA WAREHOUSE CONCEPTS -->
+<div id="dw-concepts" class="card blue">
+  <div class="card-title">Data Warehouse Concepts</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">A data warehouse is a centralized, structured store designed for analytical queries and reporting. Unlike operational databases, it consolidates data from multiple sources into a format optimized for analysis.</p>
+  <div class="kp"><strong>Data ingestion</strong> &mdash; Moving data from source systems into the warehouse</div>
+  <div class="kp"><strong>Data storage</strong> &mdash; Storing the data in a format optimized for analytics</div>
+  <div class="kp"><strong>Data processing</strong> &mdash; Transforming data into a format ready for consumption by analytical tools</div>
+  <div class="kp"><strong>Data analysis &amp; delivery</strong> &mdash; Analyzing data to gain insights and delivering them to the business</div>
+  <div style="height:14px;"></div>
+  <div class="grid">
+    <div class="side-box sb-blue">
+      <div class="sb-title">Fact Tables</div>
+      <div class="sb-desc">
+        Contain the numerical data you want to analyze<br>
+        &bull; Typically large number of rows<br>
+        &bull; Primary source of data for analysis<br>
+        &bull; Example: total amount paid for sales orders by date or store
+      </div>
+    </div>
+    <div class="side-box sb-purple">
+      <div class="sb-title">Dimension Tables</div>
+      <div class="sb-desc">
+        Contain descriptive information about fact data<br>
+        &bull; Typically fewer rows, provide context<br>
+        &bull; <strong>Surrogate key</strong> &mdash; unique ID specific to the warehouse<br>
+        &bull; <strong>Alternate key</strong> &mdash; natural/business key from source system<br>
+        &bull; Both needed: surrogate for consistency, alternate for traceability
+      </div>
+    </div>
+  </div>
+  <div style="height:12px;"></div>
+  <div class="card-title" style="font-size:14px;">Special Dimension Types</div>
+  <div class="kp"><strong>Time dimensions</strong> &mdash; Year, quarter, month, day columns enabling aggregation over temporal intervals</div>
+  <div class="kp"><strong>Slowly changing dimensions</strong> &mdash; Track changes to attributes over time (customer address, product price), ensuring data stays current and accurate for decision-making</div>
+</div>
+
+<!-- STAR & SNOWFLAKE SCHEMAS -->
+<div id="schemas" class="card teal">
+  <div class="card-title">Star &amp; Snowflake Schemas</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">In transactional databases data is <em>normalized</em> to reduce duplication. In a data warehouse, dimension data is <em>denormalized</em> to reduce the number of joins required to query the data.</p>
+  <div class="grid">
+    <div class="side-box sb-teal">
+      <div class="sb-title">Star Schema</div>
+      <div class="sb-desc">
+        Fact table relates directly to dimension tables<br>
+        &bull; Simpler structure, fewer joins<br>
+        &bull; Group fact numbers at different levels using dimension attributes<br>
+        &bull; Store information for each level in the same dimension table
+      </div>
+    </div>
+    <div class="side-box sb-orange">
+      <div class="sb-title">Snowflake Schema</div>
+      <div class="sb-desc">
+        Dimension tables are further normalized into sub-dimensions<br>
+        &bull; Used when there are many levels or shared attributes<br>
+        &bull; Example: DimProduct splits into DimCategory + DimSupplier<br>
+        &bull; DimGeography shared by DimCustomer and DimStore
+      </div>
+    </div>
+  </div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/star-schema.png" alt="Diagram of a star schema design displaying a FactSales table with five dimensions that form the shape of a star.">
+    <div class="diagram-caption">Star schema &mdash; a fact table relates directly to dimension tables</div>
+  </div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/snowflake-schema.png" alt="Diagram of a snowflake schema design displaying multiple dimensions.">
+    <div class="diagram-caption">Snowflake schema &mdash; dimension tables normalized into sub-dimensions</div>
+  </div>
+</div>
+
+<!-- FABRIC WAREHOUSE -->
+<div id="fabric-dw" class="card blue">
+  <div class="card-title">Fabric Data Warehouse</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">A fully managed, enterprise-scale relational database built on OneLake with full transactional T-SQL capabilities (DDL + DML + MERGE) and full ACID compliance.</p>
+  <div class="kp"><strong>Full T-SQL support</strong> &mdash; DDL and DML statements, including MERGE for upsert scenarios, using familiar SQL Server syntax</div>
+  <div class="kp"><strong>Fully managed</strong> &mdash; No infrastructure to configure; compute scales automatically and independently from storage</div>
+  <div class="kp"><strong>OneLake integration</strong> &mdash; Data stored in Delta format, accessible by other Fabric workloads without duplication</div>
+  <div class="kp"><strong>Cross-database querying</strong> &mdash; Three-part naming (<code>database.schema.table</code>) to join warehouse and lakehouse tables in a single query</div>
+  <div class="kp"><strong>Familiar tooling</strong> &mdash; SSMS, Azure Data Studio, any SQL client via standard TDS connections</div>
+  <div class="kp"><strong>Copilot assistance</strong> &mdash; Generates SQL from natural language, code completion, explain/fix existing queries</div>
+  <div style="height:14px;"></div>
+  <table class="decision-table blue-header">
+    <tr><th>Capability</th><th>Warehouse</th><th>SQL Analytics Endpoint</th></tr>
+    <tr><td><strong>Read data</strong></td><td>Yes</td><td>Yes</td></tr>
+    <tr><td><strong>Write data</strong> (INSERT, UPDATE, DELETE, MERGE)</td><td>Yes</td><td>No</td></tr>
+    <tr><td><strong>Create tables</strong> (DDL)</td><td>Yes</td><td>No</td></tr>
+    <tr><td><strong>Create views &amp; stored procedures</strong></td><td>Yes</td><td>Yes</td></tr>
+    <tr><td><strong>Data source</strong></td><td>Native warehouse tables</td><td>Lakehouse Delta tables</td></tr>
+  </table>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/create-data-warehouse.png" alt="Screenshot of the Fabric UI with an arrow pointing to the create hub.">
+    <div class="diagram-caption">Creating a data warehouse from the Fabric create hub</div>
+  </div>
+</div>
+
+<!-- INGEST & LOAD -->
+<div id="ingest" class="card orange">
+  <div class="card-title">Ingest &amp; Load Data</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Several ways to load data into a Fabric data warehouse:</p>
+  <table class="decision-table orange-header">
+    <tr><th style="width:25%;">Method</th><th>Description</th></tr>
+    <tr><td><strong>COPY INTO</strong></td><td>Bulk load data from external files (CSV, Parquet) in Azure storage into warehouse tables</td></tr>
+    <tr><td><strong>OPENROWSET</strong></td><td>Query files directly from external storage or OneLake for ad hoc analysis or ingestion, without creating tables first</td></tr>
+    <tr><td><strong>Pipelines &amp; Dataflows</strong></td><td>Data Factory pipelines or Dataflows Gen2 for orchestrated data movement and transformation</td></tr>
+    <tr><td><strong>Cross-database queries</strong></td><td>Query lakehouse tables directly from the warehouse using three-part naming, without copying data</td></tr>
+  </table>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Staging Pattern</div>
+  <div class="kp"><strong>Staging tables</strong> &mdash; Land raw data in staging tables that mirror source structure, then transform and insert into final dimension/fact tables</div>
+  <div class="kp"><strong>Key lookups</strong> &mdash; Join staging data with dimension tables to resolve surrogate keys during the load process</div>
+  <div class="kp"><strong>Source integrity</strong> &mdash; Keeps source data intact while applying business rules during transformation</div>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Table Clones</div>
+  <div class="kp"><strong>Zero-copy clones</strong> &mdash; Copy table metadata while referencing the same underlying OneLake data files; no storage duplication</div>
+  <div class="kp"><strong>Use cases</strong> &mdash; Development and testing, data recovery after failed releases, point-in-time snapshots for historical reporting</div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/create-table-manual.png" alt="Screenshot of the SQL query editor with a query open.">
+    <div class="diagram-caption">SQL query editor &mdash; creating tables and loading data with T-SQL</div>
+  </div>
+</div>
+
+<!-- QUERY & TRANSFORM -->
+<div id="query" class="card purple">
+  <div class="card-title">Query &amp; Transform Data</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Two tools for exploring and shaping data for analytics:</p>
+  <div class="grid">
+    <div class="side-box sb-purple">
+      <div class="sb-title">SQL Query Editor</div>
+      <div class="sb-desc">
+        IntelliSense, code completion, syntax highlighting, client-side parsing and validation<br>
+        &bull; Familiar experience for SSMS / Azure Data Studio users<br>
+        &bull; Copilot generates queries from natural language, completes code, explains/fixes queries
+      </div>
+    </div>
+    <div class="side-box sb-orange">
+      <div class="sb-title">Visual Query Editor</div>
+      <div class="sb-desc">
+        No-code experience similar to Power Query diagram view<br>
+        &bull; Drag tables onto canvas<br>
+        &bull; Use Transform menu or (+) button for columns, filters, transformations
+      </div>
+    </div>
+  </div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/visual-query.png" alt="Screenshot of the Visual Query Editor.">
+    <div class="diagram-caption">Visual Query Editor &mdash; no-code data transformation</div>
+  </div>
+  <div style="height:10px;"></div>
+  <div class="card-title" style="font-size:14px;">Views &amp; Stored Procedures</div>
+  <div class="kp"><strong>Views</strong> &mdash; Saved queries referenced like tables; standardize how analysts access data (combining fact + dimension tables, filtering by business context)</div>
+  <div class="kp"><strong>Stored procedures</strong> &mdash; T-SQL logic executed on demand for repeatable transformation tasks (loading staging data, applying business rules)</div>
+  <div class="kp"><strong>AI accessibility</strong> &mdash; Copilot and Fabric IQ data agents can query views just like tables; well-named views improve natural language query accuracy</div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/create-view.png" alt="Screenshot of the SQL Query Editor displaying a T-SQL query creating a view.">
+    <div class="diagram-caption">Creating a view in the SQL Query Editor</div>
+  </div>
+</div>
+
+<!-- DATA MODELING -->
+<div id="model" class="card green">
+  <div class="card-title">Data Modeling in a Warehouse</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Data modeling embeds structure, business logic, and documentation directly into the warehouse. Modeling choices affect T-SQL queries, Power BI reports, and AI-driven natural language analytics.</p>
+  <div class="card-title" style="font-size:14px;">Prepare Data for Consumption</div>
+  <div class="kp"><strong>Hide internal objects</strong> &mdash; staging tables, surrogate key columns, ETL artifacts that clutter the field list</div>
+  <div class="kp"><strong>Rename columns</strong> &mdash; Use business-friendly names (e.g., <code>CustRgn</code> &rarr; <code>Customer Region</code>)</div>
+  <div class="kp"><strong>Add descriptions</strong> &mdash; Help consumers understand data without external documentation; improves Copilot and data agent accuracy</div>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Relationships</div>
+  <div class="kp"><strong>Cardinality</strong> &mdash; How rows correspond; fact-to-dimension is typically many-to-one</div>
+  <div class="kp"><strong>Cross-filter direction</strong> &mdash; Single direction (dimension filters fact) is standard for star schemas; keeps filter behavior predictable and performant</div>
+  <div class="kp"><strong>AI impact</strong> &mdash; Data agents use relationships to generate accurate joins when translating natural language to SQL</div>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Views &amp; Measures</div>
+  <div class="grid">
+    <div class="side-box sb-teal">
+      <div class="sb-title">Views (T-SQL)</div>
+      <div class="sb-desc">Encapsulate join logic, filters, and column selections. Provide a consistent shape for reports and T-SQL consumers. Stable data sources that insulate reports from base table changes.</div>
+    </div>
+    <div class="side-box sb-blue">
+      <div class="sb-title">Measures (DAX)</div>
+      <div class="sb-desc">Reusable DAX expressions defining calculations (totals, averages, ratios). Single source of truth for metrics. Update once when business logic changes rather than tracking down every report.</div>
+    </div>
+  </div>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Semantic Models &amp; Direct Lake</div>
+  <div class="kp"><strong>Direct Lake mode</strong> &mdash; Reads data directly from OneLake Parquet files; no import/copy, reports always reflect latest warehouse data</div>
+  <div class="kp"><strong>No scheduled refreshes</strong> &mdash; Eliminates storage and processing overhead of maintaining a separate data copy</div>
+  <div class="diagram">
+    <img src="../img/lakehouse-warehouse/sales-report.png" alt="Screenshot of a Power BI report.">
+    <div class="diagram-caption">Power BI report built on a warehouse semantic model with Direct Lake mode</div>
+  </div>
+</div>
+
+<!-- SECURITY & MONITORING -->
+<div id="security" class="card red">
+  <div class="card-title">Security &amp; Monitoring</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Multiple layers of protection and visibility tools to control access and understand query performance.</p>
+  <table class="decision-table red-header">
+    <tr><th style="width:30%;">Security Layer</th><th>What It Controls</th></tr>
+    <tr><td><strong>Workspace roles</strong></td><td>First layer of access control &mdash; Admin (full control), Member, Contributor, Viewer (view only)</td></tr>
+    <tr><td><strong>Item permissions</strong></td><td>Share individual warehouses without workspace access: <strong>Read</strong> (connect), <strong>ReadData</strong> (query tables/views), <strong>ReadAll</strong> (raw Parquet in OneLake)</td></tr>
+    <tr><td><strong>Object-level security</strong></td><td>Control access to specific tables, views, or procedures</td></tr>
+    <tr><td><strong>Row-level security (RLS)</strong></td><td>Restrict which rows a user sees using WHERE clause predicates</td></tr>
+    <tr><td><strong>Column-level security (CLS)</strong></td><td>Restrict which columns are visible to specific users</td></tr>
+    <tr><td><strong>Dynamic data masking</strong></td><td>Mask sensitive data (emails, account numbers) from non-privileged users</td></tr>
+  </table>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Monitoring</div>
+  <div class="kp"><strong>Query insights</strong> &mdash; 30-day historical query data via system views: <code>exec_requests_history</code>, <code>long_running_queries</code>, <code>exec_sessions_history</code></div>
+  <div class="kp"><strong>Dynamic management views (DMVs)</strong> &mdash; Monitor active connections, sessions, and requests in real time (e.g., <code>sys.dm_exec_requests</code>)</div>
+  <div class="kp"><strong>KILL command</strong> &mdash; Terminate long-running sessions (requires workspace Admin role)</div>
+  <div class="further-reading">Security policies defined in T-SQL are enforced regardless of how data is accessed, including via Copilot and data agents.</div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card orange">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">Which type of table should an insurance company use to store supplier attribute details for aggregating claims?</div>
+      <div class="quiz-a">Fact table</div>
+      <div class="quiz-a correct">Dimension table</div>
+      <div class="quiz-a">Staging table</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is a semantic model in the data warehouse experience?</div>
+      <div class="quiz-a correct">A business-oriented data model that provides a consistent and reusable representation of data across the organization</div>
+      <div class="quiz-a">A physical data model that describes the structure of the data stored in the data warehouse</div>
+      <div class="quiz-a">A machine learning model used to make predictions based on data in the data warehouse</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is the purpose of item permissions in a workspace?</div>
+      <div class="quiz-a">To grant access to all items within a workspace</div>
+      <div class="quiz-a">To grant access to specific columns within a table</div>
+      <div class="quiz-a correct">To grant access to individual warehouses for downstream consumption</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What capability does a Fabric data warehouse provide that a SQL analytics endpoint does not?</div>
+      <div class="quiz-a correct">Writing data using INSERT, UPDATE, DELETE, and MERGE statements</div>
+      <div class="quiz-a">Reading data from tables and views using SELECT statements</div>
+      <div class="quiz-a">Connecting with SQL client tools like SQL Server Management Studio</div>
+    </div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="card blue">
+  <div class="card-title">Links &amp; Resources</div>
+  <div class="kp"><strong>MS Learn module:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/get-started-data-warehouse/" target="_blank" style="color:var(--ms-blue);">Get started with data warehouses in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Data Warehouse docs:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing" target="_blank" style="color:var(--ms-blue);">What is Fabric Data Warehouse?</a></div>
+  <div class="kp"><strong>Query the warehouse:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/query-warehouse" target="_blank" style="color:var(--ms-blue);">Query the warehouse</a></div>
+  <div class="kp"><strong>Star schema design:</strong> <a href="https://learn.microsoft.com/en-us/power-bi/guidance/star-schema" target="_blank" style="color:var(--ms-blue);">What is a star schema?</a></div>
+  <div class="kp"><strong>Table clones:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/clone-table" target="_blank" style="color:var(--ms-blue);">Clone table in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Security:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/secure-data-warehouse-in-microsoft-fabric/" target="_blank" style="color:var(--ms-blue);">Secure a Microsoft Fabric data warehouse</a></div>
+  <div class="kp"><strong>Next module:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/transform-data-with-tsql/" target="_blank" style="color:var(--ms-blue);">Transform data using T-SQL</a></div>
+  <div class="further-reading"><a href="../big-picture/onelake.html">&larr; Prev: OneLake &amp; Lakehouses</a> &nbsp;|&nbsp; <a href="../big-picture/admin.html">Next: Administration &amp; Governance &rarr;</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Lakehouse &amp; Warehouse &mdash; Big Picture &mdash; Data &amp; AI Reference
+  <br><a class="md-link" href="../md/big-picture/lakehouse-warehouse.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imgModal">
+  <span class="modal-close" id="modalClose">&times;</span>
+  <img id="modalImg" src="" alt="">
+</div>
+<script>
+(function() {
+  var modal = document.getElementById('imgModal');
+  var modalImg = document.getElementById('modalImg');
+  document.querySelectorAll('.diagram img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+      modal.classList.add('open');
+    });
+  });
+  modal.addEventListener('click', function() { modal.classList.remove('open'); });
+  document.getElementById('modalClose').addEventListener('click', function() { modal.classList.remove('open'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+</script>
+
 </body>
 </html>

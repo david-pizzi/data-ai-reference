@@ -14,9 +14,12 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
 .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
 .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
 .nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
 .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
 .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
 .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
@@ -27,17 +30,113 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
 .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .dropdown-content a.active { color: #fff; font-weight: 700; }
 .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
-.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
 .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
 .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; background: var(--ms-blue); }
-.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; color: var(--ms-blue); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* SIDE-BY-SIDE BOXES */
+.side-box { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
+.side-box .sb-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.side-box .sb-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.side-box.sb-blue { border-color: var(--ms-blue); }
+.side-box.sb-blue .sb-title { color: var(--ms-blue); }
+.side-box.sb-teal { border-color: var(--ms-teal); }
+.side-box.sb-teal .sb-title { color: var(--ms-teal); }
+.side-box.sb-orange { border-color: var(--ms-orange); }
+.side-box.sb-orange .sb-title { color: var(--ms-orange); }
+.side-box.sb-purple { border-color: var(--ms-purple); }
+.side-box.sb-purple .sb-title { color: var(--ms-purple); }
+
+/* DIAGRAM IMAGE — clickable thumbnail */
+.diagram { text-align: center; margin: 16px 0 8px 0; }
+.diagram img { max-width: 60%; border-radius: 8px; border: 1px solid var(--border); cursor: zoom-in; transition: opacity 0.15s; }
+.diagram img:hover { opacity: 0.85; }
+.diagram-caption { font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
+
+/* MODAL — full-size image viewer */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; padding: 24px; }
+.modal-overlay.open { display: flex; }
+.modal-overlay img { max-width: 95%; max-height: 95vh; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+.modal-close { position: fixed; top: 16px; right: 24px; color: #fff; font-size: 32px; font-weight: 300; cursor: pointer; z-index: 10000; line-height: 1; opacity: 0.7; }
+.modal-close:hover { opacity: 1; }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <div class="nav">
-  <a href="../index.html">Home</a>
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
   <a href="../fabric-overview.html">Fabric Overview</a>
   <span class="nav-sep"></span>
   <div class="nav-dropdown">
@@ -86,14 +185,251 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
       <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
     </div>
   </div>
+  <a class="md-link" href="../md/big-picture/admin.md">Deep Dive (md)</a>
 </div>
+
+<!-- HEADER -->
 <div class="header">
-  <h1>Administration &amp; Governance</h1>
-  <div class="subtitle">Capacities, workspaces, Purview integration &mdash; Big Picture</div>
+  <div>
+    <h1>Administration &amp; Governance</h1>
+    <div class="subtitle">Fabric architecture, admin roles &amp; tools, security, and data governance &mdash; Big Picture</div>
+  </div>
+  <div class="badge">MS Learn Module<br>~34 min &middot; 7 Units</div>
 </div>
-<div class="card">
-  <div class="card-title">Coming Soon</div>
-  <p style="font-size:14px;color:var(--muted);">This page will be built during the study phase. Return to the <a href="../big-picture.html" style="color:var(--ms-blue);">Big Picture overview</a> for the full study guide.</p>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#architecture">Fabric Architecture</a>
+  <a href="#concepts">Core Concepts</a>
+  <a href="#admin-role">Admin Role &amp; Tasks</a>
+  <a href="#admin-tools">Admin Tools</a>
+  <a href="#security">Manage Security</a>
+  <a href="#governance">Governance</a>
+  <a href="#quiz">Knowledge Check</a>
 </div>
+
+<!-- FABRIC ARCHITECTURE -->
+<div id="architecture" class="card blue">
+  <div class="card-title">Fabric Architecture</div>
+  <div class="kp"><strong>Software-as-a-Service platform</strong> &mdash; provides a simple and integrated approach while reducing administrative overhead</div>
+  <div class="kp"><strong>All-in-one analytics solution</strong> &mdash; covers data warehousing, data engineering, data integration, data science, real-time intelligence, and business intelligence</div>
+  <div class="kp"><strong>Built on OneLake</strong> &mdash; all data stored in OneLake, built on Azure Data Lake Storage (ADLS) Gen2 architecture</div>
+  <div class="kp"><strong>One OneLake per tenant</strong> &mdash; hierarchical in nature, provides a single-pane-of-glass file-system namespace spanning users, regions, and clouds</div>
+  <div class="diagram">
+    <img src="../img/admin/fabric-overview.png" alt="Diagram of Fabric architecture, showing OneLake as the foundation, with each experience built on top.">
+    <div class="diagram-caption">Fabric architecture &mdash; OneLake as the foundation with each experience built on top</div>
+  </div>
+</div>
+
+<!-- CORE CONCEPTS -->
+<div id="concepts" class="card teal">
+  <div class="card-title">Core Fabric Concepts</div>
+  <table class="decision-table teal-header">
+    <tr><th style="width:20%;">Concept</th><th>Description</th></tr>
+    <tr><td><strong>Tenant</strong></td><td>Dedicated space for organizations to create, store, and manage Fabric items. Aligned with Microsoft Entra ID. Maps to the root of OneLake &mdash; top level of the hierarchy.</td></tr>
+    <tr><td><strong>Capacity</strong></td><td>Dedicated set of resources available at a given time. Defines the ability of a resource to perform an activity or produce output. A tenant can have one or more capacities. Offered through the Fabric SKU and Trials.</td></tr>
+    <tr><td><strong>Domain</strong></td><td>Logical grouping of workspaces. Used to organize items in a way that makes sense for the organization (e.g., sales, marketing, finance).</td></tr>
+    <tr><td><strong>Workspace</strong></td><td>Collection of items that brings together different functionality in a single tenant. Acts as a container that uses capacity and provides access controls.</td></tr>
+    <tr><td><strong>Items</strong></td><td>Building blocks of the Fabric platform &mdash; data warehouses, data pipelines, datasets, reports, dashboards, and more.</td></tr>
+  </table>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/get-started/fabric-trial" target="_blank">Start a Fabric trial &rarr;</a></div>
+</div>
+
+<!-- ADMIN ROLE & TASKS -->
+<div id="admin-role" class="card purple">
+  <div class="card-title">Admin Role &amp; Tasks</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Several roles work together to administer Microsoft Fabric: Microsoft 365 admin, Power Platform admin, Fabric capacity admin. The Fabric admin role was formerly known as <strong>Power BI admin</strong>.</p>
+  <table class="decision-table purple-header">
+    <tr><th style="width:28%;">Task Area</th><th>Description</th></tr>
+    <tr><td><strong>Security &amp; Access Control</strong></td><td>Manage RBAC to define who can view/edit content. Set up data gateways for on-premises data sources. Manage user access with Microsoft Entra ID.</td></tr>
+    <tr><td><strong>Data Governance</strong></td><td>Secure inbound/outbound connectivity. Monitor usage and performance metrics. Apply data governance policies to restrict unauthorized access.</td></tr>
+    <tr><td><strong>Customization &amp; Configuration</strong></td><td>Configure private links, define data classification policies, adjust report and dashboard appearance.</td></tr>
+    <tr><td><strong>Monitoring &amp; Optimization</strong></td><td>Configure monitoring and alerting. Optimize query performance. Manage capacity and scaling. Troubleshoot data refresh and connectivity issues.</td></tr>
+  </table>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/admin/microsoft-fabric-admin" target="_blank">What is Microsoft Fabric administration? &rarr;</a></div>
+</div>
+
+<!-- ADMIN TOOLS -->
+<div id="admin-tools" class="card blue">
+  <div class="card-title">Admin Tools</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Fabric admins can perform most admin tasks using one or more of the following tools:</p>
+  <div class="grid">
+    <div class="side-box sb-blue">
+      <div class="sb-title">Fabric Admin Portal</div>
+      <div class="sb-desc">
+        Web-based portal to manage all aspects of the platform<br>
+        &bull; Centrally manage, review, and apply settings for entire tenant or by capacity<br>
+        &bull; Manage users, admins, groups, audit logs<br>
+        &bull; Monitor usage and performance<br>
+        &bull; Noteworthy: <strong>Fabric on/off switch</strong> in tenant settings
+      </div>
+    </div>
+    <div class="side-box sb-purple">
+      <div class="sb-title">PowerShell Cmdlets</div>
+      <div class="sb-desc">
+        Automate common administrative tasks via PowerShell<br>
+        &bull; Create and manage groups<br>
+        &bull; Configure data sources and gateways<br>
+        &bull; Monitor usage and performance<br>
+        &bull; Manage Fabric admin APIs and SDKs
+      </div>
+    </div>
+    <div class="side-box sb-teal">
+      <div class="sb-title">Admin APIs &amp; SDKs</div>
+      <div class="sb-desc">
+        Programmatic interaction with Fabric via REST APIs<br>
+        &bull; Automate admin tasks and integrate with other systems<br>
+        &bull; Any HTTP client with OAuth 2.0 (e.g., Postman)<br>
+        &bull; PowerShell scripts for automation
+      </div>
+    </div>
+    <div class="side-box sb-orange">
+      <div class="sb-title">Admin Monitoring Workspace</div>
+      <div class="sb-desc">
+        Built-in workspace for Fabric tenant admins<br>
+        &bull; Feature Usage and Adoption dataset and report<br>
+        &bull; Insights on usage and performance<br>
+        &bull; Identify trends, patterns, and troubleshoot issues<br>
+        &bull; Can be shared with other users
+      </div>
+    </div>
+  </div>
+  <div style="height:14px;"></div>
+  <div class="diagram">
+    <img src="../img/admin/admin-delegation.png" alt="Screenshot of Tenant settings in admin portal.">
+    <div class="diagram-caption">Tenant settings in the Fabric admin portal &mdash; Fabric on/off switch for delegation</div>
+  </div>
+  <div style="height:8px;"></div>
+  <div class="diagram">
+    <img src="../img/admin/admin-monitoring-report.png" alt="Screenshot of a report in the Admin monitoring workspace.">
+    <div class="diagram-caption">Feature Usage and Adoption report in the Admin monitoring workspace</div>
+  </div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/admin/monitoring-workspace" target="_blank">Fabric admin monitoring workspace &rarr;</a></div>
+</div>
+
+<!-- MANAGE SECURITY -->
+<div id="security" class="card red">
+  <div class="card-title">Manage Fabric Security</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">As a Fabric admin, part of your role is to manage security for the Fabric environment, including managing users and groups, and how users share and distribute content.</p>
+
+  <div class="card-title" style="font-size:14px;">User License Management</div>
+  <div class="kp"><strong>User licenses</strong> control the level of user access and functionality within the Fabric environment</div>
+  <div class="kp"><strong>Cost control</strong> &mdash; manage and allocate licenses efficiently to prevent unnecessary expenses</div>
+  <div class="kp"><strong>Compliance</strong> &mdash; limit access to sensitive data and ensure compliance with data protection laws and regulations</div>
+  <div class="kp"><strong>Managed in Microsoft 365 admin center</strong> &mdash; license type in workspace settings relates to the user license type</div>
+
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Items &amp; Sharing</div>
+  <div class="kp"><strong>Workspace apps</strong> &mdash; items are best distributed through a workspace app or the workspace directly</div>
+  <div class="kp"><strong>Least permissive rights</strong> &mdash; the first step in securing data; share read-only app for report access</div>
+  <div class="kp"><strong>Collaboration</strong> &mdash; grant workspace access for collaboration and development</div>
+  <div class="kp"><strong>Internal &amp; external sharing</strong> &mdash; manage distribution both internally and outside the organization in compliance with policies</div>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/security/security-overview" target="_blank">Security in Microsoft Fabric &rarr;</a></div>
+</div>
+
+<!-- GOVERNANCE -->
+<div id="governance" class="card green">
+  <div class="card-title">Govern Data in Fabric</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Fabric includes built-in governance features to help you manage and control your data:</p>
+
+  <div class="card-title" style="font-size:14px;">Endorsement</div>
+  <div class="kp"><strong>Key governance feature</strong> &mdash; builds trust in data assets by marking Fabric items as reviewed and approved</div>
+  <div class="kp"><strong>Promoted</strong> &mdash; workspace members with contributor or admin role can promote content; appears with a Promoted badge</div>
+  <div class="kp"><strong>Certified</strong> &mdash; requires a formal review by a designated reviewer; appears with a Certified badge; admins manage the process</div>
+  <div class="kp"><strong>Request certification</strong> &mdash; non-admins can request certification via the item's More menu in the Fabric portal</div>
+
+  <div style="height:14px;"></div>
+  <div class="grid">
+    <div class="side-box sb-teal">
+      <div class="sb-title">Metadata Scanning &amp; Scanner API</div>
+      <div class="sb-desc">
+        Admin REST APIs to scan Fabric items for sensitive data<br>
+        &bull; Scan data warehouses, pipelines, datasets, reports, dashboards<br>
+        &bull; Works on both structured and unstructured data<br>
+        &bull; Must be set up by an Admin before use
+      </div>
+    </div>
+    <div class="side-box sb-blue">
+      <div class="sb-title">Data Lineage &amp; Impact Analysis</div>
+      <div class="sb-desc">
+        Track the flow of data through Fabric<br>
+        &bull; See where data comes from, how it's transformed, and where it goes<br>
+        &bull; Lineage view in workspaces shows data usage
+      </div>
+    </div>
+  </div>
+  <div style="height:14px;"></div>
+  <div class="card-title" style="font-size:14px;">Microsoft Purview Hub</div>
+  <div class="kp"><strong>Purview hub (preview)</strong> &mdash; manage and govern your Fabric data estate from within the Fabric portal</div>
+  <div class="kp"><strong>Reports</strong> &mdash; insights about sensitive data, item endorsement, and domains</div>
+  <div class="kp"><strong>Gateway to Purview portal</strong> &mdash; Data Catalog, Information Protection, Data Loss Prevention, and Audit</div>
+  <div class="further-reading">
+    <a href="https://learn.microsoft.com/en-us/fabric/get-started/endorsement-promote-certify" target="_blank">Promote or certify content &rarr;</a> &nbsp;|&nbsp;
+    <a href="https://learn.microsoft.com/en-us/fabric/governance/metadata-scanning-overview" target="_blank">Metadata scanning overview &rarr;</a>
+  </div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card orange">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">Which of the following statements best describes the concept of capacity in Fabric?</div>
+      <div class="quiz-a">Capacity refers to a dedicated space for organizations to create, store, and manage Fabric items.</div>
+      <div class="quiz-a correct">Capacity defines the ability of a resource to perform an activity or to produce output.</div>
+      <div class="quiz-a">Capacity is a collection of items that are logically grouped together.</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which of the following statements is true about the difference between promotion and certification in Fabric?</div>
+      <div class="quiz-a">Promotion and certification both allow any workspace member to endorse content.</div>
+      <div class="quiz-a">Promotion requires a higher level of permissions than certification.</div>
+      <div class="quiz-a correct">Certification must be enabled in the tenant by the admin, while promotion can be done by a workspace member.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="card blue">
+  <div class="card-title">Links &amp; Resources</div>
+  <div class="kp"><strong>MS Learn module:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/administer-fabric/" target="_blank" style="color:var(--ms-blue);">Administer a Microsoft Fabric environment</a></div>
+  <div class="kp"><strong>Fabric administration:</strong> <a href="https://learn.microsoft.com/en-us/fabric/admin/microsoft-fabric-admin" target="_blank" style="color:var(--ms-blue);">What is Microsoft Fabric administration?</a></div>
+  <div class="kp"><strong>Security:</strong> <a href="https://learn.microsoft.com/en-us/fabric/security/security-overview" target="_blank" style="color:var(--ms-blue);">Security in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Licenses:</strong> <a href="https://learn.microsoft.com/en-us/fabric/enterprise/licenses" target="_blank" style="color:var(--ms-blue);">Microsoft Fabric licenses</a></div>
+  <div class="kp"><strong>Endorsement:</strong> <a href="https://learn.microsoft.com/en-us/fabric/get-started/endorsement-promote-certify" target="_blank" style="color:var(--ms-blue);">Promote or certify content</a></div>
+  <div class="kp"><strong>Metadata scanning:</strong> <a href="https://learn.microsoft.com/en-us/fabric/governance/metadata-scanning-overview" target="_blank" style="color:var(--ms-blue);">Metadata scanning overview</a></div>
+  <div class="kp"><strong>Monitoring workspace:</strong> <a href="https://learn.microsoft.com/en-us/fabric/admin/monitoring-workspace" target="_blank" style="color:var(--ms-blue);">Fabric admin monitoring workspace</a></div>
+  <div class="kp"><strong>Next module:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/fabric-data-governance-purview/" target="_blank" style="color:var(--ms-blue);">Govern data in Microsoft Fabric with Purview</a></div>
+  <div class="further-reading"><a href="../big-picture/lakehouse-warehouse.html">&larr; Prev: Lakehouse &amp; Warehouse</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Administration &amp; Governance &mdash; Big Picture &mdash; Data &amp; AI Reference
+  <br><a class="md-link" href="../md/big-picture/admin.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imgModal">
+  <span class="modal-close" id="modalClose">&times;</span>
+  <img id="modalImg" src="" alt="">
+</div>
+<script>
+(function() {
+  var modal = document.getElementById('imgModal');
+  var modalImg = document.getElementById('modalImg');
+  document.querySelectorAll('.diagram img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+      modal.classList.add('open');
+    });
+  });
+  modal.addEventListener('click', function() { modal.classList.remove('open'); });
+  document.getElementById('modalClose').addEventListener('click', function() { modal.classList.remove('open'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+</script>
+
 </body>
 </html>

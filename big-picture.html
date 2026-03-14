@@ -6,149 +6,123 @@
 <title>Phase 1: The Big Picture — Data &amp; AI Reference</title>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ms-blue: #0078D4;
-    --ms-dark: #1B1A19;
-    --ms-dark-blue: #243A5E;
-    --ms-teal: #008575;
-    --ms-orange: #D83B01;
-    --ms-purple: #8661C5;
-    --ms-red: #D13438;
-    --bg: #F5F5F5;
-    --card: #FFFFFF;
-    --border: #E1E5E9;
-    --text: #1B1A19;
-    --muted: #605E5C;
-    --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', 'Ubuntu', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    padding: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
-  .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
-  .nav a:hover { color: #fff; }
-  .nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
-  .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
-  .nav a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
-  .header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
-  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-  .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
-  .header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
-  .card.blue::before { background: var(--ms-blue); }
-  .card.green::before { background: var(--ms-teal); }
-  .card.orange::before { background: var(--ms-orange); }
-  .card.purple::before { background: var(--ms-purple); }
-  .card.teal::before { background: var(--ms-teal); }
-  .card.red::before { background: var(--ms-red); }
-  .card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .card.blue .card-title { color: var(--ms-blue); }
-  .card.green .card-title { color: var(--ms-teal); }
-  .card.orange .card-title { color: var(--ms-orange); }
-  .card.purple .card-title { color: var(--ms-purple); }
-  .card.teal .card-title { color: var(--ms-teal); }
-  .card.red .card-title { color: var(--ms-red); }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-  .grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
-  .decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
-  .decision-table th { background: #D0E7F8; color: var(--ms-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--ms-blue); }
-  .decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .decision-table tr:last-child td { border-bottom: none; }
-  .decision-table tr:hover td { background: #F5F7FA; }
-  .decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
-  .decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom-color: var(--ms-teal); }
-  .decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom-color: var(--ms-purple); }
-  .decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom-color: var(--ms-orange); }
-  .decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom-color: var(--ms-red); }
-  .kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
-  .kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
-  .card.blue .kp::before { color: var(--ms-blue); }
-  .card.green .kp::before { color: var(--ms-teal); }
-  .card.orange .kp::before { color: var(--ms-orange); }
-  .card.purple .kp::before { color: var(--ms-purple); }
-  .card.teal .kp::before { color: var(--ms-teal); }
-  .card.red .kp::before { color: var(--ms-red); }
-  .kp:last-child { margin-bottom: 0; }
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+strong { font-weight: 600; }
 
-  /* Principle pills */
-  .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .principle { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
-  .principle .p-num { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .principle .p-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .principle .p-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .principle.p-blue { border-color: var(--ms-blue); }
-  .principle.p-blue .p-num, .principle.p-blue .p-title { color: var(--ms-blue); }
-  .principle.p-teal { border-color: var(--ms-teal); }
-  .principle.p-teal .p-num, .principle.p-teal .p-title { color: var(--ms-teal); }
-  .principle.p-orange { border-color: var(--ms-orange); }
-  .principle.p-orange .p-num, .principle.p-orange .p-title { color: var(--ms-orange); }
-  .principle.p-purple { border-color: var(--ms-purple); }
-  .principle.p-purple .p-num, .principle.p-purple .p-title { color: var(--ms-purple); }
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
 
-  /* Checklist */
-  .checklist { list-style: none; padding: 0; }
-  .checklist li { font-size: 14px; padding: 6px 0 6px 24px; position: relative; border-bottom: 1px solid var(--border); }
-  .checklist li:last-child { border-bottom: none; }
-  .checklist li::before { content: '\2610'; position: absolute; left: 0; font-size: 16px; }
+/* HEADER */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 18px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; }
 
-  strong { font-weight: 600; }
-  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
-  .toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
-  .toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
-  .toc a:hover { border-bottom-color: var(--ms-blue); }
-  .footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
-  .footer a { color: var(--ms-blue); text-decoration: none; }
-  .further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
-  .further-reading a { color: var(--ms-blue); text-decoration: none; }
-  .further-reading a:hover { text-decoration: underline; }
-  .card.green .further-reading a { color: var(--ms-teal); }
-  .card.orange .further-reading a { color: var(--ms-orange); }
-  .card.purple .further-reading a { color: var(--ms-purple); }
-  .card.red .further-reading a { color: var(--ms-red); }
+/* SVG DIAGRAM CARDS */
+.diagram-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 18px; position: relative; overflow: hidden; }
+.diagram-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.diagram-card.dc-blue::before { background: var(--ms-blue); }
+.diagram-card.dc-teal::before { background: var(--ms-teal); }
+.diagram-card.dc-orange::before { background: var(--ms-orange); }
+.diagram-card.dc-purple::before { background: var(--ms-purple); }
+.dc-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.dc-title { font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.dc-blue .dc-title { color: var(--ms-blue); }
+.dc-teal .dc-title { color: var(--ms-teal); }
+.dc-orange .dc-title { color: var(--ms-orange); }
+.dc-purple .dc-title { color: var(--ms-purple); }
+.dc-link { font-size: 13px; font-weight: 600; text-decoration: none; }
+.dc-blue .dc-link { color: var(--ms-blue); }
+.dc-teal .dc-link { color: var(--ms-teal); }
+.dc-orange .dc-link { color: var(--ms-orange); }
+.dc-purple .dc-link { color: var(--ms-purple); }
+.dc-link:hover { text-decoration: underline; }
+.dc-tagline { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.dc-svg { display: flex; justify-content: center; }
+.dc-svg svg { max-width: 100%; height: auto; }
 
-  /* Dropdown nav */
-  .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
-  .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
-  .nav-dropdown > a:hover { color: #fff; }
-  .nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
-  .dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
-  .nav-dropdown:hover .dropdown-content { display: block; }
-  .dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
-  .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
-  .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+/* MODULE NAV */
+.module-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.module-link { display: block; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: border-color 0.2s, box-shadow 0.15s; position: relative; overflow: hidden; }
+.module-link::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+.module-link:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.module-link.ml-blue::before { background: var(--ms-blue); }
+.module-link.ml-blue:hover { border-color: var(--ms-blue); }
+.module-link.ml-teal::before { background: var(--ms-teal); }
+.module-link.ml-teal:hover { border-color: var(--ms-teal); }
+.module-link.ml-orange::before { background: var(--ms-orange); }
+.module-link.ml-orange:hover { border-color: var(--ms-orange); }
+.module-link.ml-purple::before { background: var(--ms-purple); }
+.module-link.ml-purple:hover { border-color: var(--ms-purple); }
+.ml-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; }
+.ml-blue .ml-num { color: var(--ms-blue); }
+.ml-teal .ml-num { color: var(--ms-teal); }
+.ml-orange .ml-num { color: var(--ms-orange); }
+.ml-purple .ml-num { color: var(--ms-purple); }
+.ml-title { font-size: 14px; font-weight: 700; line-height: 1.3; }
+.ml-duration { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  @media (max-width: 700px) {
-    .grid { grid-template-columns: 1fr; }
-    .principle-grid { grid-template-columns: 1fr; }
-  }
+/* CHECKLIST */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.teal::before { background: var(--ms-teal); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+.card.teal .card-title { color: var(--ms-teal); }
+.checklist { list-style: none; padding: 0; columns: 2; column-gap: 24px; }
+.checklist li { font-size: 13px; padding: 5px 0 5px 22px; position: relative; break-inside: avoid; }
+.checklist li::before { content: '\2610'; position: absolute; left: 0; font-size: 15px; }
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
 
-  @media print {
-    body { padding: 10px; background: white; }
-    .card { break-inside: avoid; }
-    .nav { display: none; }
-  }
+@media (max-width: 900px) {
+  .module-nav { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .module-nav { grid-template-columns: 1fr; }
+  .checklist { columns: 1; }
+}
+@media print {
+  body { padding: 10px; background: white; }
+  .card, .diagram-card, .module-link { break-inside: avoid; }
+  .nav { display: none; }
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <div class="nav">
-  <a href="index.html">Home</a>
+  <a href="index.html" title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
   <a href="fabric-overview.html">Fabric Overview</a>
   <span class="nav-sep"></span>
   <div class="nav-dropdown">
     <a class="active" href="big-picture.html">Big Picture &#9662;</a>
     <div class="dropdown-content">
       <a href="big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
-      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Lakehouses</a>
       <a href="big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
       <a href="big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
     </div>
@@ -190,169 +164,347 @@
       <a href="architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
     </div>
   </div>
-  <a class="md-link" href="../md/big-picture.md">Deep Dive (md)</a>
+  <a class="md-link" href="md/big-picture.md">Deep Dive (md)</a>
 </div>
 
 <!-- HEADER -->
 <div class="header">
   <div>
     <h1>Phase 1: The Big Picture</h1>
-    <div class="subtitle">Week 1 &mdash; Understand what Fabric is, why it exists, and where it&rsquo;s heading</div>
+    <div class="subtitle">The mental model for how Microsoft Fabric works &mdash; from fragmented stack to unified platform</div>
   </div>
-  <div class="badge">~2.5 hrs MS Learn<br>+ Trial Exploration</div>
+  <div class="badge">4 Modules<br>~2.5 hrs</div>
 </div>
 
-<!-- TOC -->
-<div class="toc">
-  <span class="toc-label">Sections:</span>
-  <a href="#goal">Goal</a>
-  <a href="#story">The Story So Far</a>
-  <a href="#modules">MS Learn Modules</a>
-  <a href="#exploration">Exploration</a>
-  <a href="#reading">Recommended Reading</a>
-  <a href="#principles">4 Principles</a>
+<!-- MODULE QUICK NAV -->
+<div class="module-nav">
+  <a href="big-picture/introduction.html" class="module-link ml-blue">
+    <div class="ml-num">Module 1</div>
+    <div class="ml-title">Introduction to Fabric</div>
+    <div class="ml-duration">~20 min &middot; 6 units</div>
+  </a>
+  <a href="big-picture/onelake.html" class="module-link ml-teal">
+    <div class="ml-num">Module 2</div>
+    <div class="ml-title">OneLake &amp; Lakehouses</div>
+    <div class="ml-duration">~45 min &middot; 7 units</div>
+  </a>
+  <a href="big-picture/lakehouse-warehouse.html" class="module-link ml-orange">
+    <div class="ml-num">Module 3</div>
+    <div class="ml-title">Data Warehouses</div>
+    <div class="ml-duration">~39 min &middot; 9 units</div>
+  </a>
+  <a href="big-picture/admin.html" class="module-link ml-purple">
+    <div class="ml-num">Module 4</div>
+    <div class="ml-title">Admin &amp; Governance</div>
+    <div class="ml-duration">~34 min &middot; 7 units</div>
+  </a>
 </div>
 
-<!-- GOAL -->
-<div id="goal" class="card blue">
-  <div class="card-title">Goal for This Phase</div>
-  <div class="kp"><strong>Understand what Fabric is</strong> &mdash; a unified SaaS analytics platform that replaces Microsoft's fragmented data stack</div>
-  <div class="kp"><strong>Understand why Microsoft built it</strong> &mdash; customers needed one platform instead of stitching together ADF, Synapse, ADLS, Power BI, and ADX</div>
-  <div class="kp"><strong>Know how it replaces previous services</strong> &mdash; each legacy Azure analytics service maps to a Fabric workload</div>
-  <div class="kp"><strong>See where it&rsquo;s heading</strong> &mdash; Fabric IQ adds an ontology/semantic layer, turning a data platform into an intelligence platform</div>
-  <div class="kp"><strong>Get hands-on</strong> &mdash; activate a trial, create a workspace, and explore the core item types</div>
+<!-- DIAGRAM 1: FRAGMENTED → UNIFIED -->
+<div class="diagram-card dc-blue">
+  <div class="dc-header">
+    <div class="dc-title">The Core Shift: Fragmented &rarr; Unified</div>
+    <a href="big-picture/introduction.html" class="dc-link">Study: Introduction to Fabric &rarr;</a>
+  </div>
+  <div class="dc-tagline">Microsoft Fabric replaces 5+ separate Azure services with a single SaaS platform. One portal, one billing model, one security boundary &mdash; all workloads share the same data in OneLake.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+      <!-- BEFORE side -->
+      <rect x="10" y="10" width="390" height="300" rx="14" fill="#FFF5F5" stroke="#D13438" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="205" y="38" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#D13438">BEFORE — 5+ SEPARATE SERVICES</text>
+      <!-- Service boxes -->
+      <rect x="30" y="55" width="100" height="42" rx="8" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="80" y="80" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Azure Data</text>
+      <text x="80" y="93" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Factory</text>
+      <rect x="150" y="55" width="100" height="42" rx="8" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="200" y="80" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Azure Synapse</text>
+      <rect x="270" y="55" width="110" height="42" rx="8" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="325" y="80" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">ADLS Gen2</text>
+      <rect x="60" y="115" width="110" height="42" rx="8" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="115" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Power BI</text>
+      <rect x="200" y="115" width="130" height="42" rx="8" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="265" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Azure Data Explorer</text>
+      <!-- Messy ETL arrows -->
+      <line x1="130" y1="76" x2="150" y2="76" stroke="#D13438" stroke-width="1" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <line x1="250" y1="76" x2="270" y2="76" stroke="#D13438" stroke-width="1" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <line x1="200" y1="97" x2="200" y2="115" stroke="#D13438" stroke-width="1" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <line x1="115" y1="97" x2="115" y2="115" stroke="#D13438" stroke-width="1" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <line x1="300" y1="97" x2="265" y2="115" stroke="#D13438" stroke-width="1" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <path d="M80,97 Q80,108 115,115" stroke="#D13438" stroke-width="1" fill="none" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <path d="M325,97 Q325,108 290,115" stroke="#D13438" stroke-width="1" fill="none" opacity="0.5" marker-end="url(#arrowRed)"/>
+      <!-- Pain points -->
+      <text x="205" y="190" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#D13438" font-weight="600">5 portals &bull; 5 billing models</text>
+      <text x="205" y="208" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#D13438" font-weight="600">5 security boundaries</text>
+      <text x="205" y="230" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">Data copied between every service pair</text>
+      <text x="205" y="248" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">PaaS: provision clusters, manage pools</text>
+      <text x="205" y="266" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">Separate RBAC per service</text>
+
+      <!-- Arrow marker defs -->
+      <defs>
+        <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#D13438" opacity="0.5"/></marker>
+        <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#0078D4"/></marker>
+      </defs>
+
+      <!-- BIG ARROW in the middle -->
+      <polygon points="430,140 430,120 470,160 430,200 430,180 415,180 415,140" fill="#0078D4" opacity="0.7"/>
+
+      <!-- AFTER side -->
+      <rect x="500" y="10" width="390" height="300" rx="14" fill="#F0F9F5" stroke="#008575" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="695" y="38" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#008575">WITH FABRIC — ONE PLATFORM</text>
+
+      <!-- OneLake foundation -->
+      <rect x="530" y="220" width="330" height="50" rx="10" fill="#0078D4"/>
+      <text x="695" y="250" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#fff">OneLake</text>
+      <text x="695" y="264" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Delta-Parquet &bull; One copy of data</text>
+
+      <!-- Workloads converging on OneLake -->
+      <rect x="530" y="55" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="566" y="77" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Data Factory</text>
+      <rect x="612" y="55" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="648" y="77" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Lakehouse</text>
+      <rect x="694" y="55" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="730" y="77" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Warehouse</text>
+      <rect x="776" y="55" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="812" y="77" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Power BI</text>
+      <rect x="560" y="105" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="596" y="121" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Real-Time</text>
+      <text x="596" y="133" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Intelligence</text>
+      <rect x="645" y="105" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="681" y="127" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Data Science</text>
+      <rect x="730" y="105" width="72" height="36" rx="6" fill="#fff" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="766" y="121" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Data</text>
+      <text x="766" y="133" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Activator</text>
+
+      <!-- Convergence lines to OneLake -->
+      <line x1="566" y1="91" x2="620" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="648" y1="91" x2="665" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="730" y1="91" x2="710" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="812" y1="91" x2="770" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="596" y1="141" x2="640" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="681" y1="141" x2="690" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+      <line x1="766" y1="141" x2="740" y2="220" stroke="#0078D4" stroke-width="1" opacity="0.3"/>
+
+      <!-- Benefits -->
+      <text x="695" y="175" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#008575" font-weight="600">1 portal &bull; 1 billing &bull; 1 security</text>
+      <text x="695" y="195" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">SaaS — nothing to provision</text>
+    </svg>
+  </div>
 </div>
 
-<!-- THE STORY SO FAR -->
-<div id="story" class="card orange">
-  <div class="card-title">The Story So Far &mdash; Why Fabric Exists</div>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Before Fabric, Microsoft&rsquo;s analytics stack was fragmented across multiple services:</p>
-  <table class="decision-table orange-header">
-    <tr><th style="width:28%;">Service</th><th style="width:35%;">Role</th><th style="width:37%;">Problem</th></tr>
-    <tr><td><strong>Azure Data Factory</strong></td><td>Data ingestion &amp; orchestration</td><td>Separate portal, separate billing, separate RBAC</td></tr>
-    <tr><td><strong>Azure Synapse Analytics</strong></td><td>Data warehousing &amp; Spark</td><td>Complex provisioning, multiple pool types, steep learning curve</td></tr>
-    <tr><td><strong>Azure Data Lake Storage</strong></td><td>Raw data storage (ADLS Gen2)</td><td>Just storage &mdash; no compute, no governance built in</td></tr>
-    <tr><td><strong>Power BI</strong></td><td>Reporting &amp; visualisation</td><td>Disconnected from engineering workflows, separate capacity model</td></tr>
-    <tr><td><strong>Azure Data Explorer</strong></td><td>Real-time analytics (KQL)</td><td>Niche service, not integrated with warehouse or lake</td></tr>
-  </table>
-  <div style="height:8px"></div>
-  <div class="kp"><strong>The result:</strong> customers managed 5+ portals, 5+ billing models, 5+ security boundaries &mdash; and still needed to build ETL between them</div>
-  <div class="kp"><strong>Fabric&rsquo;s answer:</strong> unify everything into a single SaaS experience on <strong>OneLake</strong> &mdash; one storage layer, one security model, one billing model</div>
+<!-- DIAGRAM 2: 3-LAYER ARCHITECTURE -->
+<div class="diagram-card dc-teal">
+  <div class="dc-header">
+    <div class="dc-title">Three-Layer Architecture</div>
+    <a href="big-picture/onelake.html" class="dc-link">Study: OneLake &amp; Lakehouses &rarr;</a>
+  </div>
+  <div class="dc-tagline">Fabric is built in three layers: workloads at the top, platform services in the middle, and OneLake as the universal storage foundation. Governance wraps everything.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340">
+      <!-- Governance wrapper -->
+      <rect x="20" y="10" width="760" height="320" rx="16" fill="none" stroke="#8661C5" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="40" y="32" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#8661C5" text-transform="uppercase" letter-spacing="1">GOVERNANCE &amp; SECURITY (PURVIEW &bull; ADMIN PORTAL &bull; DOMAINS)</text>
+
+      <!-- Layer 1: Workloads -->
+      <rect x="50" y="50" width="700" height="80" rx="12" fill="#E8F4FD" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="70" y="72" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#0078D4">WORKLOADS</text>
+      <!-- Workload pills -->
+      <rect x="70" y="82" width="85" height="28" rx="6" fill="#0078D4"/>
+      <text x="112" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Factory</text>
+      <rect x="165" y="82" width="75" height="28" rx="6" fill="#0078D4"/>
+      <text x="202" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Lakehouse</text>
+      <rect x="250" y="82" width="78" height="28" rx="6" fill="#0078D4"/>
+      <text x="289" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Warehouse</text>
+      <rect x="338" y="82" width="72" height="28" rx="6" fill="#0078D4"/>
+      <text x="374" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Power BI</text>
+      <rect x="420" y="82" width="80" height="28" rx="6" fill="#0078D4"/>
+      <text x="460" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Science</text>
+      <rect x="510" y="82" width="90" height="28" rx="6" fill="#0078D4"/>
+      <text x="555" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Real-Time Intel</text>
+      <rect x="610" y="82" width="55" height="28" rx="6" fill="#0078D4"/>
+      <text x="637" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">IQ</text>
+      <rect x="675" y="82" width="60" height="28" rx="6" fill="#0078D4"/>
+      <text x="705" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Activator</text>
+
+      <!-- Down arrows -->
+      <polygon points="400,135 393,142 407,142" fill="#999"/>
+      <line x1="400" y1="131" x2="400" y2="142" stroke="#999" stroke-width="1.5"/>
+
+      <!-- Layer 2: Platform Services -->
+      <rect x="50" y="150" width="700" height="70" rx="12" fill="#F0F9F5" stroke="#008575" stroke-width="1.2"/>
+      <text x="70" y="172" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#008575">PLATFORM SERVICES</text>
+      <rect x="70" y="183" width="90" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="115" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Spark Engine</text>
+      <rect x="170" y="183" width="90" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="215" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">SQL Engine</text>
+      <rect x="270" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="310" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Copilot / AI</text>
+      <rect x="360" y="183" width="105" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="412" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Capacity Mgmt</text>
+      <rect x="475" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="515" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Git / CI-CD</text>
+      <rect x="565" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="605" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Monitoring</text>
+      <rect x="655" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="695" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Shortcuts</text>
+
+      <!-- Down arrows -->
+      <polygon points="400,225 393,232 407,232" fill="#999"/>
+      <line x1="400" y1="221" x2="400" y2="232" stroke="#999" stroke-width="1.5"/>
+
+      <!-- Layer 3: OneLake -->
+      <rect x="50" y="240" width="700" height="70" rx="12" fill="#0078D4"/>
+      <text x="400" y="270" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#fff">OneLake</text>
+      <text x="400" y="290" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="rgba(255,255,255,0.8)">Delta-Parquet &bull; One tenant = one lake &bull; Shortcuts for external data &bull; Open format</text>
+    </svg>
+  </div>
 </div>
 
-<!-- MS LEARN MODULES -->
-<div id="modules" class="card green">
-  <div class="card-title">MS Learn Modules &mdash; Phase 1</div>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Complete these 4 modules to build foundational understanding. Total: ~2 hours 20 minutes.</p>
-  <table class="decision-table green-header">
-    <tr><th style="width:5%;">#</th><th style="width:45%;">Module</th><th style="width:15%;">Duration</th><th style="width:35%;">What You Learn</th></tr>
-    <tr>
-      <td>1</td>
-      <td><strong><a href="https://learn.microsoft.com/en-us/training/modules/introduction-end-analytics-use-microsoft-fabric/" target="_blank" style="color:var(--ms-teal);text-decoration:none;">Introduction to end-to-end analytics using Microsoft Fabric</a></strong></td>
-      <td>~35 min</td>
-      <td>What Fabric is, how the 9 workloads connect, OneLake, Copilot, and IQ</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td><strong><a href="https://learn.microsoft.com/en-us/training/modules/get-started-lakehouses/" target="_blank" style="color:var(--ms-teal);text-decoration:none;">Get started with lakehouses in Microsoft Fabric</a></strong></td>
-      <td>~45 min</td>
-      <td>Create a lakehouse, ingest data, query with SQL endpoint and Spark</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td><strong><a href="https://learn.microsoft.com/en-us/training/modules/get-started-data-warehouse/" target="_blank" style="color:var(--ms-teal);text-decoration:none;">Get started with data warehouses in Microsoft Fabric</a></strong></td>
-      <td>~30 min</td>
-      <td>T-SQL warehouse, compute/storage separation, Delta Lake native tables</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td><strong><a href="https://learn.microsoft.com/en-us/training/modules/administer-fabric/" target="_blank" style="color:var(--ms-teal);text-decoration:none;">Administer a Microsoft Fabric environment</a></strong></td>
-      <td>~30 min</td>
-      <td>Tenant settings, capacity management, governance, workspace roles</td>
-    </tr>
-  </table>
-  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/training/paths/get-started-fabric/" target="_blank">Full Fabric Learning Path (10 modules) &rarr;</a></div>
+<!-- DIAGRAM 3: LAKEHOUSE vs WAREHOUSE -->
+<div class="diagram-card dc-orange">
+  <div class="dc-header">
+    <div class="dc-title">Two Compute Paradigms, One Storage</div>
+    <a href="big-picture/lakehouse-warehouse.html" class="dc-link">Study: Lakehouse &amp; Warehouse &rarr;</a>
+  </div>
+  <div class="dc-tagline">Lakehouse and Warehouse are different compute engines optimized for different workloads &mdash; but both read and write Delta tables on the same OneLake storage. Choose by workload, not by data.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+      <!-- Lakehouse box -->
+      <rect x="40" y="20" width="330" height="200" rx="14" fill="#F0F9F5" stroke="#008575" stroke-width="1.5"/>
+      <text x="205" y="48" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#008575">Lakehouse</text>
+      <line x1="60" y1="58" x2="350" y2="58" stroke="#008575" stroke-width="0.5" opacity="0.3"/>
+      <!-- Lakehouse features -->
+      <text x="70" y="82" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">Engine:</tspan> Apache Spark</text>
+      <text x="70" y="102" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">Languages:</tspan> PySpark, Spark SQL, Scala, R</text>
+      <text x="70" y="122" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">Best for:</tspan> Data engineering, ML, exploration</text>
+      <text x="70" y="142" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">Files:</tspan> Any format (CSV, JSON, Parquet, images)</text>
+      <text x="70" y="162" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">Tables:</tspan> Delta Lake with schema enforcement</text>
+      <text x="70" y="182" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#008575">SQL:</tspan> Read-only via SQL analytics endpoint</text>
+      <text x="70" y="206" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">+ Notebooks, Copilot code gen, flexible schemas</text>
+
+      <!-- Warehouse box -->
+      <rect x="430" y="20" width="330" height="200" rx="14" fill="#FFF8F0" stroke="#D83B01" stroke-width="1.5"/>
+      <text x="595" y="48" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#D83B01">Warehouse</text>
+      <line x1="450" y1="58" x2="740" y2="58" stroke="#D83B01" stroke-width="0.5" opacity="0.3"/>
+      <!-- Warehouse features -->
+      <text x="450" y="82" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">Engine:</tspan> Full T-SQL (DML + DDL)</text>
+      <text x="450" y="102" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">Languages:</tspan> T-SQL</text>
+      <text x="450" y="122" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">Best for:</tspan> BI, dimensional models, SQL analysts</text>
+      <text x="450" y="142" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">Tables:</tspan> Star &amp; snowflake schemas</text>
+      <text x="450" y="162" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">DML:</tspan> INSERT, UPDATE, DELETE, MERGE</text>
+      <text x="450" y="182" font-family="Segoe UI,sans-serif" font-size="12" fill="#333"><tspan font-weight="600" fill="#D83B01">Security:</tspan> Row-level, column-level, dynamic</text>
+      <text x="450" y="206" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">+ Visual query editor, cross-database queries</text>
+
+      <!-- Convergence arrows -->
+      <line x1="205" y1="220" x2="330" y2="255" stroke="#008575" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowTeal)"/>
+      <line x1="595" y1="220" x2="470" y2="255" stroke="#D83B01" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowOrange)"/>
+
+      <!-- Shared OneLake -->
+      <rect x="250" y="250" width="300" height="40" rx="10" fill="#0078D4"/>
+      <text x="400" y="275" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#fff">OneLake &mdash; Same Delta Tables</text>
+
+      <defs>
+        <marker id="arrowTeal" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#008575" opacity="0.6"/></marker>
+        <marker id="arrowOrange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#D83B01" opacity="0.6"/></marker>
+      </defs>
+    </svg>
+  </div>
 </div>
 
-<!-- EXPLORATION -->
-<div id="exploration" class="card teal">
-  <div class="card-title">Exploration &mdash; Navigate the Trial Environment</div>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Activate a <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">Fabric trial</a>, create a workspace, and explore these item types:</p>
+<!-- DIAGRAM 4: GOVERNANCE HIERARCHY -->
+<div class="diagram-card dc-purple">
+  <div class="dc-header">
+    <div class="dc-title">Governance Hierarchy</div>
+    <a href="big-picture/admin.html" class="dc-link">Study: Administration &amp; Governance &rarr;</a>
+  </div>
+  <div class="dc-tagline">Everything in Fabric lives inside a strict hierarchy: Tenant &rarr; Capacity &rarr; Workspace &rarr; Items. Admin settings cascade down. Purview adds sensitivity labels across all levels.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 310" width="800" height="310">
+      <!-- Tenant (outermost) -->
+      <rect x="20" y="10" width="760" height="290" rx="16" fill="#F8F5FF" stroke="#8661C5" stroke-width="2"/>
+      <text x="40" y="34" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#8661C5">TENANT (Azure AD / Entra ID)</text>
+      <text x="610" y="34" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">Admin Portal &bull; Tenant Settings &bull; Audit Logs</text>
+
+      <!-- Capacity (nested) -->
+      <rect x="45" y="48" width="710" height="238" rx="13" fill="#F0ECFA" stroke="#8661C5" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="65" y="70" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#8661C5">CAPACITY (F2 &ndash; F2048 SKUs)</text>
+      <text x="540" y="70" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">CU billing &bull; pause/resume &bull; delegated admins</text>
+
+      <!-- Workspace 1 -->
+      <rect x="70" y="85" width="320" height="185" rx="10" fill="#fff" stroke="#8661C5" stroke-width="1"/>
+      <text x="90" y="106" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#8661C5">WORKSPACE: Sales Analytics</text>
+      <text x="90" y="120" font-family="Segoe UI,sans-serif" font-size="10" fill="#999">Domain: Sales &bull; Roles: Admin, Member, Contributor, Viewer</text>
+      <!-- Items in workspace 1 -->
+      <rect x="90" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="134" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Lakehouse</text>
+      <text x="134" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">sales_raw</text>
+      <rect x="188" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="232" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Warehouse</text>
+      <text x="232" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">sales_star</text>
+      <rect x="286" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="330" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Notebook</text>
+      <text x="330" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">etl_daily</text>
+      <rect x="90" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="134" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Pipeline</text>
+      <text x="134" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">ingest_crm</text>
+      <rect x="188" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="232" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Semantic</text>
+      <text x="232" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">sales_model</text>
+      <rect x="286" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="330" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Report</text>
+      <text x="330" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">q4_dashboard</text>
+
+      <!-- Workspace 2 -->
+      <rect x="410" y="85" width="330" height="185" rx="10" fill="#fff" stroke="#8661C5" stroke-width="1"/>
+      <text x="430" y="106" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#8661C5">WORKSPACE: ML Engineering</text>
+      <text x="430" y="120" font-family="Segoe UI,sans-serif" font-size="10" fill="#999">Domain: Data Science &bull; Roles: Admin, Member, Contributor</text>
+      <!-- Items in workspace 2 -->
+      <rect x="430" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="474" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Lakehouse</text>
+      <text x="474" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">features</text>
+      <rect x="528" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="572" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Notebook</text>
+      <text x="572" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">train_model</text>
+      <rect x="626" y="132" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="670" y="152" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Experiment</text>
+      <text x="670" y="166" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">churn_v2</text>
+      <rect x="430" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="474" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">ML Model</text>
+      <text x="474" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">churn_prod</text>
+      <rect x="528" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="572" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Pipeline</text>
+      <text x="572" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">retrain_weekly</text>
+      <rect x="626" y="186" width="88" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="670" y="206" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Shortcut</text>
+      <text x="670" y="220" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">&rarr; sales_raw</text>
+
+      <!-- Purview label -->
+      <rect x="188" y="245" width="424" height="28" rx="6" fill="#8661C5" opacity="0.12"/>
+      <text x="400" y="264" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" font-weight="600" fill="#8661C5">Microsoft Purview &mdash; Sensitivity labels &bull; Data catalog &bull; Lineage</text>
+    </svg>
+  </div>
+</div>
+
+<!-- EXPLORATION CHECKLIST -->
+<div class="card teal">
+  <div class="card-title">Hands-On Exploration</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:10px;">Activate a <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">Fabric trial</a> and try each item type:</p>
   <ul class="checklist">
-    <li><strong>Activate trial</strong> &mdash; go to <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">app.fabric.microsoft.com</a>, start a 60-day free trial</li>
-    <li><strong>Create a workspace</strong> &mdash; name it something like "Phase1-Sandbox", assign trial capacity</li>
-    <li><strong>Lakehouse</strong> &mdash; create one, upload a CSV, see it appear as a Delta table, query via SQL endpoint</li>
-    <li><strong>Warehouse</strong> &mdash; create one, run a T-SQL CREATE TABLE, compare the experience to Lakehouse</li>
-    <li><strong>Notebook</strong> &mdash; open a Spark notebook, connect to your lakehouse, run a simple PySpark query</li>
-    <li><strong>Pipeline</strong> &mdash; create a Data Factory pipeline, add a Copy activity (even a no-op), see the orchestration UI</li>
-    <li><strong>Report</strong> &mdash; create a Power BI report from the lakehouse SQL endpoint&rsquo;s default semantic model</li>
-    <li><strong>Eventhouse</strong> &mdash; create one, see the KQL database experience (Real-Time Intelligence)</li>
-    <li><strong>Ontology</strong> &mdash; if available in preview, explore the IQ ontology item type</li>
+    <li><strong>Activate trial</strong> &mdash; 60-day free</li>
+    <li><strong>Workspace</strong> &mdash; create &ldquo;Phase1-Sandbox&rdquo;</li>
+    <li><strong>Lakehouse</strong> &mdash; upload CSV, query as Delta</li>
+    <li><strong>Warehouse</strong> &mdash; CREATE TABLE in T-SQL</li>
+    <li><strong>Notebook</strong> &mdash; PySpark on lakehouse data</li>
+    <li><strong>Pipeline</strong> &mdash; Copy activity in Data Factory</li>
+    <li><strong>Report</strong> &mdash; Power BI via Direct Lake</li>
+    <li><strong>Eventhouse</strong> &mdash; KQL database</li>
   </ul>
   <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/get-started/fabric-trial" target="_blank">Fabric Trial Setup &rarr;</a></div>
-</div>
-
-<!-- RECOMMENDED READING -->
-<div id="reading" class="card purple">
-  <div class="card-title">Recommended Reading</div>
-  <table class="decision-table purple-header">
-    <tr><th style="width:40%;">Resource</th><th>Why Read It</th></tr>
-    <tr>
-      <td><strong><a href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank" style="color:var(--ms-purple);text-decoration:none;">Microsoft Fabric Overview</a></strong></td>
-      <td>The canonical reference &mdash; architecture, workloads, OneLake, licensing, and governance in one page</td>
-    </tr>
-    <tr>
-      <td><strong><a href="https://learn.microsoft.com/en-us/fabric/get-started/whats-new" target="_blank" style="color:var(--ms-purple);text-decoration:none;">What&rsquo;s New in Microsoft Fabric</a></strong></td>
-      <td>Stay current on latest features, GA announcements, and preview releases</td>
-    </tr>
-    <tr>
-      <td><strong><a href="https://blog.fabric.microsoft.com/en-us/blog/from-data-platform-to-intelligence-platform/" target="_blank" style="color:var(--ms-purple);text-decoration:none;">Fabric Blog: From Data Platform to Intelligence Platform (Ignite 2025)</a></strong></td>
-      <td>Strategic vision &mdash; how IQ, ontology, and AI agents transform Fabric from a data platform into an intelligence platform</td>
-    </tr>
-  </table>
-</div>
-
-<!-- 4 PRINCIPLES -->
-<div id="principles" class="card blue">
-  <div class="card-title">4 Principles to Internalise</div>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Carry these through every phase of study. They are the mental model for how Fabric works.</p>
-  <div class="principle-grid">
-    <div class="principle p-blue">
-      <div class="p-num">Principle 1</div>
-      <div class="p-title">OneLake = One Copy of Data</div>
-      <div class="p-desc">All workloads read and write from the same storage layer. No ETL between Fabric services. Shortcuts bring in external data without duplication. This is the single biggest architectural shift from the legacy stack.</div>
-    </div>
-    <div class="principle p-teal">
-      <div class="p-num">Principle 2</div>
-      <div class="p-title">SaaS, Not PaaS</div>
-      <div class="p-desc">No infrastructure to provision, no clusters to manage, no Azure subscription required. Capacity-based billing (CUs) that scales up/down or pauses. Microsoft manages the platform so customers focus on data.</div>
-    </div>
-    <div class="principle p-orange">
-      <div class="p-num">Principle 3</div>
-      <div class="p-title">Delta Lake Is the Universal Format</div>
-      <div class="p-desc">Every table in OneLake is stored as Delta Lake (Parquet + transaction log). Open format readable by any engine &mdash; Spark, T-SQL, Python, Power BI. No vendor lock-in on the data layer.</div>
-    </div>
-    <div class="principle p-purple">
-      <div class="p-num">Principle 4</div>
-      <div class="p-title">Fabric IQ Is the Next Frontier</div>
-      <div class="p-desc">IQ adds a semantic/ontology layer on top of data. Business concepts, rules, and relationships are modelled as a labelled property graph. This powers AI agents that understand the business, not just the data.</div>
-    </div>
-  </div>
-</div>
-
-<!-- LINKS -->
-<div class="card green">
-  <div class="card-title">Quick Links</div>
-  <div class="kp"><strong>Fabric Trial:</strong> <a href="https://app.fabric.microsoft.com" target="_blank" style="color:var(--ms-teal);">app.fabric.microsoft.com</a></div>
-  <div class="kp"><strong>Official Docs:</strong> <a href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank" style="color:var(--ms-teal);">Microsoft Fabric Overview</a></div>
-  <div class="kp"><strong>Related pages:</strong> <a href="fabric-overview.html" style="color:var(--ms-teal);">Fabric Overview</a> | <a href="phase2-build-query.html" style="color:var(--ms-teal);">Phase 2: Build &amp; Query</a></div>
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
   Phase 1: The Big Picture &mdash; Data &amp; AI Reference
-  <br>
-  <a class="md-link" href="../md/big-picture.md" style="font-style:italic;">Deep Dive (md)</a>
+  <br><a href="md/big-picture.md" style="font-style:italic;">Deep Dive (md)</a>
 </div>
 
 </body>

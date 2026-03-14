@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OneLake &amp; Storage — Data &amp; AI Reference</title>
+<title>OneLake &amp; Lakehouses — Data &amp; AI Reference</title>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -14,9 +14,12 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
 .nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
 .nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
 .nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
 .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
 .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
 .nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
@@ -27,17 +30,113 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
 .dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .dropdown-content a.active { color: #fff; font-weight: 700; }
 .dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
-.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
 .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
 .header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; background: var(--ms-blue); }
-.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; color: var(--ms-blue); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* SIDE-BY-SIDE BOXES */
+.side-box { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
+.side-box .sb-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.side-box .sb-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.side-box.sb-blue { border-color: var(--ms-blue); }
+.side-box.sb-blue .sb-title { color: var(--ms-blue); }
+.side-box.sb-teal { border-color: var(--ms-teal); }
+.side-box.sb-teal .sb-title { color: var(--ms-teal); }
+.side-box.sb-orange { border-color: var(--ms-orange); }
+.side-box.sb-orange .sb-title { color: var(--ms-orange); }
+.side-box.sb-purple { border-color: var(--ms-purple); }
+.side-box.sb-purple .sb-title { color: var(--ms-purple); }
+
+/* DIAGRAM IMAGE — clickable thumbnail */
+.diagram { text-align: center; margin: 16px 0 8px 0; }
+.diagram img { max-width: 60%; border-radius: 8px; border: 1px solid var(--border); cursor: zoom-in; transition: opacity 0.15s; }
+.diagram img:hover { opacity: 0.85; }
+.diagram-caption { font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
+
+/* MODAL — full-size image viewer */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; padding: 24px; }
+.modal-overlay.open { display: flex; }
+.modal-overlay img { max-width: 95%; max-height: 95vh; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+.modal-close { position: fixed; top: 16px; right: 24px; color: #fff; font-size: 32px; font-weight: 300; cursor: pointer; z-index: 10000; line-height: 1; opacity: 0.7; }
+.modal-close:hover { opacity: 1; }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <div class="nav">
-  <a href="../index.html">Home</a>
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
   <a href="../fabric-overview.html">Fabric Overview</a>
   <span class="nav-sep"></span>
   <div class="nav-dropdown">
@@ -86,14 +185,278 @@ body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); col
       <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
     </div>
   </div>
+  <a class="md-link" href="../md/big-picture/onelake.md">Deep Dive (md)</a>
 </div>
+
+<!-- HEADER -->
 <div class="header">
-  <h1>OneLake &amp; Storage</h1>
-  <div class="subtitle">The unified data lake — one per tenant &mdash; Big Picture</div>
+  <div>
+    <h1>OneLake &amp; Lakehouses</h1>
+    <div class="subtitle">Unified storage, Delta Lake tables, ingestion, querying, and the AI foundation &mdash; Big Picture</div>
+  </div>
+  <div class="badge">MS Learn Module<br>~45 min &middot; 7 Units</div>
 </div>
-<div class="card">
-  <div class="card-title">Coming Soon</div>
-  <p style="font-size:14px;color:var(--muted);">This page will be built during the study phase. Return to the <a href="../big-picture.html" style="color:var(--ms-blue);">Big Picture overview</a> for the full study guide.</p>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#what">What Is a Lakehouse?</a>
+  <a href="#design">Tables &amp; Files</a>
+  <a href="#delta">Delta Lake</a>
+  <a href="#ingest">Ingest &amp; Transform</a>
+  <a href="#query">Query &amp; Analyze</a>
+  <a href="#powerbi">Power BI &amp; Direct Lake</a>
+  <a href="#security">Security</a>
+  <a href="#ai">AI Foundation</a>
+  <a href="#quiz">Knowledge Check</a>
 </div>
+
+<!-- WHAT IS A LAKEHOUSE -->
+<div id="what" class="card blue">
+  <div class="card-title">What Is a Lakehouse?</div>
+  <div class="kp"><strong>Data lake + data warehouse in one</strong> &mdash; combines flexible file storage with SQL-based analytical capabilities</div>
+  <div class="kp"><strong>Built on OneLake</strong> &mdash; uses Apache Spark and SQL compute engines to process data at scale</div>
+  <div class="kp"><strong>Eliminates the divide</strong> &mdash; no need to maintain separate systems for unstructured files and structured analytics</div>
+  <div class="kp"><strong>Handles everything</strong> &mdash; structured transactional data, semi-structured logs, IoT feeds, and raw files all in one place</div>
+  <div class="diagram">
+    <img src="../img/onelake/lakehouse-components.png" alt="Diagram of a lakehouse displaying the folder structure of a data lake and the relational capabilities of a data warehouse.">
+    <div class="diagram-caption">A lakehouse combines data lake folder structure with data warehouse relational capabilities</div>
+  </div>
+</div>
+
+<!-- TABLES & FILES -->
+<div id="design" class="card teal">
+  <div class="card-title">Lakehouse Design &mdash; Tables &amp; Files</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">A lakehouse organizes data into two main storage areas:</p>
+  <div class="grid">
+    <div class="side-box sb-blue">
+      <div class="sb-title">Tables/ Folder</div>
+      <div class="sb-desc">
+        Delta Lake tables &mdash; structured, queryable data<br>
+        &bull; SQL queries via SQL analytics endpoint<br>
+        &bull; Schema enforcement &amp; ACID transactions<br>
+        &bull; Accessible in Power BI for reporting<br>
+        &bull; Automatic optimization &amp; maintenance
+      </div>
+    </div>
+    <div class="side-box sb-orange">
+      <div class="sb-title">Files/ Folder</div>
+      <div class="sb-desc">
+        Raw or semi-structured data in native format<br>
+        &bull; Any format: CSV, JSON, Parquet, images, docs<br>
+        &bull; Flexible exploration &amp; processing<br>
+        &bull; Staged before transformation into tables<br>
+        &bull; No schema enforcement, no direct SQL
+      </div>
+    </div>
+  </div>
+  <div style="height:10px;"></div>
+  <div class="kp"><strong>Schemas enabled by default</strong> &mdash; <code>dbo</code> created automatically; organize tables into logical groups (sales, marketing, hr)</div>
+  <div class="kp"><strong>Cross-workspace queries</strong> &mdash; use four-part namespace: <code>workspace.lakehouse.schema.table</code></div>
+</div>
+
+<!-- TWO MODES -->
+<div class="card green">
+  <div class="card-title">Two Ways to Work with a Lakehouse</div>
+  <div class="grid">
+    <div class="side-box sb-teal">
+      <div class="sb-title">Lakehouse Explorer</div>
+      <div class="sb-desc">Add and interact with tables, files, and folders. Upload files, create tables, manage data. Add reference lakehouses to browse tables across multiple lakehouses side by side.</div>
+    </div>
+    <div class="side-box sb-purple">
+      <div class="sb-title">SQL Analytics Endpoint</div>
+      <div class="sb-desc">Query Delta tables using T-SQL in <strong>read-only</strong> mode. Create views, functions, and apply SQL security. Cannot modify underlying data.</div>
+    </div>
+  </div>
+  <div class="diagram">
+    <img src="../img/onelake/explorer-modes.png" alt="Screenshot of the two lakehouse Explorer modes in Microsoft Fabric.">
+    <div class="diagram-caption">The two lakehouse modes &mdash; Explorer for managing data, SQL analytics endpoint for querying</div>
+  </div>
+</div>
+
+<!-- DELTA LAKE -->
+<div id="delta" class="card blue">
+  <div class="card-title">Delta Lake Tables &mdash; The Core</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Every table in a lakehouse is stored as Delta Lake &mdash; an open-source storage layer built on Parquet + transaction log.</p>
+  <table class="decision-table blue-header">
+    <tr><th style="width:28%;">Feature</th><th>What It Gives You</th></tr>
+    <tr><td><strong>ACID transactions</strong></td><td>Data consistency even with multiple concurrent readers and writers</td></tr>
+    <tr><td><strong>Schema enforcement</strong></td><td>Validates data matches the table schema &mdash; prevents corrupt data</td></tr>
+    <tr><td><strong>Time travel</strong></td><td>Transaction log lets you query previous versions or roll back changes</td></tr>
+    <tr><td><strong>Efficient updates/deletes</strong></td><td>Unlike raw lake files, Delta supports efficient DML operations</td></tr>
+  </table>
+  <div style="height:8px;"></div>
+  <div class="kp"><strong>Architecture:</strong> Parquet data files + <code>_delta_log/</code> transaction log &mdash; enables both batch and streaming on the same data</div>
+</div>
+
+<!-- INGEST & TRANSFORM -->
+<div id="ingest" class="card orange">
+  <div class="card-title">Ingest &amp; Transform Data</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Five ways to get data into your lakehouse:</p>
+  <table class="decision-table orange-header">
+    <tr><th style="width:25%;">Method</th><th>Description</th></tr>
+    <tr><td><strong>Upload</strong></td><td>Upload local files/folders directly through lakehouse explorer</td></tr>
+    <tr><td><strong>Load to Table</strong></td><td>No-code: select a file &rarr; "Load to Table" &rarr; creates Delta table. Supports CSV &amp; Parquet, append or overwrite.</td></tr>
+    <tr><td><strong>Dataflows Gen2</strong></td><td>Import and transform data using the Power Query interface</td></tr>
+    <tr><td><strong>Notebooks</strong></td><td>Apache Spark (PySpark, SQL, Scala) for programmatic ingestion &amp; transformation</td></tr>
+    <tr><td><strong>Pipelines</strong></td><td>Data Factory Copy activity to move data from external sources; visual orchestration</td></tr>
+  </table>
+  <div style="height:12px;"></div>
+  <div class="card-title" style="font-size:14px;">Shortcuts &mdash; Access Without Copying</div>
+  <div class="kp"><strong>Shortcuts</strong> reference external data (ADLS, S3, other Fabric items) &mdash; data appears as a folder in your lakehouse without duplication</div>
+  <div class="kp"><strong>Schema shortcuts</strong> map an entire schema to a folder of Delta tables in another lakehouse or ADLS Gen2</div>
+  <div class="kp"><strong>Identity-based access</strong> &mdash; OneLake uses your identity to authorize access to the target data</div>
+</div>
+
+<!-- QUERY & ANALYZE -->
+<div id="query" class="card purple">
+  <div class="card-title">Query &amp; Analyze Lakehouse Data</div>
+  <div class="grid">
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-purple);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">SQL Analytics Endpoint</p>
+      <div class="kp"><strong>Read-only T-SQL</strong> &mdash; auto-created with every lakehouse</div>
+      <div class="kp"><strong>Ad-hoc queries</strong> &mdash; investigate data, answer business questions</div>
+      <div class="kp"><strong>BI connections</strong> &mdash; Power BI, Excel, Azure Data Studio</div>
+      <div class="kp"><strong>SQL views</strong> &mdash; reusable query logic, business rules, curated data</div>
+      <div class="kp"><strong>Copilot</strong> &mdash; write T-SQL from natural language descriptions</div>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-purple);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Spark Notebooks</p>
+      <div class="kp"><strong>Spark SQL</strong> &mdash; familiar SQL syntax in notebook cells</div>
+      <div class="kp"><strong>PySpark</strong> &mdash; Python code with DataFrame API (<code>df.select()</code>, <code>df.filter()</code>)</div>
+      <div class="kp"><strong>Exploratory analysis</strong> &mdash; patterns, outliers, relationships</div>
+      <div class="kp"><strong>Cross-workspace</strong> &mdash; join data across lakehouses via four-part namespace</div>
+      <div class="kp"><strong>Copilot</strong> &mdash; generate PySpark/SparkSQL from natural language</div>
+    </div>
+  </div>
+</div>
+
+<!-- POWER BI & DIRECT LAKE -->
+<div id="powerbi" class="card teal">
+  <div class="card-title">Power BI &amp; Direct Lake</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Power BI is the consumption layer &mdash; two ways to connect to lakehouse data:</p>
+  <div class="grid">
+    <div class="side-box sb-teal">
+      <div class="sb-title">SQL Analytics Endpoint</div>
+      <div class="sb-desc">Analysts connect directly with Power BI or Excel to run ad-hoc queries and explore data before building reports.</div>
+    </div>
+    <div class="side-box sb-blue">
+      <div class="sb-title">Semantic Model</div>
+      <div class="sb-desc">References specific lakehouse tables with defined relationships, measures, and business logic that reports consume.</div>
+    </div>
+  </div>
+  <div style="height:10px;"></div>
+  <div class="kp"><strong>Direct Lake mode</strong> (default) &mdash; reads Delta Lake Parquet files directly, no import/copy, fast performance, always current data</div>
+  <div class="kp"><strong>Copilot in Power BI</strong> &mdash; generates visualizations and answers business questions when semantic model has clear relationships and measures</div>
+</div>
+
+<!-- SECURITY -->
+<div id="security" class="card red">
+  <div class="card-title">Lakehouse Security</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Layered access controls to secure data at multiple levels:</p>
+  <table class="decision-table red-header">
+    <tr><th style="width:30%;">Layer</th><th>What It Controls</th></tr>
+    <tr><td><strong>Workspace roles</strong></td><td>Access to all items in the workspace (Admin, Member, Contributor, Viewer)</td></tr>
+    <tr><td><strong>Item-level sharing</strong></td><td>Read-only access for specific needs (analytics, report development)</td></tr>
+    <tr><td><strong>Row-level security</strong></td><td>Restrict which rows users see when querying via SQL endpoint</td></tr>
+    <tr><td><strong>Column-level security</strong></td><td>Restrict which columns users see when querying via SQL endpoint</td></tr>
+    <tr><td><strong>Schema-level permissions</strong></td><td>Control access by business domain when tables are organized into schemas</td></tr>
+    <tr><td><strong>Sensitivity labels</strong></td><td>Data governance via Microsoft Purview integration</td></tr>
+  </table>
+</div>
+
+<!-- AI FOUNDATION -->
+<div id="ai" class="card green">
+  <div class="card-title">Lakehouse as AI Foundation</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Well-structured lakehouse data is the foundation for intelligent experiences across Fabric:</p>
+  <div class="kp"><strong>Clear schemas + descriptive column names</strong> &mdash; make data accessible to both human analysts and AI-powered tools</div>
+  <div class="kp"><strong>Fabric IQ data agents</strong> &mdash; query your lakehouse tables through the SQL endpoint, translating natural language &rarr; SQL. Quality of answers depends on how well you structure your data.</div>
+  <div class="kp"><strong>Copilot in Power BI</strong> &mdash; generates reports and answers questions when it can reason over clearly defined tables and relationships</div>
+  <div class="kp"><strong>Semantic models</strong> &mdash; same lakehouse data feeds models that support natural language exploration across Microsoft 365</div>
+  <div class="further-reading">Good data engineering practices in the lakehouse create a reusable foundation for intelligent experiences across the platform.</div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card orange">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What is a Microsoft Fabric lakehouse?</div>
+      <div class="quiz-a">A relational database based on the Microsoft SQL Server database engine</div>
+      <div class="quiz-a">A hierarchy of folders and files in Azure Data Lake Store Gen2</div>
+      <div class="quiz-a correct">An analytical store that combines file storage flexibility of a data lake with SQL-based query capabilities of a data warehouse</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is the main difference between the lakehouse explorer and SQL analytics endpoint?</div>
+      <div class="quiz-a">The lakehouse explorer provides read-only access, while the SQL analytics endpoint allows data modifications</div>
+      <div class="quiz-a correct">Lakehouse explorer enables interaction with tables, files, and folders, while SQL analytics endpoint provides read-only T-SQL querying of Delta tables</div>
+      <div class="quiz-a">Both provide identical functionality with different user interfaces</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">You want to include data in an external ADLS Gen2 location without copying. What should you do?</div>
+      <div class="quiz-a">Create a Data pipeline with a Copy Data activity</div>
+      <div class="quiz-a correct">Create a shortcut</div>
+      <div class="quiz-a">Create a Dataflow Gen2 that extracts and loads it into a table</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">You have CSV files in Files/ and want to create Delta tables without writing code. What should you use?</div>
+      <div class="quiz-a">A notebook with PySpark code</div>
+      <div class="quiz-a correct">Load to Table</div>
+      <div class="quiz-a">The SQL analytics endpoint</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">You want to use Apache Spark to interactively explore data. What should you do?</div>
+      <div class="quiz-a correct">Create a notebook</div>
+      <div class="quiz-a">Switch to the SQL analytics endpoint mode</div>
+      <div class="quiz-a">Create a Dataflow Gen2</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What connection mode does Power BI use by default with a lakehouse semantic model?</div>
+      <div class="quiz-a">Import mode, which copies data into Power BI</div>
+      <div class="quiz-a">DirectQuery mode, which queries the source in real-time</div>
+      <div class="quiz-a correct">Direct Lake mode, which reads directly from Delta Lake files without copying data</div>
+    </div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="card blue">
+  <div class="card-title">Links &amp; Resources</div>
+  <div class="kp"><strong>MS Learn module:</strong> <a href="https://learn.microsoft.com/en-us/training/modules/get-started-lakehouses/" target="_blank" style="color:var(--ms-blue);">Get started with lakehouses in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Data Engineering docs:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/" target="_blank" style="color:var(--ms-blue);">Data Engineering in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Ingestion options:</strong> <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/load-data-lakehouse" target="_blank" style="color:var(--ms-blue);">Options to get data into the Fabric Lakehouse</a></div>
+  <div class="kp"><strong>Shortcuts:</strong> <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts" target="_blank" style="color:var(--ms-blue);">OneLake shortcuts documentation</a></div>
+  <div class="kp"><strong>Security:</strong> <a href="https://learn.microsoft.com/en-us/fabric/security/security-overview" target="_blank" style="color:var(--ms-blue);">Security in Microsoft Fabric</a></div>
+  <div class="further-reading"><a href="../big-picture/introduction.html">&larr; Prev: Introduction to Fabric</a> &nbsp;|&nbsp; <a href="../big-picture/lakehouse-warehouse.html">Next: Lakehouse &amp; Warehouse &rarr;</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  OneLake &amp; Lakehouses &mdash; Big Picture &mdash; Data &amp; AI Reference
+  <br><a class="md-link" href="../md/big-picture/onelake.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imgModal">
+  <span class="modal-close" id="modalClose">&times;</span>
+  <img id="modalImg" src="" alt="">
+</div>
+<script>
+(function() {
+  var modal = document.getElementById('imgModal');
+  var modalImg = document.getElementById('modalImg');
+  document.querySelectorAll('.diagram img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+      modal.classList.add('open');
+    });
+  });
+  modal.addEventListener('click', function() { modal.classList.remove('open'); });
+  document.getElementById('modalClose').addEventListener('click', function() { modal.classList.remove('open'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+</script>
+
 </body>
 </html>
