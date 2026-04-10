@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Governance — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 900px) { .grid.three-col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../fundamentals.html">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fundamentals/concepts.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="../fundamentals/data-lifecycle.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="../fundamentals/task-flows.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="../fundamentals/decision-guides.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="../fundamentals/governance.html" class="active"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Content Governance</h1>
+    <div class="subtitle">Endorsement, sharing, sensitivity labels, and content management in Fabric</div>
+  </div>
+  <div class="badge">Module 8 Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#endorsement">Endorsement Overview</a>
+  <a href="#promotion">Promotion</a>
+  <a href="#certification">Certification</a>
+  <a href="#master-data">Master Data</a>
+  <a href="#sensitivity">Sensitivity Labels</a>
+  <a href="#sharing">Item Sharing</a>
+  <a href="#scheduling">Job Scheduling</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- ENDORSEMENT OVERVIEW -->
+<div id="endorsement" class="card blue">
+  <div class="card-title">Endorsement Overview</div>
+  <div class="kp"><strong>Promotion</strong> &mdash; any item owner or writer can promote content to signal it is valuable and ready for broader use within the organization</div>
+  <div class="kp"><strong>Certification</strong> &mdash; only authorized reviewers (designated by Fabric admin) can certify content, indicating it meets organizational quality standards</div>
+  <div class="kp"><strong>Master Data</strong> &mdash; the highest level of endorsement; marks core single-source-of-truth data such as customer lists, product codes, and reference tables</div>
+  <div class="kp"><strong>Progressive trust</strong> &mdash; endorsement levels build progressively &mdash; from promoted (team-level trust) to certified (org-level trust) to master data (canonical source)</div>
+</div>
+
+<!-- PROMOTION -->
+<div id="promotion" class="card teal">
+  <div class="card-title">Promotion</div>
+  <div class="kp"><strong>Who can promote</strong> &mdash; any item owner or user with write permissions on the item; no admin authorization required</div>
+  <div class="kp"><strong>Encourages collaborative use</strong> &mdash; promoting an item signals to colleagues that it is ready and useful, encouraging discovery and reuse</div>
+  <div class="kp"><strong>Available for all Fabric items</strong> &mdash; works across lakehouses, notebooks, pipelines, reports, semantic models, and more &mdash; except dashboards</div>
+  <div class="kp"><strong>Visual indicator</strong> &mdash; promoted items display a badge in the OneLake catalog and workspace, making them easy to find</div>
+</div>
+
+<!-- CERTIFICATION -->
+<div id="certification" class="card orange">
+  <div class="card-title">Certification</div>
+  <div class="kp"><strong>Authorized by Fabric admin</strong> &mdash; only users or groups explicitly authorized by the Fabric administrator can certify content</div>
+  <div class="kp"><strong>Meets org quality standards</strong> &mdash; certification signals that the item has been reviewed and meets the organization&rsquo;s established quality and governance criteria</div>
+  <div class="kp"><strong>Reliable and authoritative</strong> &mdash; certified items are considered the go-to source for org-wide reporting and analytics</div>
+  <div class="kp"><strong>Discoverable</strong> &mdash; certified items are prioritized in search results and the OneLake catalog, making them easy for users to find and trust</div>
+</div>
+
+<!-- MASTER DATA -->
+<div id="master-data" class="card purple">
+  <div class="card-title">Master Data</div>
+  <div class="kp"><strong>Authorized reviewers only</strong> &mdash; like certification, only users designated by the Fabric admin can apply the master data endorsement</div>
+  <div class="kp"><strong>Core single-source-of-truth</strong> &mdash; identifies data that serves as the canonical, definitive source for key business entities (customer lists, product codes, geography tables)</div>
+  <div class="kp"><strong>Only for data items</strong> &mdash; master data endorsement applies specifically to data items such as lakehouses, warehouses, semantic models, and KQL databases &mdash; not to reports or notebooks</div>
+  <div class="kp"><strong>Prevents duplication</strong> &mdash; clearly marking master data helps teams avoid creating redundant copies and ensures everyone works from the same trusted source</div>
+</div>
+
+<!-- SENSITIVITY LABELS -->
+<div id="sensitivity" class="card blue">
+  <div class="card-title">Sensitivity Labels</div>
+  <div class="kp"><strong>Microsoft Information Protection</strong> &mdash; apply sensitivity labels from Microsoft Information Protection (MIP) directly to Fabric items to classify data by confidentiality level</div>
+  <div class="kp"><strong>Classify and protect data</strong> &mdash; labels like Confidential, Highly Confidential, or Public travel with the data &mdash; even when exported to Excel, PDF, or PowerPoint</div>
+  <div class="kp"><strong>Integration with Purview</strong> &mdash; sensitivity labels are managed through Microsoft Purview, providing a unified governance experience across Microsoft 365, Azure, and Fabric</div>
+  <div class="kp"><strong>Downstream inheritance</strong> &mdash; when a label is applied to a data source, it can automatically propagate to downstream items like reports and dashboards built on that data</div>
+</div>
+
+<!-- ITEM SHARING -->
+<div id="sharing" class="card teal">
+  <div class="card-title">Item Sharing</div>
+  <div class="kp"><strong>Share items across workspaces</strong> &mdash; share specific Fabric items (reports, semantic models, lakehouses) with users who do not have workspace access</div>
+  <div class="kp"><strong>Reshare permissions</strong> &mdash; when sharing, you can grant or deny the recipient&rsquo;s ability to reshare the item with others</div>
+  <div class="kp"><strong>Workspace roles control sharing</strong> &mdash; Admin, Member, and Contributor roles can share items; Viewers cannot share unless explicitly granted reshare permission</div>
+  <div class="kp"><strong>Link-based sharing</strong> &mdash; generate shareable links for items with configurable access levels &mdash; people in your org, people with existing access, or specific people</div>
+</div>
+
+<!-- JOB SCHEDULING -->
+<div id="scheduling" class="card orange">
+  <div class="card-title">Job Scheduling</div>
+  <div class="kp"><strong>Schedule recurring jobs</strong> &mdash; configure Fabric items such as pipelines, notebooks, and dataflows to run on a schedule (hourly, daily, weekly, or custom cron)</div>
+  <div class="kp"><strong>Delta Lake interoperability</strong> &mdash; scheduled jobs work seamlessly with Delta Lake tables, ensuring data remains fresh and consistent for downstream consumers</div>
+  <div class="kp"><strong>Table maintenance optimization</strong> &mdash; schedule table maintenance tasks like OPTIMIZE (bin-compaction) and VACUUM (old file cleanup) to keep Delta tables performing well</div>
+  <div class="kp"><strong>Monitoring and alerts</strong> &mdash; track job run history, view success/failure status, and configure alerts to be notified when scheduled jobs fail</div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">Who can promote a Fabric item?</div>
+      <div class="quiz-a">Only the Fabric administrator</div>
+      <div class="quiz-a correct">Any item owner or user with write permissions</div>
+      <div class="quiz-a">Only certified reviewers</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What distinguishes certification from promotion?</div>
+      <div class="quiz-a">Certification is available to all users, promotion requires admin approval</div>
+      <div class="quiz-a correct">Certification requires authorization from the Fabric admin and signals org-wide quality standards</div>
+      <div class="quiz-a">Certification applies only to reports, while promotion applies to all items</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which items can receive the master data endorsement?</div>
+      <div class="quiz-a">All Fabric items including reports, notebooks, and dashboards</div>
+      <div class="quiz-a">Only Power BI reports and dashboards</div>
+      <div class="quiz-a correct">Data items such as lakehouses, warehouses, and semantic models</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">How do sensitivity labels travel with Fabric data?</div>
+      <div class="quiz-a">They only apply within the Fabric workspace and are removed on export</div>
+      <div class="quiz-a correct">Labels persist even when data is exported to Excel, PDF, or PowerPoint</div>
+      <div class="quiz-a">They are applied only at the tenant level and cannot be set per item</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which workspace role cannot share items by default?</div>
+      <div class="quiz-a">Member</div>
+      <div class="quiz-a">Contributor</div>
+      <div class="quiz-a correct">Viewer</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Content Governance &mdash; Fundamentals &mdash; Data &amp; AI Reference
+</div>
+
+</body>
+</html>

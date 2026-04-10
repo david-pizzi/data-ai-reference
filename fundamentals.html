@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fabric Fundamentals — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+strong { font-weight: 600; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.nav-dropdown > a.active { color: #fff; font-weight: 700; padding: 4px 10px; background: var(--ms-blue); border-radius: 6px; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 18px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; }
+
+/* SVG DIAGRAM CARDS */
+.diagram-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 18px; position: relative; overflow: hidden; }
+.diagram-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.diagram-card.dc-blue::before { background: var(--ms-blue); }
+.diagram-card.dc-teal::before { background: var(--ms-teal); }
+.diagram-card.dc-orange::before { background: var(--ms-orange); }
+.diagram-card.dc-purple::before { background: var(--ms-purple); }
+.dc-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.dc-title { font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.dc-blue .dc-title { color: var(--ms-blue); }
+.dc-teal .dc-title { color: var(--ms-teal); }
+.dc-orange .dc-title { color: var(--ms-orange); }
+.dc-purple .dc-title { color: var(--ms-purple); }
+.dc-link { font-size: 13px; font-weight: 600; text-decoration: none; }
+.dc-blue .dc-link { color: var(--ms-blue); }
+.dc-teal .dc-link { color: var(--ms-teal); }
+.dc-orange .dc-link { color: var(--ms-orange); }
+.dc-purple .dc-link { color: var(--ms-purple); }
+.dc-link:hover { text-decoration: underline; }
+.dc-tagline { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.dc-svg { display: flex; justify-content: center; }
+.dc-svg svg { max-width: 100%; height: auto; }
+
+/* MODULE NAV */
+.module-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.module-link { display: block; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: border-color 0.2s, box-shadow 0.15s; position: relative; overflow: hidden; }
+.module-link::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+.module-link:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.module-link.ml-blue::before { background: var(--ms-blue); }
+.module-link.ml-blue:hover { border-color: var(--ms-blue); }
+.module-link.ml-teal::before { background: var(--ms-teal); }
+.module-link.ml-teal:hover { border-color: var(--ms-teal); }
+.module-link.ml-orange::before { background: var(--ms-orange); }
+.module-link.ml-orange:hover { border-color: var(--ms-orange); }
+.module-link.ml-purple::before { background: var(--ms-purple); }
+.module-link.ml-purple:hover { border-color: var(--ms-purple); }
+.ml-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; }
+.ml-blue .ml-num { color: var(--ms-blue); }
+.ml-teal .ml-num { color: var(--ms-teal); }
+.ml-orange .ml-num { color: var(--ms-orange); }
+.ml-purple .ml-num { color: var(--ms-purple); }
+.ml-title { font-size: 14px; font-weight: 700; line-height: 1.3; }
+.ml-duration { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* CHECKLIST */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.teal::before { background: var(--ms-teal); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+.card.teal .card-title { color: var(--ms-teal); }
+.checklist { list-style: none; padding: 0; columns: 2; column-gap: 24px; }
+.checklist li { font-size: 13px; padding: 5px 0 5px 22px; position: relative; break-inside: avoid; }
+.checklist li::before { content: '\2610'; position: absolute; left: 0; font-size: 15px; }
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 900px) {
+  .module-nav { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .module-nav { grid-template-columns: 1fr; }
+  .checklist { columns: 1; }
+}
+@media print {
+  body { padding: 10px; background: white; }
+  .card, .diagram-card, .module-link { break-inside: avoid; }
+  .nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="index.html" title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a class="active" href="fundamentals.html">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="fundamentals/concepts.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="fundamentals/data-lifecycle.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="fundamentals/workspaces.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="fundamentals/direct-lake.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="fundamentals/copilot.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="fundamentals/task-flows.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="fundamentals/decision-guides.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="fundamentals/governance.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <a class="md-link" href="md/fundamentals.md">Deep Dive (md)</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Fabric Fundamentals</h1>
+    <div class="subtitle">Official reference concepts from Microsoft Learn &mdash; the foundation for understanding Fabric</div>
+  </div>
+  <div class="badge">8 Modules<br>Reference</div>
+</div>
+
+<!-- MODULE QUICK NAV -->
+<div class="module-nav">
+  <a href="fundamentals/concepts.html" class="module-link ml-blue">
+    <div class="ml-num">Module 1</div>
+    <div class="ml-title">Fabric Concepts</div>
+    <div class="ml-duration">Core platform fundamentals</div>
+  </a>
+  <a href="fundamentals/data-lifecycle.html" class="module-link ml-teal">
+    <div class="ml-num">Module 2</div>
+    <div class="ml-title">Data Lifecycle</div>
+    <div class="ml-duration">End-to-end data flow</div>
+  </a>
+  <a href="fundamentals/workspaces.html" class="module-link ml-orange">
+    <div class="ml-num">Module 3</div>
+    <div class="ml-title">Workspaces</div>
+    <div class="ml-duration">Organization &amp; collaboration</div>
+  </a>
+  <a href="fundamentals/direct-lake.html" class="module-link ml-purple">
+    <div class="ml-num">Module 4</div>
+    <div class="ml-title">Direct Lake</div>
+    <div class="ml-duration">Storage mode deep dive</div>
+  </a>
+  <a href="fundamentals/copilot.html" class="module-link ml-blue">
+    <div class="ml-num">Module 5</div>
+    <div class="ml-title">Copilot &amp; AI</div>
+    <div class="ml-duration">AI-assisted analytics</div>
+  </a>
+  <a href="fundamentals/task-flows.html" class="module-link ml-teal">
+    <div class="ml-num">Module 6</div>
+    <div class="ml-title">Task Flows</div>
+    <div class="ml-duration">Guided workflow patterns</div>
+  </a>
+  <a href="fundamentals/decision-guides.html" class="module-link ml-orange">
+    <div class="ml-num">Module 7</div>
+    <div class="ml-title">Decision Guides</div>
+    <div class="ml-duration">Choosing the right approach</div>
+  </a>
+  <a href="fundamentals/governance.html" class="module-link ml-purple">
+    <div class="ml-num">Module 8</div>
+    <div class="ml-title">Content Governance</div>
+    <div class="ml-duration">Security &amp; compliance</div>
+  </a>
+</div>
+
+<!-- DIAGRAM 1: FABRIC ARCHITECTURE -->
+<div class="diagram-card dc-blue">
+  <div class="dc-header">
+    <div class="dc-title">Fabric Architecture</div>
+    <a href="fundamentals/concepts.html" class="dc-link">Study: Fabric Concepts &rarr;</a>
+  </div>
+  <div class="dc-tagline">Microsoft Fabric is a unified SaaS analytics platform. All workloads share OneLake storage, a single security model, and one billing system &mdash; no infrastructure to manage.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="900" height="340">
+      <!-- SaaS Platform wrapper -->
+      <rect x="20" y="10" width="860" height="320" rx="16" fill="#F0F7FF" stroke="#0078D4" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <text x="40" y="34" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#0078D4">MICROSOFT FABRIC &mdash; UNIFIED SAAS PLATFORM</text>
+      <text x="680" y="34" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">One portal &bull; One billing &bull; One security</text>
+
+      <!-- Layer 1: Experiences / Workloads -->
+      <rect x="50" y="50" width="800" height="80" rx="12" fill="#E8F4FD" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="70" y="72" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#0078D4">EXPERIENCES</text>
+      <!-- Workload pills -->
+      <rect x="70" y="82" width="85" height="28" rx="6" fill="#0078D4"/>
+      <text x="112" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Power BI</text>
+      <rect x="165" y="82" width="85" height="28" rx="6" fill="#0078D4"/>
+      <text x="207" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Factory</text>
+      <rect x="260" y="82" width="95" height="28" rx="6" fill="#0078D4"/>
+      <text x="307" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Engineering</text>
+      <rect x="365" y="82" width="88" height="28" rx="6" fill="#0078D4"/>
+      <text x="409" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Warehouse</text>
+      <rect x="463" y="82" width="82" height="28" rx="6" fill="#0078D4"/>
+      <text x="504" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Science</text>
+      <rect x="555" y="82" width="95" height="28" rx="6" fill="#0078D4"/>
+      <text x="602" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Real-Time Intel</text>
+      <rect x="660" y="82" width="55" height="28" rx="6" fill="#0078D4"/>
+      <text x="687" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">IQ</text>
+      <rect x="725" y="82" width="108" height="28" rx="6" fill="#0078D4"/>
+      <text x="779" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#fff">Data Activator</text>
+
+      <!-- Down arrows -->
+      <polygon points="450,135 443,142 457,142" fill="#999"/>
+      <line x1="450" y1="131" x2="450" y2="142" stroke="#999" stroke-width="1.5"/>
+
+      <!-- Layer 2: Platform Services -->
+      <rect x="50" y="150" width="800" height="70" rx="12" fill="#F0F9F5" stroke="#008575" stroke-width="1.2"/>
+      <text x="70" y="172" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#008575">PLATFORM SERVICES</text>
+      <rect x="70" y="183" width="90" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="115" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Spark Engine</text>
+      <rect x="170" y="183" width="90" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="215" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">SQL Engine</text>
+      <rect x="270" y="183" width="90" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="315" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Copilot / AI</text>
+      <rect x="370" y="183" width="105" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="422" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Capacity Mgmt</text>
+      <rect x="485" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="525" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Git / CI-CD</text>
+      <rect x="575" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="615" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Monitoring</text>
+      <rect x="665" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="705" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Shortcuts</text>
+      <rect x="755" y="183" width="80" height="24" rx="5" fill="#fff" stroke="#008575" stroke-width="1"/>
+      <text x="795" y="199" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#008575">Task Flows</text>
+
+      <!-- Down arrows -->
+      <polygon points="450,225 443,232 457,232" fill="#999"/>
+      <line x1="450" y1="221" x2="450" y2="232" stroke="#999" stroke-width="1.5"/>
+
+      <!-- Layer 3: OneLake -->
+      <rect x="50" y="240" width="800" height="70" rx="12" fill="#0078D4"/>
+      <text x="450" y="270" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#fff">OneLake</text>
+      <text x="450" y="290" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="rgba(255,255,255,0.8)">Delta-Parquet &bull; One tenant = one lake &bull; Shortcuts &bull; Open format &bull; ADLS Gen2 compatible</text>
+    </svg>
+  </div>
+</div>
+
+<!-- DIAGRAM 2: DATA LIFECYCLE -->
+<div class="diagram-card dc-teal">
+  <div class="dc-header">
+    <div class="dc-title">Data Lifecycle</div>
+    <a href="fundamentals/data-lifecycle.html" class="dc-link">Study: Data Lifecycle &rarr;</a>
+  </div>
+  <div class="dc-tagline">Data flows through six stages in Fabric: Get data from sources, Store it in OneLake, Prepare and transform, Analyze with engines, Visualize in reports, and Integrate insights back into business processes.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" width="900" height="260">
+      <defs>
+        <marker id="arrowFlow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#008575"/></marker>
+      </defs>
+
+      <!-- Stage 1: Get -->
+      <rect x="20" y="60" width="120" height="130" rx="12" fill="#E8F4FD" stroke="#0078D4" stroke-width="1.5"/>
+      <text x="80" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#0078D4">Get</text>
+      <text x="80" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Data Factory</text>
+      <text x="80" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Dataflows Gen2</text>
+      <text x="80" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Pipelines</text>
+      <text x="80" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Shortcuts</text>
+      <text x="80" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Eventstreams</text>
+      <text x="80" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 1</text>
+
+      <!-- Arrow 1→2 -->
+      <line x1="145" y1="125" x2="160" y2="125" stroke="#008575" stroke-width="1.5" marker-end="url(#arrowFlow)"/>
+
+      <!-- Stage 2: Store -->
+      <rect x="168" y="60" width="120" height="130" rx="12" fill="#F0F9F5" stroke="#008575" stroke-width="1.5"/>
+      <text x="228" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#008575">Store</text>
+      <text x="228" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">OneLake</text>
+      <text x="228" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Lakehouse</text>
+      <text x="228" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Warehouse</text>
+      <text x="228" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Eventhouse</text>
+      <text x="228" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Delta Tables</text>
+      <text x="228" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 2</text>
+
+      <!-- Arrow 2→3 -->
+      <line x1="293" y1="125" x2="308" y2="125" stroke="#008575" stroke-width="1.5" marker-end="url(#arrowFlow)"/>
+
+      <!-- Stage 3: Prepare -->
+      <rect x="316" y="60" width="120" height="130" rx="12" fill="#FFF8F0" stroke="#D83B01" stroke-width="1.5"/>
+      <text x="376" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#D83B01">Prepare</text>
+      <text x="376" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Notebooks</text>
+      <text x="376" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Spark Jobs</text>
+      <text x="376" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Dataflows Gen2</text>
+      <text x="376" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">T-SQL Procedures</text>
+      <text x="376" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Data Wrangler</text>
+      <text x="376" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 3</text>
+
+      <!-- Arrow 3→4 -->
+      <line x1="441" y1="125" x2="456" y2="125" stroke="#008575" stroke-width="1.5" marker-end="url(#arrowFlow)"/>
+
+      <!-- Stage 4: Analyze -->
+      <rect x="464" y="60" width="120" height="130" rx="12" fill="#F8F5FF" stroke="#8661C5" stroke-width="1.5"/>
+      <text x="524" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#8661C5">Analyze</text>
+      <text x="524" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">SQL Analytics</text>
+      <text x="524" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Spark Notebooks</text>
+      <text x="524" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">ML Experiments</text>
+      <text x="524" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">KQL Queries</text>
+      <text x="524" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Copilot</text>
+      <text x="524" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 4</text>
+
+      <!-- Arrow 4→5 -->
+      <line x1="589" y1="125" x2="604" y2="125" stroke="#008575" stroke-width="1.5" marker-end="url(#arrowFlow)"/>
+
+      <!-- Stage 5: Visualize -->
+      <rect x="612" y="60" width="120" height="130" rx="12" fill="#E8F4FD" stroke="#0078D4" stroke-width="1.5"/>
+      <text x="672" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#0078D4">Visualize</text>
+      <text x="672" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Power BI Reports</text>
+      <text x="672" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Dashboards</text>
+      <text x="672" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Paginated Reports</text>
+      <text x="672" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Semantic Models</text>
+      <text x="672" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Direct Lake</text>
+      <text x="672" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 5</text>
+
+      <!-- Arrow 5→6 -->
+      <line x1="737" y1="125" x2="752" y2="125" stroke="#008575" stroke-width="1.5" marker-end="url(#arrowFlow)"/>
+
+      <!-- Stage 6: Integrate -->
+      <rect x="760" y="60" width="120" height="130" rx="12" fill="#F0F9F5" stroke="#008575" stroke-width="1.5"/>
+      <text x="820" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#008575">Integrate</text>
+      <text x="820" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Data Activator</text>
+      <text x="820" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Alerts &amp; Actions</text>
+      <text x="820" y="142" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Power Automate</text>
+      <text x="820" y="158" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">APIs</text>
+      <text x="820" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#333">Teams / Apps</text>
+      <text x="820" y="40" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#999">STAGE 6</text>
+
+      <!-- Bottom label -->
+      <rect x="200" y="210" width="500" height="32" rx="8" fill="#008575" opacity="0.1"/>
+      <text x="450" y="231" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" font-weight="600" fill="#008575">All stages share OneLake &mdash; zero-copy, open Delta format</text>
+    </svg>
+  </div>
+</div>
+
+<!-- DIAGRAM 3: WORKSPACES & GOVERNANCE -->
+<div class="diagram-card dc-orange">
+  <div class="dc-header">
+    <div class="dc-title">Workspaces &amp; Governance</div>
+    <a href="fundamentals/workspaces.html" class="dc-link">Study: Workspaces &rarr;</a>
+  </div>
+  <div class="dc-tagline">Fabric organizes everything into a strict hierarchy: Tenant at the top, Capacities for billing, Workspaces for collaboration, and Items as the individual artifacts. Roles control access at each level.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+      <!-- Tenant -->
+      <rect x="20" y="10" width="860" height="300" rx="16" fill="#FFF8F0" stroke="#D83B01" stroke-width="2"/>
+      <text x="40" y="34" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#D83B01">TENANT</text>
+      <text x="600" y="34" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">Admin Portal &bull; Tenant Settings &bull; Domains &bull; Audit Logs</text>
+
+      <!-- Capacity -->
+      <rect x="45" y="48" width="810" height="248" rx="13" fill="#FFF2E8" stroke="#D83B01" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="65" y="70" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#D83B01">CAPACITY (F2 &ndash; F2048)</text>
+      <text x="540" y="70" font-family="Segoe UI,sans-serif" font-size="11" fill="#999">CU-based billing &bull; Throttling &bull; Smoothing</text>
+
+      <!-- Workspace 1 -->
+      <rect x="70" y="85" width="370" height="195" rx="10" fill="#fff" stroke="#D83B01" stroke-width="1"/>
+      <text x="90" y="106" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#D83B01">WORKSPACE: Production Analytics</text>
+      <text x="90" y="120" font-family="Segoe UI,sans-serif" font-size="10" fill="#999">Domain: Finance &bull; Git-connected &bull; Deployment pipeline</text>
+
+      <!-- Roles -->
+      <rect x="90" y="130" width="55" height="20" rx="4" fill="#D83B01"/>
+      <text x="117" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Admin</text>
+      <rect x="150" y="130" width="60" height="20" rx="4" fill="#D83B01" opacity="0.8"/>
+      <text x="180" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Member</text>
+      <rect x="215" y="130" width="75" height="20" rx="4" fill="#D83B01" opacity="0.6"/>
+      <text x="252" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Contributor</text>
+      <rect x="295" y="130" width="55" height="20" rx="4" fill="#D83B01" opacity="0.4"/>
+      <text x="322" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Viewer</text>
+
+      <!-- Items row 1 -->
+      <rect x="90" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="131" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Lakehouse</text>
+      <text x="131" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">finance_raw</text>
+      <rect x="182" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="223" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Warehouse</text>
+      <text x="223" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">finance_star</text>
+      <rect x="274" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="315" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Pipeline</text>
+      <text x="315" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">daily_etl</text>
+      <rect x="366" y="160" width="60" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="396" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Report</text>
+      <text x="396" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">kpi_dash</text>
+
+      <!-- Items row 2 -->
+      <rect x="90" y="214" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="131" y="234" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Semantic</text>
+      <text x="131" y="248" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">finance_model</text>
+      <rect x="182" y="214" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="223" y="234" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Notebook</text>
+      <text x="223" y="248" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">reconcile</text>
+      <rect x="274" y="214" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="315" y="234" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Dataflow</text>
+      <text x="315" y="248" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">clean_gl</text>
+
+      <!-- Workspace 2 -->
+      <rect x="460" y="85" width="380" height="195" rx="10" fill="#fff" stroke="#D83B01" stroke-width="1"/>
+      <text x="480" y="106" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#D83B01">WORKSPACE: Dev / Sandbox</text>
+      <text x="480" y="120" font-family="Segoe UI,sans-serif" font-size="10" fill="#999">Domain: Finance &bull; Git-connected &bull; Feature branch</text>
+
+      <!-- Roles -->
+      <rect x="480" y="130" width="55" height="20" rx="4" fill="#D83B01"/>
+      <text x="507" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Admin</text>
+      <rect x="540" y="130" width="60" height="20" rx="4" fill="#D83B01" opacity="0.8"/>
+      <text x="570" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Member</text>
+      <rect x="605" y="130" width="75" height="20" rx="4" fill="#D83B01" opacity="0.6"/>
+      <text x="642" y="144" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#fff">Contributor</text>
+
+      <!-- Items -->
+      <rect x="480" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="521" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Lakehouse</text>
+      <text x="521" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">dev_raw</text>
+      <rect x="572" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="613" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Notebook</text>
+      <text x="613" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">experiment</text>
+      <rect x="664" y="160" width="82" height="44" rx="6" fill="#E8F4FD" stroke="#0078D4" stroke-width="1"/>
+      <text x="705" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#0078D4">Shortcut</text>
+      <text x="705" y="194" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">&rarr; finance_raw</text>
+
+      <!-- Deployment pipeline arrow -->
+      <rect x="480" y="224" width="340" height="28" rx="6" fill="#D83B01" opacity="0.1"/>
+      <text x="650" y="243" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="600" fill="#D83B01">Deployment Pipeline: Dev &rarr; Test &rarr; Prod</text>
+    </svg>
+  </div>
+</div>
+
+<!-- DIAGRAM 4: DIRECT LAKE MODE -->
+<div class="diagram-card dc-purple">
+  <div class="dc-header">
+    <div class="dc-title">Direct Lake Mode</div>
+    <a href="fundamentals/direct-lake.html" class="dc-link">Study: Direct Lake &rarr;</a>
+  </div>
+  <div class="dc-tagline">Direct Lake is a new storage mode that combines the speed of Import with the freshness of DirectQuery. It reads Delta-Parquet files directly from OneLake &mdash; no data copying, no query delegation.</div>
+  <div class="dc-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+      <defs>
+        <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#8661C5"/></marker>
+        <marker id="arrowGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#999"/></marker>
+      </defs>
+
+      <!-- Mode 1: Import -->
+      <rect x="20" y="20" width="260" height="280" rx="14" fill="#FFF5F5" stroke="#D13438" stroke-width="1.5"/>
+      <text x="150" y="48" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#D13438">Import Mode</text>
+      <line x1="40" y1="58" x2="260" y2="58" stroke="#D13438" stroke-width="0.5" opacity="0.3"/>
+
+      <!-- Import diagram -->
+      <rect x="60" y="75" width="160" height="36" rx="6" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="140" y="97" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Data Source</text>
+      <line x1="140" y1="111" x2="140" y2="128" stroke="#999" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+      <text x="195" y="124" font-family="Segoe UI,sans-serif" font-size="9" fill="#D13438">copy data</text>
+      <rect x="45" y="135" width="190" height="50" rx="8" fill="#FFF0F0" stroke="#D13438" stroke-width="1.2"/>
+      <text x="140" y="157" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="600" fill="#D13438">In-Memory Cache</text>
+      <text x="140" y="174" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#999">VertiPaq compressed</text>
+      <line x1="140" y1="185" x2="140" y2="202" stroke="#999" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+      <rect x="60" y="208" width="160" height="36" rx="6" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="140" y="230" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Power BI Report</text>
+
+      <text x="150" y="268" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#008575" font-weight="600">Fast queries</text>
+      <text x="150" y="285" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#D13438" font-weight="600">Stale data, refresh needed</text>
+
+      <!-- Mode 2: DirectQuery -->
+      <rect x="320" y="20" width="260" height="280" rx="14" fill="#FFF8F0" stroke="#D83B01" stroke-width="1.5"/>
+      <text x="450" y="48" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#D83B01">DirectQuery</text>
+      <line x1="340" y1="58" x2="560" y2="58" stroke="#D83B01" stroke-width="0.5" opacity="0.3"/>
+
+      <!-- DirectQuery diagram -->
+      <rect x="360" y="75" width="160" height="36" rx="6" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="440" y="97" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Data Source</text>
+      <line x1="440" y1="111" x2="440" y2="155" stroke="#D83B01" stroke-width="1" stroke-dasharray="4 3"/>
+      <line x1="440" y1="175" x2="440" y2="202" stroke="#D83B01" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="505" y="145" font-family="Segoe UI,sans-serif" font-size="9" fill="#D83B01">query at</text>
+      <text x="505" y="158" font-family="Segoe UI,sans-serif" font-size="9" fill="#D83B01">runtime</text>
+      <rect x="380" y="152" width="120" height="28" rx="6" fill="#FFF8F0" stroke="#D83B01" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="440" y="170" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="10" fill="#D83B01">No local cache</text>
+      <rect x="360" y="208" width="160" height="36" rx="6" fill="#fff" stroke="#999" stroke-width="1"/>
+      <text x="440" y="230" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">Power BI Report</text>
+
+      <text x="450" y="268" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#008575" font-weight="600">Always fresh data</text>
+      <text x="450" y="285" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#D13438" font-weight="600">Slower queries</text>
+
+      <!-- Mode 3: Direct Lake -->
+      <rect x="620" y="20" width="260" height="280" rx="14" fill="#F8F5FF" stroke="#8661C5" stroke-width="2"/>
+      <text x="750" y="48" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#8661C5">Direct Lake</text>
+      <line x1="640" y1="58" x2="860" y2="58" stroke="#8661C5" stroke-width="0.5" opacity="0.3"/>
+
+      <!-- Direct Lake diagram -->
+      <rect x="660" y="75" width="160" height="50" rx="8" fill="#0078D4" opacity="0.1" stroke="#0078D4" stroke-width="1.2"/>
+      <text x="740" y="97" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="600" fill="#0078D4">OneLake</text>
+      <text x="740" y="113" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="9" fill="#0078D4">Delta-Parquet files</text>
+      <line x1="740" y1="125" x2="740" y2="142" stroke="#8661C5" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+      <text x="800" y="138" font-family="Segoe UI,sans-serif" font-size="9" fill="#8661C5">direct read</text>
+      <rect x="660" y="148" width="160" height="36" rx="8" fill="#F8F5FF" stroke="#8661C5" stroke-width="1.2"/>
+      <text x="740" y="170" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="600" fill="#8661C5">VertiPaq on-demand</text>
+      <line x1="740" y1="184" x2="740" y2="202" stroke="#8661C5" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+      <rect x="660" y="208" width="160" height="36" rx="6" fill="#fff" stroke="#8661C5" stroke-width="1.2"/>
+      <text x="740" y="230" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="600" fill="#8661C5">Power BI Report</text>
+
+      <text x="750" y="268" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#008575" font-weight="600">Fast queries + Fresh data</text>
+      <text x="750" y="285" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#8661C5" font-weight="600">Best of both worlds</text>
+
+      <!-- Best choice highlight -->
+      <rect x="635" y="296" width="230" height="4" rx="2" fill="#8661C5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- KEY CONCEPTS CHECKLIST -->
+<div class="card teal">
+  <div class="card-title">Key Concepts to Master</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:10px;">Review each fundamental concept from the <a href="https://learn.microsoft.com/en-us/fabric/get-started/" target="_blank" style="color:var(--ms-teal);">Microsoft Learn Fabric documentation</a>:</p>
+  <ul class="checklist">
+    <li><strong>OneLake</strong> &mdash; single data lake per tenant</li>
+    <li><strong>Capacities</strong> &mdash; F-SKU compute billing model</li>
+    <li><strong>Workspaces</strong> &mdash; collaboration and access control</li>
+    <li><strong>Items</strong> &mdash; lakehouses, warehouses, notebooks, reports</li>
+    <li><strong>Direct Lake</strong> &mdash; import speed with live freshness</li>
+    <li><strong>Copilot</strong> &mdash; AI-assisted data preparation and analysis</li>
+    <li><strong>Task Flows</strong> &mdash; guided end-to-end workflow patterns</li>
+    <li><strong>Decision Guides</strong> &mdash; lakehouse vs warehouse, copy vs shortcut</li>
+    <li><strong>Domains</strong> &mdash; logical grouping for governance</li>
+    <li><strong>Deployment Pipelines</strong> &mdash; dev/test/prod promotion</li>
+    <li><strong>Git Integration</strong> &mdash; source control for Fabric items</li>
+    <li><strong>Sensitivity Labels</strong> &mdash; Purview-based data classification</li>
+    <li><strong>Shortcuts</strong> &mdash; zero-copy references to external data</li>
+    <li><strong>Delta Lake</strong> &mdash; open table format underpinning all storage</li>
+    <li><strong>Endorsement</strong> &mdash; certified vs promoted content</li>
+    <li><strong>Monitoring Hub</strong> &mdash; activity tracking and diagnostics</li>
+  </ul>
+  <div class="further-reading"><a href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank">Microsoft Fabric Overview on Learn &rarr;</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Fabric Fundamentals &mdash; Data &amp; AI Reference
+  <br><a href="md/fundamentals.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+</body>
+</html>

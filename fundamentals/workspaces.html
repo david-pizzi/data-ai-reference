@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workspaces — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* WORKLOAD GRID */
+.workload-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.workload { border-radius: 8px; padding: 12px 14px; background: #F5F7FA; border: 1px solid var(--border); }
+.workload .w-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.workload .w-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+/* LAYER DIAGRAM */
+.layer-stack { display: flex; flex-direction: column; gap: 0; }
+.layer { border-radius: 10px; padding: 16px 20px; border: 2px solid var(--border); background: var(--card); margin-bottom: -1px; }
+.layer .layer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.layer .layer-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.layer .layer-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.layer.l-purple { border-color: var(--ms-purple); }
+.layer.l-purple .layer-label, .layer.l-purple .layer-title { color: var(--ms-purple); }
+.layer.l-teal { border-color: var(--ms-teal); }
+.layer.l-teal .layer-label, .layer.l-teal .layer-title { color: var(--ms-teal); }
+.layer.l-blue { border-color: var(--ms-blue); }
+.layer.l-blue .layer-label, .layer.l-blue .layer-title { color: var(--ms-blue); }
+
+/* ROLE PILLS */
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.role { border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); background: #F5F7FA; }
+.role .r-title { font-size: 14px; font-weight: 700; color: var(--ms-teal); margin-bottom: 4px; }
+.role .r-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 900px) { .workload-grid, .grid.three-col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .grid, .role-grid, .workload-grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="#">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="../fundamentals/workspaces.html" class="active"><span class="dd-num">3</span> Workspaces</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Workspaces</h1>
+    <div class="subtitle">Organizing, securing, and collaborating on Fabric items</div>
+  </div>
+  <div class="badge">Module 3 Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#what-are-workspaces">What Are Workspaces</a>
+  <a href="#workspace-roles">Workspace Roles</a>
+  <a href="#workspace-layout">Workspace Layout</a>
+  <a href="#workspace-settings">Workspace Settings</a>
+  <a href="#workspace-monitoring">Workspace Monitoring</a>
+  <a href="#best-practices">Best Practices</a>
+  <a href="#administration">Administration</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- WHAT ARE WORKSPACES -->
+<div id="what-are-workspaces" class="card blue">
+  <div class="card-title">What Are Workspaces?</div>
+  <div class="kp"><strong>Collections of items</strong> &mdash; workspaces are collaborative containers where teams create, share, and manage Fabric items together</div>
+  <div class="kp"><strong>Item types</strong> &mdash; lakehouses, warehouses, reports, dashboards, notebooks, pipelines, dataflows, semantic models, and more all live inside workspaces</div>
+  <div class="kp"><strong>Capacity-backed execution</strong> &mdash; each workspace is assigned to a capacity (F, P, or trial) that provides the compute resources for running jobs and queries</div>
+  <div class="kp"><strong>Access management</strong> &mdash; workspaces provide role-based access control; assign users and groups to Admin, Member, Contributor, or Viewer roles to govern who can do what</div>
+  <div class="kp"><strong>Organizational boundary</strong> &mdash; workspaces map to teams, projects, or departments, providing a natural boundary for content organization and security</div>
+  <div class="kp"><strong>OneLake integration</strong> &mdash; every workspace automatically gets a corresponding folder in OneLake, making all workspace data accessible through the unified data lake</div>
+  <div class="further-reading">Workspaces replace the legacy &ldquo;app workspaces&rdquo; from Power BI. In Fabric, they extend to all workloads &mdash; not just BI content.</div>
+</div>
+
+<!-- WORKSPACE ROLES -->
+<div id="workspace-roles" class="card blue">
+  <div class="card-title">Workspace Roles &mdash; Permissions Matrix</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Four built-in roles control what users can do within a workspace. Roles are cumulative &mdash; higher roles inherit all lower-role capabilities.</p>
+  <div style="overflow-x:auto;">
+    <table class="decision-table blue-header">
+      <tr>
+        <th>Capability</th>
+        <th>Admin</th>
+        <th>Member</th>
+        <th>Contributor</th>
+        <th>Viewer</th>
+      </tr>
+      <tr>
+        <td>Update and delete the workspace</td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Add or remove people (including admins)</td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Allow Contributors to update the app</td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Add members or others with lower permissions</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Publish, unpublish, and change app permissions</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Create, edit, and delete items in the workspace</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Create database and warehouse items</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Write and delete data through OneLake APIs</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Execute notebooks, pipelines, and Spark jobs</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Create reports from datasets in the workspace</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>View and interact with items and content</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+      </tr>
+      <tr>
+        <td>Read data stored in workspace dataflows</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+      </tr>
+      <tr>
+        <td>Read data through TDS endpoint (SQL connection)</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+      </tr>
+      <tr>
+        <td>Read data through OneLake APIs</td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+        <td><strong>&#10003;</strong></td>
+      </tr>
+    </table>
+  </div>
+  <div class="further-reading">For finer-grained control beyond workspace roles, use <strong>item-level permissions</strong> and <strong>row-level security (RLS)</strong> on individual datasets and reports.</div>
+</div>
+
+<!-- WORKSPACE LAYOUT -->
+<div id="workspace-layout" class="card teal">
+  <div class="card-title">Workspace Layout</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">The workspace UI is organized into distinct regions for navigation, management, and content browsing.</p>
+  <div class="grid">
+    <div>
+      <div class="kp"><strong>Header bar</strong> &mdash; displays workspace name, search, and global navigation; quick access to settings and sharing options</div>
+      <div class="kp"><strong>Toolbar</strong> &mdash; contains actions like New, Upload, Filter, and View switcher; contextual buttons change based on selected items</div>
+      <div class="kp"><strong>Task flow (upper portion)</strong> &mdash; a visual workflow area that shows recommended steps or data processing sequences for the workspace</div>
+    </div>
+    <div>
+      <div class="kp"><strong>Items list</strong> &mdash; the main content area displaying all workspace items with columns for Name, Type, Owner, and Status</div>
+      <div class="kp"><strong>List view</strong> &mdash; default tabular layout showing items with sortable columns; ideal for managing many items efficiently</div>
+      <div class="kp"><strong>Lineage view</strong> &mdash; visual graph of data flow and dependencies between items; shows how data moves from sources through transformations to reports</div>
+    </div>
+  </div>
+  <div class="kp"><strong>Status column</strong> &mdash; shows refresh status, endorsement badges (Promoted/Certified), and sensitivity labels for each item at a glance</div>
+</div>
+
+<!-- WORKSPACE SETTINGS -->
+<div id="workspace-settings" class="card orange">
+  <div class="card-title">Workspace Settings</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Configure workspace behavior, integrations, and storage through the settings panel.</p>
+  <div class="grid">
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-orange);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">General &amp; Identity</p>
+      <div class="kp"><strong>General settings</strong> &mdash; workspace name, description, and image; set the workspace domain for governance alignment</div>
+      <div class="kp"><strong>Contact list</strong> &mdash; specify users or groups who receive notifications about workspace events and access requests</div>
+      <div class="kp"><strong>Workspace type</strong> &mdash; choose between Power BI workspace (BI-only) and Fabric workspace (full workload access); determines available item types</div>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-orange);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Integrations &amp; Storage</p>
+      <div class="kp"><strong>Microsoft 365 integration</strong> &mdash; connect to a Microsoft 365 group for shared membership; link to SharePoint document library for file collaboration</div>
+      <div class="kp"><strong>Azure connections</strong> &mdash; connect Azure Data Lake Storage Gen2 for external data access; integrate Azure Log Analytics for monitoring and diagnostics</div>
+      <div class="kp"><strong>System storage</strong> &mdash; monitor and manage storage consumption; view per-item storage usage and clean up unused artifacts to stay within capacity limits</div>
+    </div>
+  </div>
+  <div class="kp"><strong>Git integration</strong> &mdash; connect workspace to Azure DevOps or GitHub for version control; sync workspace items with a Git branch for CI/CD workflows</div>
+  <div class="kp"><strong>Spark settings</strong> &mdash; configure default Spark pool, runtime version, and environment for notebooks and Spark jobs within the workspace</div>
+</div>
+
+<!-- WORKSPACE MONITORING -->
+<div id="workspace-monitoring" class="card purple">
+  <div class="card-title">Workspace Monitoring</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Track activity, job execution, and resource usage across workspace items.</p>
+  <div class="kp"><strong>Monitoring hub</strong> &mdash; centralized view of all running and recent activities across the workspace; filter by item type, status, or submitter</div>
+  <div class="kp"><strong>Item job event logs</strong> &mdash; detailed execution history for each item including start time, duration, status (success/failure), and error messages for troubleshooting</div>
+  <div class="kp"><strong>Workspace monitoring visualization</strong> &mdash; pre-built monitoring reports that surface trends in refresh frequency, duration patterns, and failure rates over time</div>
+  <div class="kp"><strong>Capacity metrics</strong> &mdash; understand how workspace activities consume capacity units (CUs); identify resource-intensive items and optimize scheduling</div>
+  <div class="kp"><strong>Audit logs</strong> &mdash; workspace events flow into the unified audit log for compliance; track who accessed, modified, or shared content and when</div>
+</div>
+
+<!-- BEST PRACTICES -->
+<div id="best-practices" class="card teal">
+  <div class="card-title">Best Practices</div>
+  <div class="grid">
+    <div>
+      <div class="kp"><strong>Set up task flows</strong> &mdash; define visual workflows in the workspace to guide team members through standard data processing sequences and reduce onboarding time</div>
+      <div class="kp"><strong>Pin frequently used workspaces</strong> &mdash; pin workspaces to the left navigation panel for quick access; reduces time spent searching across many workspaces</div>
+      <div class="kp"><strong>Use granular roles</strong> &mdash; assign the minimum role needed; prefer Viewer or Contributor over Member/Admin to follow the principle of least privilege</div>
+    </div>
+    <div>
+      <div class="kp"><strong>Create folders for organization</strong> &mdash; group related items into folders within the workspace (e.g., Raw, Curated, Reports) to keep content discoverable</div>
+      <div class="kp"><strong>Git integration for version control</strong> &mdash; connect workspaces to Git repositories for change tracking, code review, and safe deployment through branches</div>
+      <div class="kp"><strong>Maintain contact lists</strong> &mdash; keep the workspace contact list current so notifications about failures, access requests, and changes reach the right people</div>
+    </div>
+  </div>
+  <div class="kp"><strong>Workspace per environment</strong> &mdash; consider separate workspaces for Dev, Test, and Prod with deployment pipelines to promote content safely between stages</div>
+</div>
+
+<!-- ADMINISTRATION -->
+<div id="administration" class="card blue">
+  <div class="card-title">Administration</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Tenant-level controls for managing workspaces across the organization.</p>
+  <div class="grid">
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Admin Portal</p>
+      <div class="kp"><strong>Workspace list</strong> &mdash; view all workspaces in the tenant; filter by state, capacity, or type; take admin actions on any workspace</div>
+      <div class="kp"><strong>Tenant settings</strong> &mdash; control who can create workspaces, which capacity types are available, and whether users can share content externally</div>
+      <div class="kp"><strong>Domain management</strong> &mdash; organize workspaces into business domains for governance boundaries and delegated administration</div>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Auditing &amp; Recovery</p>
+      <div class="kp"><strong>Auditing operations</strong> &mdash; track workspace structure changes through the unified audit log: <strong>CreateFolder</strong>, <strong>DeleteFolder</strong>, and <strong>UpdateFolder</strong> operations are captured automatically</div>
+      <div class="kp"><strong>Workspace recycle bin (preview)</strong> &mdash; deleted items are recoverable from the workspace recycle bin before permanent removal</div>
+      <div class="kp"><strong>Retention period</strong> &mdash; configurable from <strong>7 to 90 days</strong>; admins set the default retention window for deleted workspace items across the tenant</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What is the primary purpose of a workspace in Microsoft Fabric?</div>
+      <div class="quiz-a">To store data exclusively in Delta-Parquet format</div>
+      <div class="quiz-a correct">To serve as a collaborative container for organizing and managing Fabric items with role-based access control</div>
+      <div class="quiz-a">To provide compute resources for running Spark jobs</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which workspace role can add or remove users, including other admins?</div>
+      <div class="quiz-a">Member</div>
+      <div class="quiz-a">Contributor</div>
+      <div class="quiz-a correct">Admin</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is the configurable retention period range for the workspace recycle bin?</div>
+      <div class="quiz-a">1 to 30 days</div>
+      <div class="quiz-a correct">7 to 90 days</div>
+      <div class="quiz-a">30 to 365 days</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which workspace view shows data flow and dependencies between items?</div>
+      <div class="quiz-a">List view</div>
+      <div class="quiz-a correct">Lineage view</div>
+      <div class="quiz-a">Task flow view</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which role is the minimum required to execute notebooks and pipelines in a workspace?</div>
+      <div class="quiz-a">Member</div>
+      <div class="quiz-a correct">Contributor</div>
+      <div class="quiz-a">Viewer</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Workspaces &mdash; Fundamentals &mdash; Data &amp; AI Reference
+</div>
+
+</body>
+</html>

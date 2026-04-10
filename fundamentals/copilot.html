@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot &amp; AI — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* SIDE-BY-SIDE BOXES */
+.side-box { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
+.side-box .sb-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.side-box .sb-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.side-box.sb-blue { border-color: var(--ms-blue); }
+.side-box.sb-blue .sb-title { color: var(--ms-blue); }
+.side-box.sb-teal { border-color: var(--ms-teal); }
+.side-box.sb-teal .sb-title { color: var(--ms-teal); }
+.side-box.sb-orange { border-color: var(--ms-orange); }
+.side-box.sb-orange .sb-title { color: var(--ms-orange); }
+.side-box.sb-purple { border-color: var(--ms-purple); }
+.side-box.sb-purple .sb-title { color: var(--ms-purple); }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="#">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fundamentals/copilot.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="../fundamentals/copilot.html" class="active"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Copilot &amp; AI</h1>
+    <div class="subtitle">Generative AI capabilities embedded across every Fabric workload</div>
+  </div>
+  <div class="badge">Module 5 Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#overview">Overview</a>
+  <a href="#workloads">Copilot per Workload</a>
+  <a href="#engineering">Data Engineering &amp; Data Science</a>
+  <a href="#powerbi">Power BI Copilot</a>
+  <a href="#rti">Real-Time Intelligence</a>
+  <a href="#privacy">Privacy, Security &amp; Regions</a>
+  <a href="#enabling">Enabling Copilot</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="card blue">
+  <div class="card-title">Overview</div>
+  <div class="kp"><strong>LLM-powered data analytics</strong> &mdash; Copilot uses large language models to help users work with data across the entire Fabric platform</div>
+  <div class="kp"><strong>Available across all workloads</strong> &mdash; integrated into Data Engineering, Data Science, Data Factory, Data Warehouse, Power BI, Real-Time Intelligence, and SQL Database</div>
+  <div class="kp"><strong>Enterprise developers</strong> &mdash; get intelligent code completion, error diagnostics, and performance insights in notebooks and SQL editors</div>
+  <div class="kp"><strong>Self-service users</strong> &mdash; generate dataflows, build pipelines, and create reports using natural language prompts</div>
+  <div class="kp"><strong>Business users</strong> &mdash; explore data with conversational Q&amp;A, narrative summaries, and natural language queries</div>
+  <div class="kp"><strong>Augments, doesn&rsquo;t replace</strong> &mdash; Copilot assists and accelerates human work but always keeps the user in control of decisions and outputs</div>
+  <div class="kp"><strong>SKU requirement</strong> &mdash; requires an F2 or higher Fabric SKU, or a Power BI Premium P SKU; not available on shared or trial capacities</div>
+</div>
+
+<!-- COPILOT PER WORKLOAD -->
+<div id="workloads" class="card blue">
+  <div class="card-title">Copilot per Workload</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Copilot capabilities vary by workload and supported item type:</p>
+  <table class="decision-table blue-header">
+    <tr><th style="width:25%;">Workload</th><th style="width:25%;">Supported Items</th><th>Key Capabilities</th></tr>
+    <tr><td><strong>Data Engineering &amp; Data Science</strong></td><td>Notebooks</td><td>Intelligent code completion, context-aware suggestions, error diagnostics, performance insights</td></tr>
+    <tr><td><strong>Data Factory</strong></td><td>Dataflows, Pipelines</td><td>Natural language to dataflow transformations, pipeline activity generation</td></tr>
+    <tr><td><strong>Data Warehouse</strong></td><td>SQL queries</td><td>Natural language to SQL, query explanation, code completion, quick actions</td></tr>
+    <tr><td><strong>SQL Database</strong></td><td>SQL queries, SSMS, VS Code</td><td>Natural language to SQL, schema-aware suggestions, cross-tool support</td></tr>
+    <tr><td><strong>Power BI</strong></td><td>Semantic models, Reports</td><td>Report page suggestions, visual generation, DAX generation, narrative summaries</td></tr>
+    <tr><td><strong>Real-Time Intelligence</strong></td><td>KQL querysets, Dashboards</td><td>Natural language to KQL, dashboard tile editing, query exploration</td></tr>
+  </table>
+</div>
+
+<!-- DATA ENGINEERING & DATA SCIENCE -->
+<div id="engineering" class="card teal">
+  <div class="card-title">Data Engineering &amp; Data Science Copilot</div>
+  <div class="kp"><strong>Intelligent code completion</strong> &mdash; suggests code as you type in notebooks, including PySpark, SQL, and Scala, reducing boilerplate and accelerating development</div>
+  <div class="kp"><strong>Context-aware from workspace and lakehouse schemas</strong> &mdash; Copilot reads your lakehouse metadata, table schemas, and workspace context to generate relevant, accurate suggestions</div>
+  <div class="kp"><strong>Notebook-wide multi-step assistance</strong> &mdash; understands the full notebook context across cells, helping with multi-step data transformations and analysis workflows</div>
+  <div class="kp"><strong>Performance insights</strong> &mdash; provides recommendations on join strategies, data shuffles, partitioning, and caching to optimize Spark job execution</div>
+  <div class="kp"><strong>Fix with Copilot</strong> &mdash; when a cell errors, Copilot analyzes the stack trace and suggests a corrected version of the code with an explanation of what went wrong</div>
+  <div class="kp"><strong>/fix command</strong> &mdash; use targeted diagnostics by typing <code>/fix</code> in the Copilot chat to get focused error resolution for specific code blocks</div>
+</div>
+
+<!-- POWER BI COPILOT -->
+<div id="powerbi" class="card orange">
+  <div class="card-title">Power BI Copilot</div>
+  <div class="kp"><strong>Report page suggestions</strong> &mdash; Copilot analyzes your semantic model and proposes complete report pages with relevant visuals, filters, and layout</div>
+  <div class="kp"><strong>Visual suggestions</strong> &mdash; describe the insight you want in natural language and Copilot generates the appropriate chart, table, or visualization</div>
+  <div class="kp"><strong>Narrative visual summaries</strong> &mdash; add a narrative visual that automatically generates plain-language summaries of the data shown on a report page</div>
+  <div class="kp"><strong>DAX generation and explanation</strong> &mdash; write measures and calculated columns by describing the business logic; Copilot generates DAX formulas and explains existing ones</div>
+  <div class="kp"><strong>App-scoped Copilot</strong> &mdash; embed Copilot into published Power BI apps so business users can ask questions directly within the app experience</div>
+  <div class="kp"><strong>Standalone cross-item experience</strong> &mdash; a dedicated Copilot pane that works across multiple semantic models and reports, enabling broad data exploration from a single entry point</div>
+</div>
+
+<!-- REAL-TIME INTELLIGENCE COPILOT -->
+<div id="rti" class="card purple">
+  <div class="card-title">Real-Time Intelligence Copilot</div>
+  <div class="kp"><strong>Natural language to KQL queries</strong> &mdash; describe what you want to find and Copilot translates your request into Kusto Query Language, handling complex joins, aggregations, and time-series operations</div>
+  <div class="kp"><strong>Dashboard tile editing with Copilot</strong> &mdash; modify Real-Time Dashboard tiles using natural language instructions to adjust queries, visuals, and filters without writing KQL directly</div>
+  <div class="kp"><strong>Modify and explore generated queries</strong> &mdash; Copilot-generated KQL is fully editable, allowing you to refine, extend, or learn from the generated code before executing</div>
+</div>
+
+<!-- PRIVACY, SECURITY & REGIONS -->
+<div id="privacy" class="card teal">
+  <div class="card-title">Privacy, Security &amp; Regions</div>
+  <div class="kp"><strong>Azure OpenAI Service backing</strong> &mdash; all Copilot features are powered by Azure OpenAI Service, inheriting its enterprise security, compliance certifications, and responsible AI safeguards</div>
+  <div class="kp"><strong>Data processing regions</strong> &mdash; for tenants in the US and EU, data is processed within the same geographic boundary; prompts and responses do not leave the region</div>
+  <div class="kp"><strong>Cross-geo processing</strong> &mdash; tenants outside the US and EU may have data processed across geographic boundaries; this requires an explicit admin opt-in via tenant settings</div>
+  <div class="kp"><strong>Conversation history storage</strong> &mdash; Copilot retains conversation history for up to 28 days to support context continuity and improve the user experience</div>
+  <div class="kp"><strong>Users can clear chat history</strong> &mdash; individual users can delete their Copilot conversation history at any time from the Copilot pane</div>
+  <div class="kp"><strong>Sovereign clouds</strong> &mdash; Copilot in Fabric is not available for sovereign or government cloud environments (GCC, GCC High, DoD)</div>
+</div>
+
+<!-- ENABLING COPILOT -->
+<div id="enabling" class="card blue">
+  <div class="card-title">Enabling Copilot</div>
+  <div class="kp"><strong>Tenant admin settings required</strong> &mdash; Copilot is controlled through Fabric tenant settings in the Admin portal; it is not enabled by default and must be explicitly turned on</div>
+  <div class="kp"><strong>Enable for all or specific groups</strong> &mdash; admins can roll out Copilot to the entire organization or restrict it to specific security groups for a phased rollout</div>
+  <div class="kp"><strong>Azure OpenAI cross-geo setting</strong> &mdash; for tenants outside the US and EU, a separate toggle must be enabled to allow data to be processed by Azure OpenAI in other geographies</div>
+  <div class="kp"><strong>Copilot consumption billing</strong> &mdash; Copilot requests consume Fabric capacity units (CUs); usage is metered and billed against the workspace&rsquo;s assigned capacity</div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What is the minimum Fabric SKU required to use Copilot?</div>
+      <div class="quiz-a">F1 (Fabric trial capacity)</div>
+      <div class="quiz-a correct">F2 or higher, or a Power BI Premium P SKU</div>
+      <div class="quiz-a">F64 (enterprise capacity only)</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which Copilot feature helps diagnose and fix notebook cell errors?</div>
+      <div class="quiz-a">Performance insights</div>
+      <div class="quiz-a">Intelligent code completion</div>
+      <div class="quiz-a correct">Fix with Copilot, which analyzes the stack trace and suggests corrected code</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What must a tenant admin enable for organizations outside the US and EU to use Copilot?</div>
+      <div class="quiz-a">A dedicated Azure OpenAI resource in their subscription</div>
+      <div class="quiz-a correct">The Azure OpenAI cross-geographic data processing setting in tenant admin settings</div>
+      <div class="quiz-a">A Fabric gateway to route requests to the nearest Azure OpenAI region</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">In Power BI, what does the narrative visual feature do?</div>
+      <div class="quiz-a">Creates a new report page with suggested visuals</div>
+      <div class="quiz-a correct">Generates plain-language summaries of the data shown on a report page</div>
+      <div class="quiz-a">Translates DAX measures into natural language explanations</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">How long does Copilot retain conversation history by default?</div>
+      <div class="quiz-a">7 days</div>
+      <div class="quiz-a correct">28 days</div>
+      <div class="quiz-a">Indefinitely, until the user clears it</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Copilot &amp; AI &mdash; Fundamentals &mdash; Data &amp; AI Reference
+</div>
+
+</body>
+</html>

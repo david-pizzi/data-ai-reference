@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fabric Concepts &mdash; Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* LAYER DIAGRAM */
+.layer-stack { display: flex; flex-direction: column; gap: 0; }
+.layer { border-radius: 10px; padding: 16px 20px; border: 2px solid var(--border); background: var(--card); margin-bottom: -1px; }
+.layer .layer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.layer .layer-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.layer .layer-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.layer.l-purple { border-color: var(--ms-purple); }
+.layer.l-purple .layer-label, .layer.l-purple .layer-title { color: var(--ms-purple); }
+.layer.l-teal { border-color: var(--ms-teal); }
+.layer.l-teal .layer-label, .layer.l-teal .layer-title { color: var(--ms-teal); }
+.layer.l-blue { border-color: var(--ms-blue); }
+.layer.l-blue .layer-label, .layer.l-blue .layer-title { color: var(--ms-blue); }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 900px) { .grid.three-col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html" title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../fundamentals.html">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a class="active" href="concepts.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="data-lifecycle.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="workspaces.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="direct-lake.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="copilot.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="task-flows.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="decision-guides.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="governance.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <a class="md-link" href="../md/fundamentals/concepts.md">Deep Dive (md)</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Fabric Concepts</h1>
+    <div class="subtitle">What Microsoft Fabric is, its architecture, workloads, and key terminology</div>
+  </div>
+  <div class="badge">Module 1<br>Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#what-is-fabric">What Is Fabric</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#workloads">Workloads</a>
+  <a href="#terminology">Key Terminology</a>
+  <a href="#onelake">OneLake Architecture</a>
+  <a href="#realtime-hub">Real-Time Hub</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- WHAT IS FABRIC -->
+<div id="what-is-fabric" class="card blue">
+  <div class="card-title">What Is Microsoft Fabric?</div>
+  <div class="kp"><strong>End-to-end analytics SaaS platform</strong> &mdash; a single, unified environment that covers data movement, data science, real-time analytics, and business intelligence; all managed as a Software-as-a-Service offering</div>
+  <div class="kp"><strong>Replaces 5+ separate Azure services</strong> &mdash; consolidates Azure Data Factory, Azure Synapse Analytics, Azure Data Lake Storage, Azure Data Explorer, and Power BI into one integrated platform with a single billing model</div>
+  <div class="kp"><strong>OneLake as centralized data lake</strong> &mdash; all Fabric workloads store and access data in one logical lake, eliminating data silos and the need to move or duplicate data across services</div>
+  <div class="kp"><strong>Built on Azure Data Lake Storage Gen2</strong> &mdash; OneLake uses ADLS Gen2 under the hood but abstracts away all infrastructure management; data is stored in open Delta-Parquet format by default</div>
+  <div class="kp"><strong>Single capacity model</strong> &mdash; one pool of compute capacity (measured in Capacity Units) powers all workloads; purchase once, use across all experiences</div>
+  <div class="kp"><strong>Deeply integrated with Microsoft 365</strong> &mdash; accessible from Power BI, Teams, Excel, and SharePoint; data can be shared and governed across the Microsoft ecosystem</div>
+</div>
+
+<!-- FABRIC ARCHITECTURE -->
+<div id="architecture" class="card blue">
+  <div class="card-title">Fabric Architecture</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Fabric is built as a layered SaaS platform. All workloads share the same foundation and platform services.</p>
+  <div class="layer-stack">
+    <div class="layer l-purple" style="border-radius:10px 10px 0 0;">
+      <div class="layer-label">Top Layer &mdash; Workloads</div>
+      <div class="layer-title">Analytics Experiences</div>
+      <div class="layer-desc">Data Factory &middot; Data Engineering &middot; Data Warehouse &middot; Data Science &middot; Real-Time Intelligence &middot; Databases &middot; Power BI &middot; Fabric IQ &middot; Industry Solutions</div>
+    </div>
+    <div class="layer l-teal">
+      <div class="layer-label">Middle Layer &mdash; Shared Services</div>
+      <div class="layer-title">Copilot, Governance &amp; Platform</div>
+      <div class="layer-desc">Copilot AI assistance &middot; Microsoft Purview governance &middot; OneLake catalog &middot; Security &amp; compliance &middot; Admin portal &middot; Git integration &middot; APIs &amp; SDKs &middot; Monitoring hub</div>
+    </div>
+    <div class="layer l-blue" style="border-radius:0 0 10px 10px;">
+      <div class="layer-label">Foundation Layer &mdash; Storage</div>
+      <div class="layer-title">OneLake</div>
+      <div class="layer-desc">Single logical data lake per tenant &middot; Delta-Parquet format &middot; Shortcuts for external data &middot; Cross-cloud and cross-tenant sharing &middot; Built on ADLS Gen2</div>
+    </div>
+  </div>
+  <div class="further-reading">All workloads read and write from the same OneLake storage. Shared services like Copilot, governance, and security are available across every workload without separate configuration.</div>
+</div>
+
+<!-- WORKLOADS TABLE -->
+<div id="workloads" class="card blue">
+  <div class="card-title">Workloads at a Glance</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Each workload provides a tailored experience for a specific analytics task, but all operate on the same OneLake data.</p>
+  <table class="decision-table blue-header">
+    <tr>
+      <th>Workload</th>
+      <th>Purpose</th>
+      <th>Key Items</th>
+    </tr>
+    <tr>
+      <td><strong>Power BI</strong></td>
+      <td>Self-service and enterprise BI &mdash; reports, dashboards, and interactive analytics</td>
+      <td>Semantic models, reports, dashboards, paginated reports, metrics</td>
+    </tr>
+    <tr>
+      <td><strong>Data Factory</strong></td>
+      <td>Data integration and orchestration &mdash; ingest, transform, and schedule data pipelines</td>
+      <td>Pipelines, Dataflows Gen2, 200+ connectors, copy activities</td>
+    </tr>
+    <tr>
+      <td><strong>Data Engineering</strong></td>
+      <td>Build and manage analytics data estates using Apache Spark</td>
+      <td>Lakehouses, notebooks, Spark job definitions, environments</td>
+    </tr>
+    <tr>
+      <td><strong>Data Science</strong></td>
+      <td>Machine learning model development, training, and deployment</td>
+      <td>Experiments, ML models, notebooks, MLflow integration</td>
+    </tr>
+    <tr>
+      <td><strong>Data Warehouse</strong></td>
+      <td>Full T-SQL data warehouse for structured analytics across multiple sources</td>
+      <td>Warehouses, SQL analytics endpoints, tables, views, stored procedures</td>
+    </tr>
+    <tr>
+      <td><strong>Databases</strong></td>
+      <td>Operational and mirrored databases within Fabric</td>
+      <td>SQL databases, mirrored databases (Azure SQL, Cosmos DB, Snowflake, Databricks)</td>
+    </tr>
+    <tr>
+      <td><strong>Real-Time Intelligence</strong></td>
+      <td>Ingest, process, and analyze streaming and time-series data</td>
+      <td>Eventhouses, KQL databases, eventstreams, Real-Time dashboards, reflexes</td>
+    </tr>
+    <tr>
+      <td><strong>Fabric IQ</strong></td>
+      <td>Organize data using business concepts and enable AI-powered reasoning</td>
+      <td>Ontologies, graph models, GQL queries, data agents</td>
+    </tr>
+    <tr>
+      <td><strong>Industry Solutions</strong></td>
+      <td>Out-of-the-box analytics solutions tailored for specific industries</td>
+      <td>Pre-built data models, reports, and pipelines for healthcare, retail, and more</td>
+    </tr>
+  </table>
+</div>
+
+<!-- KEY TERMINOLOGY -->
+<div id="terminology" class="card teal">
+  <div class="card-title">Key Terminology</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Essential terms for working with Microsoft Fabric, drawn from the official Fabric terminology documentation.</p>
+  <table class="decision-table teal-header">
+    <tr>
+      <th>Term</th>
+      <th>Definition</th>
+    </tr>
+    <tr>
+      <td><strong>Capacity</strong></td>
+      <td>A dedicated set of resources (measured in Capacity Units) available for Fabric workloads. Capacity determines performance, throttling limits, and billing.</td>
+    </tr>
+    <tr>
+      <td><strong>Tenant</strong></td>
+      <td>A dedicated instance of Fabric for an organization, tied to an Entra ID (Azure AD) tenant. Each tenant has exactly one OneLake.</td>
+    </tr>
+    <tr>
+      <td><strong>Workspace</strong></td>
+      <td>A logical container for organizing Fabric items. Workspaces map to teams or projects and support role-based access control (Admin, Member, Contributor, Viewer).</td>
+    </tr>
+    <tr>
+      <td><strong>Item</strong></td>
+      <td>Any artifact created in Fabric: lakehouse, notebook, pipeline, warehouse, report, semantic model, etc. Items are the building blocks of analytics solutions.</td>
+    </tr>
+    <tr>
+      <td><strong>Workload / Experience</strong></td>
+      <td>A distinct set of capabilities in Fabric (e.g., Data Engineering, Data Factory, Power BI). Each workload provides item types tailored to a specific analytics task.</td>
+    </tr>
+    <tr>
+      <td><strong>Lakehouse</strong></td>
+      <td>A data architecture combining the flexibility of a data lake with the querying power of a data warehouse. Stores data in Delta-Parquet format with a SQL analytics endpoint.</td>
+    </tr>
+    <tr>
+      <td><strong>Notebook</strong></td>
+      <td>An interactive coding environment for data exploration, transformation, and machine learning using PySpark, Scala, SparkSQL, or SparkR.</td>
+    </tr>
+    <tr>
+      <td><strong>Pipeline</strong></td>
+      <td>A Data Factory orchestration workflow that coordinates data movement and transformation activities in a defined sequence with scheduling and monitoring.</td>
+    </tr>
+    <tr>
+      <td><strong>Dataflow Gen2</strong></td>
+      <td>A low-code data transformation tool using Power Query Online. Connects to 200+ sources and loads transformed data into Fabric destinations.</td>
+    </tr>
+    <tr>
+      <td><strong>Warehouse</strong></td>
+      <td>A fully managed, T-SQL-compatible data warehouse in Fabric. Supports cross-database queries and automatic performance optimization.</td>
+    </tr>
+    <tr>
+      <td><strong>SQL Analytics Endpoint</strong></td>
+      <td>An auto-generated, read-only T-SQL endpoint on a lakehouse or mirrored database, enabling SQL queries without data movement.</td>
+    </tr>
+    <tr>
+      <td><strong>Experiment</strong></td>
+      <td>A Data Science item for organizing and tracking ML model training runs using MLflow.</td>
+    </tr>
+    <tr>
+      <td><strong>Model</strong></td>
+      <td>A trained machine learning model registered in Fabric&rsquo;s model registry for versioning, scoring, and deployment.</td>
+    </tr>
+    <tr>
+      <td><strong>V-Order</strong></td>
+      <td>A write-time optimization applied to Parquet files that improves read performance across all Fabric engines without additional tuning.</td>
+    </tr>
+    <tr>
+      <td><strong>Shortcut</strong></td>
+      <td>A reference to data stored externally (ADLS Gen2, Amazon S3, Google Cloud Storage, Dataverse) that appears in OneLake without copying or moving data.</td>
+    </tr>
+    <tr>
+      <td><strong>OneLake</strong></td>
+      <td>Fabric&rsquo;s built-in, hierarchical data lake. One per tenant, organized into workspaces and lakehouses. All compute engines read and write to OneLake.</td>
+    </tr>
+    <tr>
+      <td><strong>Eventhouse</strong></td>
+      <td>A Real-Time Intelligence item optimized for storing and querying large volumes of time-series and streaming data using KQL.</td>
+    </tr>
+    <tr>
+      <td><strong>Eventstream</strong></td>
+      <td>A no-code experience for capturing, transforming, and routing real-time events from sources like Azure Event Hubs, IoT Hub, and custom apps.</td>
+    </tr>
+    <tr>
+      <td><strong>KQL Database</strong></td>
+      <td>A database within an Eventhouse that stores data optimized for Kusto Query Language (KQL) queries and time-series analysis.</td>
+    </tr>
+    <tr>
+      <td><strong>Ontology</strong></td>
+      <td>A Fabric IQ item that maps business concepts (entities, relationships) to underlying data assets, enabling AI agents to reason in business terms.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ONELAKE ARCHITECTURE -->
+<div id="onelake" class="card orange">
+  <div class="card-title">OneLake Architecture</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">OneLake is Fabric&rsquo;s built-in data lake &mdash; think of it as &ldquo;OneDrive for data.&rdquo; Every tenant gets exactly one OneLake, automatically provisioned.</p>
+  <div class="grid">
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-orange);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Hierarchy</p>
+      <div class="kp"><strong>Tenant</strong> &mdash; the top-level boundary; each organization has one OneLake instance</div>
+      <div class="kp"><strong>Workspaces</strong> &mdash; logical containers within the tenant, each with its own access control and item collection</div>
+      <div class="kp"><strong>Lakehouses</strong> &mdash; within workspaces, lakehouses contain Tables/ (Delta-Parquet) and Files/ (any format) directories</div>
+      <div class="kp"><strong>All engines share storage</strong> &mdash; Data Engineering, Data Warehouse, Power BI, and Data Science all read/write to the same OneLake files</div>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:var(--ms-orange);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Key Capabilities</p>
+      <div class="kp"><strong>Delta Parquet format</strong> &mdash; all tabular data stored in open Delta Lake format with Parquet files; supports ACID transactions, time travel, and schema evolution</div>
+      <div class="kp"><strong>Shortcuts for zero-copy access</strong> &mdash; reference external data in ADLS Gen2, Amazon S3, Google Cloud Storage, or Dataverse without moving or duplicating it</div>
+      <div class="kp"><strong>Cross-tenant data sharing</strong> &mdash; securely share data across organizational boundaries while maintaining governance and access controls</div>
+      <div class="kp"><strong>OneLake file explorer</strong> &mdash; access OneLake data directly from Windows File Explorer, just like OneDrive</div>
+    </div>
+  </div>
+</div>
+
+<!-- REAL-TIME HUB -->
+<div id="realtime-hub" class="card purple">
+  <div class="card-title">Real-Time Hub</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">The Real-Time hub is a unified SaaS experience for discovering, managing, and consuming streaming data across your organization.</p>
+  <div class="kp"><strong>Centralized streaming catalog</strong> &mdash; a single location to discover all streams and KQL database tables available in your Fabric tenant</div>
+  <div class="kp"><strong>Three stream categories</strong> &mdash; <em>My streams</em> (streams you created), <em>All streams</em> (streams shared across the organization), and <em>Microsoft sources</em> (Azure Event Hubs, IoT Hub, Azure SQL DB change data, Blob Storage events)</div>
+  <div class="kp"><strong>No-code integration</strong> &mdash; connect to data sources and set up eventstreams with transformations directly from the hub, without writing code</div>
+  <div class="kp"><strong>Set alerts and actions</strong> &mdash; configure Data Activator reflexes to monitor stream conditions and trigger notifications or Power Automate flows</div>
+  <div class="kp"><strong>Feeds into KQL databases</strong> &mdash; streaming data lands in Eventhouse KQL databases for real-time querying and dashboard visualization</div>
+  <div class="further-reading">The Real-Time hub replaces the need to manually wire up event ingestion; all streaming data sources are browsable and actionable from one place.</div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What is OneLake in Microsoft Fabric?</div>
+      <div class="quiz-a">A separate Azure storage account that must be provisioned manually</div>
+      <div class="quiz-a correct">A single, built-in data lake per tenant where all Fabric workloads store and access data</div>
+      <div class="quiz-a">A proprietary database engine for real-time analytics</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which feature allows Fabric to reference external data without copying it?</div>
+      <div class="quiz-a">Dataflows Gen2</div>
+      <div class="quiz-a">Mirrored databases</div>
+      <div class="quiz-a correct">Shortcuts</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is the default storage format for tabular data in OneLake?</div>
+      <div class="quiz-a">CSV</div>
+      <div class="quiz-a correct">Delta Parquet</div>
+      <div class="quiz-a">Avro</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which Fabric workload would you use to build and orchestrate data ingestion pipelines?</div>
+      <div class="quiz-a">Data Engineering</div>
+      <div class="quiz-a correct">Data Factory</div>
+      <div class="quiz-a">Data Science</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What does a Fabric &ldquo;Capacity&rdquo; represent?</div>
+      <div class="quiz-a">The maximum number of users who can access a workspace</div>
+      <div class="quiz-a">The total storage limit for OneLake</div>
+      <div class="quiz-a correct">A dedicated set of compute resources (Capacity Units) that powers all Fabric workloads</div>
+    </div>
+  </div>
+</div>
+
+<!-- FURTHER READING -->
+<div class="card blue">
+  <div class="card-title">Further Reading &amp; Resources</div>
+  <div class="kp"><strong>Fabric overview:</strong> <a href="https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview" target="_blank" style="color:var(--ms-blue);">Microsoft Fabric Overview</a></div>
+  <div class="kp"><strong>Fabric terminology:</strong> <a href="https://learn.microsoft.com/en-us/fabric/get-started/fabric-terminology" target="_blank" style="color:var(--ms-blue);">Fabric Terminology</a></div>
+  <div class="kp"><strong>OneLake overview:</strong> <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank" style="color:var(--ms-blue);">OneLake in Microsoft Fabric</a></div>
+  <div class="kp"><strong>Real-Time hub:</strong> <a href="https://learn.microsoft.com/en-us/fabric/real-time-hub/real-time-hub-overview" target="_blank" style="color:var(--ms-blue);">Real-Time Hub Overview</a></div>
+  <div class="kp"><strong>Workload documentation:</strong> <a href="https://learn.microsoft.com/en-us/fabric/get-started/fabric-trial" target="_blank" style="color:var(--ms-blue);">Get Started with Fabric</a></div>
+  <div class="further-reading"><a href="../fundamentals.html">&larr; Back to Fundamentals</a> &nbsp;|&nbsp; <a href="data-lifecycle.html">Next: Data Lifecycle &rarr;</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Fabric Concepts &mdash; Fundamentals &mdash; Data &amp; AI Reference
+  <br><a class="md-link" href="../md/fundamentals/concepts.md" style="font-style:italic;">Deep Dive (md)</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direct Lake — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* SIDE-BY-SIDE BOXES */
+.side-box { border-radius: 10px; padding: 16px 18px; border: 2px solid var(--border); background: var(--card); }
+.side-box .sb-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.side-box .sb-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.side-box.sb-blue { border-color: var(--ms-blue); }
+.side-box.sb-blue .sb-title { color: var(--ms-blue); }
+.side-box.sb-teal { border-color: var(--ms-teal); }
+.side-box.sb-teal .sb-title { color: var(--ms-teal); }
+.side-box.sb-orange { border-color: var(--ms-orange); }
+.side-box.sb-orange .sb-title { color: var(--ms-orange); }
+.side-box.sb-purple { border-color: var(--ms-purple); }
+.side-box.sb-purple .sb-title { color: var(--ms-purple); }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="#">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="../fundamentals/direct-lake.html" class="active"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">6</span> Task Flows</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Direct Lake</h1>
+    <div class="subtitle">High-performance semantic model storage mode that reads directly from OneLake Delta tables</div>
+  </div>
+  <div class="badge">Module 4 Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#what">What Is Direct Lake</a>
+  <a href="#modes">Storage Modes Comparison</a>
+  <a href="#transcoding">How It Works &mdash; Transcoding</a>
+  <a href="#framing">Framing</a>
+  <a href="#auto">Automatic Updates</a>
+  <a href="#fallback">DirectQuery Fallback</a>
+  <a href="#guardrails">Capacity Guardrails</a>
+  <a href="#when">When to Use Direct Lake</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- WHAT IS DIRECT LAKE -->
+<div id="what" class="card blue">
+  <div class="card-title">What Is Direct Lake</div>
+  <div class="kp"><strong>Power BI semantic model table storage mode</strong> &mdash; a distinct mode alongside Import and DirectQuery that determines how data is accessed and stored</div>
+  <div class="kp"><strong>Optimized for large volumes from Delta tables</strong> &mdash; reads Parquet files directly from OneLake without importing or copying data into the semantic model</div>
+  <div class="kp"><strong>Fast loading into memory for interactive analysis</strong> &mdash; transcodes columnar data from Parquet into the in-memory VertiPaq engine on demand</div>
+  <div class="kp"><strong>Ideal for large lakehouses and warehouses</strong> &mdash; designed for enterprise-scale analytics where data resides in OneLake Delta tables</div>
+  <p style="font-size:14px;color:var(--muted);margin-top:14px;margin-bottom:8px;font-weight:600;">Key benefits:</p>
+  <div class="kp"><strong>Import-like performance</strong> &mdash; queries run against in-memory columnar data, delivering interactive speeds comparable to Import mode</div>
+  <div class="kp"><strong>No full data refresh required</strong> &mdash; eliminates lengthy ETL-style import cycles; data is read directly from source files</div>
+  <div class="kp"><strong>Automatic sync with OneLake</strong> &mdash; reflects changes to underlying Delta tables without manual intervention (when automatic updates are enabled)</div>
+</div>
+
+<!-- STORAGE MODES COMPARISON -->
+<div id="modes" class="card blue">
+  <div class="card-title">Storage Modes Comparison</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">How Direct Lake compares to other semantic model storage modes across key capabilities:</p>
+  <table class="decision-table blue-header">
+    <tr>
+      <th>Capability</th>
+      <th>Direct Lake on OneLake</th>
+      <th>Direct Lake on SQL</th>
+      <th>Import</th>
+      <th>DirectQuery</th>
+    </tr>
+    <tr>
+      <td><strong>Licensing</strong></td>
+      <td>Fabric capacity (F SKU)</td>
+      <td>Fabric capacity (F SKU) or Power BI Premium (P SKU)</td>
+      <td>Any Power BI license</td>
+      <td>Any Power BI license</td>
+    </tr>
+    <tr>
+      <td><strong>Data source</strong></td>
+      <td>Delta tables in OneLake only</td>
+      <td>Lakehouse or warehouse SQL analytics endpoint</td>
+      <td>Any supported data source</td>
+      <td>Any supported data source</td>
+    </tr>
+    <tr>
+      <td><strong>Composite models</strong></td>
+      <td>Not supported</td>
+      <td>Supported</td>
+      <td>Supported</td>
+      <td>Supported</td>
+    </tr>
+    <tr>
+      <td><strong>SSO (single sign-on)</strong></td>
+      <td>Not applicable</td>
+      <td>Supported (via SQL endpoint)</td>
+      <td>Not applicable</td>
+      <td>Supported</td>
+    </tr>
+    <tr>
+      <td><strong>Calculated tables</strong></td>
+      <td>Not supported</td>
+      <td>Not supported</td>
+      <td>Supported</td>
+      <td>Not supported</td>
+    </tr>
+    <tr>
+      <td><strong>Large data volumes</strong></td>
+      <td>Excellent &mdash; on-demand loading</td>
+      <td>Excellent &mdash; on-demand loading</td>
+      <td>Limited by model size &amp; refresh time</td>
+      <td>Good &mdash; queries pushed to source</td>
+    </tr>
+    <tr>
+      <td><strong>Reduce data latency</strong></td>
+      <td>Near real-time via automatic updates</td>
+      <td>Near real-time via automatic updates</td>
+      <td>Depends on refresh schedule</td>
+      <td>Real-time (queries source directly)</td>
+    </tr>
+    <tr>
+      <td><strong>Power BI Embedded</strong></td>
+      <td>Supported (F SKU)</td>
+      <td>Supported (F or P SKU)</td>
+      <td>Supported</td>
+      <td>Supported</td>
+    </tr>
+  </table>
+</div>
+
+<!-- HOW IT WORKS - TRANSCODING -->
+<div id="transcoding" class="card teal">
+  <div class="card-title">How It Works &mdash; Transcoding</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Direct Lake loads data into the VertiPaq in-memory engine by transcoding Parquet column segments on demand:</p>
+  <div class="kp"><strong>Columns loaded on-demand from OneLake</strong> &mdash; when a DAX query references a column, the engine fetches the corresponding Parquet column segments and transcodes them into VertiPaq format</div>
+  <div class="kp"><strong>Only needed columns loaded</strong> &mdash; not the entire dataset; if a query touches 3 of 50 columns, only those 3 are loaded, minimizing memory and I/O</div>
+  <div class="kp"><strong>Columns stay resident in memory</strong> &mdash; once transcoded, column data remains cached in memory for subsequent queries, delivering Import-like performance</div>
+  <div class="kp"><strong>Eviction reasons</strong> &mdash; columns are evicted from memory when a refresh (framing) occurs, when they have not been used recently, or under memory pressure from the capacity</div>
+  <div class="kp"><strong>Parquet files organized by columns</strong> &mdash; the columnar layout of Parquet aligns perfectly with VertiPaq&rsquo;s columnar storage, making transcoding efficient without row-by-row transformation</div>
+</div>
+
+<!-- FRAMING -->
+<div id="framing" class="card orange">
+  <div class="card-title">Framing</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Framing is the process that determines which version of the Delta table data the semantic model reads:</p>
+  <div class="kp"><strong>Point-in-time control</strong> &mdash; a frame defines the exact set of Delta log files and Parquet data files the model should reference, providing a consistent snapshot</div>
+  <div class="kp"><strong>Low-cost metadata operation</strong> &mdash; framing completes in seconds, not minutes, because it only updates metadata pointers rather than moving or copying data</div>
+  <div class="kp"><strong>Analyzes Delta log to drop only affected segments</strong> &mdash; the engine inspects the Delta transaction log to identify which in-memory column segments are stale, evicting only those</div>
+  <div class="kp"><strong>Incremental framing</strong> &mdash; dictionaries (encoding maps) are usually not dropped during a frame update; only the affected data segments are refreshed, preserving most cached data</div>
+  <div class="kp"><strong>Trigger options</strong> &mdash; framing can be initiated manually in the Fabric portal, automatically when OneLake data changes, on a scheduled cadence, or programmatically via the TMSL/XMLA refresh API</div>
+</div>
+
+<!-- AUTOMATIC UPDATES -->
+<div id="auto" class="card teal">
+  <div class="card-title">Automatic Updates</div>
+  <div class="kp"><strong>Enabled by default</strong> &mdash; new Direct Lake semantic models automatically detect changes to the underlying Delta tables in OneLake</div>
+  <div class="kp"><strong>Auto-reflects OneLake changes</strong> &mdash; when data in the lakehouse or warehouse is updated, the model automatically frames the new version without manual intervention</div>
+  <div class="kp"><strong>Can be disabled for manual framing control</strong> &mdash; in scenarios requiring strict version control or coordinated refresh windows, automatic updates can be turned off so framing is triggered only on demand</div>
+  <div class="kp"><strong>Automatic page refresh for reports</strong> &mdash; Power BI reports connected to Direct Lake models can leverage automatic page refresh to reflect the latest data to end users without requiring a manual browser refresh</div>
+</div>
+
+<!-- DIRECTQUERY FALLBACK -->
+<div id="fallback" class="card purple">
+  <div class="card-title">DirectQuery Fallback</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">When Direct Lake cannot serve a query from its in-memory cache, it may fall back to DirectQuery mode:</p>
+  <div class="kp"><strong>Only applies to Direct Lake on SQL endpoints</strong> &mdash; fallback routes queries through the SQL analytics endpoint of the lakehouse or warehouse; this mechanism is exclusive to SQL-based Direct Lake</div>
+  <div class="kp"><strong>Fallback triggers</strong> &mdash; occurs when SQL-level security (RLS/CLS) is enforced, when the model references SQL views, or when capacity guardrails (max rows, max file count) are exceeded</div>
+  <div class="kp"><strong>Falls back to SQL analytics endpoint queries</strong> &mdash; the engine redirects the query to the SQL endpoint, which processes it against the data warehouse or lakehouse tables directly</div>
+  <div class="kp"><strong>Slower performance than Direct Lake</strong> &mdash; DirectQuery fallback queries are processed by the SQL engine rather than the in-memory VertiPaq engine, resulting in higher latency</div>
+  <div class="kp"><strong>DirectLakeBehavior property</strong> &mdash; controls whether fallback is allowed; set to <em>Automatic</em> (default, allows fallback), or <em>DirectLakeOnly</em> (disables fallback, returns errors instead)</div>
+  <div class="kp"><strong>Direct Lake on OneLake does NOT support fallback</strong> &mdash; models using Direct Lake on OneLake (without a SQL endpoint) have no fallback path; queries that exceed guardrails will fail rather than degrade</div>
+</div>
+
+<!-- CAPACITY GUARDRAILS -->
+<div id="guardrails" class="card orange">
+  <div class="card-title">Capacity Guardrails</div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:12px;">Each Fabric SKU imposes limits on Direct Lake models. Exceeding these triggers DirectQuery fallback (on SQL) or errors (on OneLake):</p>
+  <table class="decision-table orange-header">
+    <tr>
+      <th>Fabric SKU</th>
+      <th>Parquet Files per Table</th>
+      <th>Row Groups per Table</th>
+      <th>Rows per Table (millions)</th>
+      <th>Max Model Size (GB)</th>
+      <th>Max Memory (GB)</th>
+    </tr>
+    <tr>
+      <td><strong>F2</strong></td>
+      <td>1,000</td>
+      <td>1,000</td>
+      <td>300</td>
+      <td>10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>F8</strong></td>
+      <td>1,000</td>
+      <td>1,000</td>
+      <td>300</td>
+      <td>10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>F16</strong></td>
+      <td>1,000</td>
+      <td>1,000</td>
+      <td>300</td>
+      <td>20</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td><strong>F32</strong></td>
+      <td>1,000</td>
+      <td>1,000</td>
+      <td>300</td>
+      <td>40</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td><strong>F64 / P1</strong></td>
+      <td>5,000</td>
+      <td>5,000</td>
+      <td>1,500</td>
+      <td>55</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td><strong>F128 / P2</strong></td>
+      <td>5,000</td>
+      <td>5,000</td>
+      <td>3,000</td>
+      <td>110</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td><strong>F256 / P3</strong></td>
+      <td>5,000</td>
+      <td>10,000</td>
+      <td>6,000</td>
+      <td>220</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td><strong>F512 / P4</strong></td>
+      <td>10,000</td>
+      <td>10,000</td>
+      <td>12,000</td>
+      <td>440</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td><strong>F1024 / P5</strong></td>
+      <td>10,000</td>
+      <td>10,000</td>
+      <td>24,000</td>
+      <td>440</td>
+      <td>400</td>
+    </tr>
+  </table>
+</div>
+
+<!-- WHEN TO USE DIRECT LAKE -->
+<div id="when" class="card blue">
+  <div class="card-title">When to Use Direct Lake</div>
+  <div class="kp"><strong>IT-driven analytics with lake-centric architectures</strong> &mdash; best suited for organizations centralizing data in OneLake lakehouses or warehouses managed by data engineering teams</div>
+  <div class="kp"><strong>Large volumes in OneLake</strong> &mdash; when datasets are too large for traditional Import mode refresh windows, or when data freshness requirements exceed scheduled refresh capabilities</div>
+  <div class="kp"><strong>Fast loading, frequent refresh, efficient capacity use</strong> &mdash; Direct Lake minimizes capacity consumption by loading only queried columns and avoiding full data copies</div>
+  <div class="kp"><strong>Import still relevant for self-service analysts</strong> &mdash; users connecting to non-OneLake sources, requiring calculated tables, or working with smaller datasets may still prefer Import mode</div>
+  <div class="kp"><strong>OneLake integration for Import models</strong> &mdash; Import models can also benefit from OneLake by using it as a staging area, but they still require scheduled refresh to bring data into memory</div>
+  <div class="kp"><strong>Consider prototype/POC first</strong> &mdash; before migrating large Import models to Direct Lake, validate performance with a proof of concept to ensure guardrails and data structure align with requirements</div>
+</div>
+
+<!-- KNOWLEDGE CHECK -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What distinguishes Direct Lake from Import mode?</div>
+      <div class="quiz-a">Direct Lake copies all data into the semantic model during a scheduled refresh</div>
+      <div class="quiz-a correct">Direct Lake reads Parquet files directly from OneLake and transcodes columns on demand without importing all data</div>
+      <div class="quiz-a">Direct Lake always queries the SQL analytics endpoint in real-time</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What happens during framing?</div>
+      <div class="quiz-a">All data is reloaded from OneLake into the semantic model memory</div>
+      <div class="quiz-a">The entire Delta table is copied to a staging area</div>
+      <div class="quiz-a correct">Metadata pointers are updated to reference the latest Delta log version, evicting only affected in-memory segments</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">When does DirectQuery fallback occur?</div>
+      <div class="quiz-a correct">When SQL-level security, views, or capacity guardrails are exceeded on a Direct Lake on SQL model</div>
+      <div class="quiz-a">Whenever the semantic model receives more than 100 concurrent queries</div>
+      <div class="quiz-a">Only when the model owner manually triggers it from the Fabric portal</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which statement about Direct Lake on OneLake is correct?</div>
+      <div class="quiz-a">It supports composite models and calculated tables</div>
+      <div class="quiz-a">It falls back to DirectQuery when guardrails are exceeded</div>
+      <div class="quiz-a correct">It does not support DirectQuery fallback; queries that exceed guardrails will fail rather than degrade</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Why does Direct Lake load only specific columns rather than entire tables?</div>
+      <div class="quiz-a">Because Delta tables do not support full table reads</div>
+      <div class="quiz-a correct">Because Parquet files are organized by columns, and on-demand loading minimizes memory usage and I/O</div>
+      <div class="quiz-a">Because Power BI reports can only display one column at a time</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Direct Lake &mdash; Fundamentals &mdash; Data &amp; AI Reference
+</div>
+
+</body>
+</html>

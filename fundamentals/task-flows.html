@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Flows — Data &amp; AI Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078D4; --ms-dark: #1B1A19; --ms-dark-blue: #243A5E;
+  --ms-teal: #008575; --ms-orange: #D83B01; --ms-purple: #8661C5; --ms-red: #D13438;
+  --bg: #F5F5F5; --card: #FFFFFF; --border: #E1E5E9; --text: #1B1A19; --muted: #605E5C;
+  --accent-gradient: linear-gradient(135deg, #1B1A19 0%, #243A5E 50%, #0078D4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', 'Ubuntu', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+/* NAV */
+.nav { background: var(--ms-dark); border-radius: 10px; padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.nav a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; }
+.nav a:hover { color: #fff; }
+.nav .md-link { margin-left: auto; color: #8BB8E0; font-style: italic; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; }
+.nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.3); margin: 0 4px; align-self: center; }
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown > a { color: #A0C4E8; text-decoration: none; padding: 4px 8px; cursor: pointer; }
+.nav-dropdown > a:hover { color: #fff; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; min-width: 270px; background: var(--ms-dark-blue); border-radius: 10px; padding: 16px 0 10px 0; margin-top: 0; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.nav-dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; color: #A0C4E8; text-decoration: none; padding: 7px 18px; font-size: 13px; }
+.dropdown-content a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown-content a.active { color: #fff; font-weight: 700; }
+.dd-num { display: inline-block; width: 20px; font-weight: 700; color: rgba(255,255,255,0.5); margin-right: 4px; }
+
+/* HEADER & TOC */
+.header { background: var(--accent-gradient); border-radius: 16px; padding: 32px 36px; margin-bottom: 16px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 15px; opacity: 0.85; margin-top: 2px; }
+.header .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.4; white-space: nowrap; }
+.toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 13px; }
+.toc-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; margin-right: 4px; }
+.toc a { color: var(--ms-blue); text-decoration: none; padding: 2px 0; border-bottom: 1px solid transparent; }
+.toc a:hover { border-bottom-color: var(--ms-blue); }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; position: relative; overflow: hidden; margin-bottom: 18px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.card.blue::before { background: var(--ms-blue); }
+.card.green::before { background: var(--ms-teal); }
+.card.orange::before { background: var(--ms-orange); }
+.card.purple::before { background: var(--ms-purple); }
+.card.teal::before { background: var(--ms-teal); }
+.card.red::before { background: var(--ms-red); }
+.card-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card.blue .card-title { color: var(--ms-blue); }
+.card.green .card-title { color: var(--ms-teal); }
+.card.orange .card-title { color: var(--ms-orange); }
+.card.purple .card-title { color: var(--ms-purple); }
+.card.teal .card-title { color: var(--ms-teal); }
+.card.red .card-title { color: var(--ms-red); }
+.kp { font-size: 14px; margin-bottom: 6px; padding-left: 16px; position: relative; line-height: 1.4; }
+.kp::before { content: '\25B8'; position: absolute; left: 0; font-weight: 700; }
+.card.blue .kp::before { color: var(--ms-blue); }
+.card.green .kp::before { color: var(--ms-teal); }
+.card.orange .kp::before { color: var(--ms-orange); }
+.card.purple .kp::before { color: var(--ms-purple); }
+.card.teal .kp::before { color: var(--ms-teal); }
+.card.red .kp::before { color: var(--ms-red); }
+.kp:last-child { margin-bottom: 0; }
+strong { font-weight: 600; }
+
+/* GRID & TABLE */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.decision-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; line-height: 1.4; }
+.decision-table th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; padding: 10px 12px; text-align: left; }
+.decision-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.decision-table tr:last-child td { border-bottom: none; }
+.decision-table tr:hover td { background: #F5F7FA; }
+.decision-table.blue-header th { background: #D0E7F8; color: var(--ms-blue); border-bottom: 2px solid var(--ms-blue); }
+.decision-table.orange-header th { background: #FCE4D6; color: var(--ms-orange); border-bottom: 2px solid var(--ms-orange); }
+.decision-table.green-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.teal-header th { background: #E2F2F0; color: var(--ms-teal); border-bottom: 2px solid var(--ms-teal); }
+.decision-table.purple-header th { background: #EDE5F5; color: var(--ms-purple); border-bottom: 2px solid var(--ms-purple); }
+.decision-table.red-header th { background: #F5D0D1; color: var(--ms-red); border-bottom: 2px solid var(--ms-red); }
+
+/* QUIZ */
+.quiz { counter-reset: quiz; }
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; counter-increment: quiz; }
+.quiz-q::before { content: counter(quiz) '. '; color: var(--ms-orange); font-weight: 700; }
+.quiz-a { font-size: 13px; padding: 4px 0 4px 20px; color: var(--muted); position: relative; }
+.quiz-a.correct { color: var(--ms-teal); font-weight: 600; }
+.quiz-a.correct::before { content: '\2713'; position: absolute; left: 4px; font-weight: 700; }
+.quiz-group { margin-bottom: 14px; }
+.quiz-group:last-child { margin-bottom: 0; }
+
+/* FURTHER READING & FOOTER */
+.further-reading { font-size: 13px; color: var(--muted); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+.further-reading a { color: var(--ms-blue); text-decoration: none; }
+.further-reading a:hover { text-decoration: underline; }
+.card.green .further-reading a { color: var(--ms-teal); }
+.card.orange .further-reading a { color: var(--ms-orange); }
+.card.purple .further-reading a { color: var(--ms-purple); }
+.footer { text-align: center; font-size: 13px; color: var(--muted); padding: 8px 0; }
+.footer a { color: var(--ms-blue); text-decoration: none; }
+
+@media (max-width: 900px) { .grid.three-col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+@media print { body { padding: 10px; background: white; } .card { break-inside: avoid; } .nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="../index.html"title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+  <a href="../fabric-overview.html">Fabric Overview</a>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../fundamentals.html">Fundamentals &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fundamentals/concepts.html"><span class="dd-num">1</span> Fabric Concepts</a>
+      <a href="../fundamentals/data-lifecycle.html"><span class="dd-num">2</span> Data Lifecycle</a>
+      <a href="../fundamentals/workspaces.html"><span class="dd-num">3</span> Workspaces</a>
+      <a href="../fundamentals/direct-lake.html"><span class="dd-num">4</span> Direct Lake</a>
+      <a href="../fundamentals/copilot.html"><span class="dd-num">5</span> Copilot &amp; AI</a>
+      <a href="../fundamentals/task-flows.html" class="active"><span class="dd-num">6</span> Task Flows</a>
+      <a href="../fundamentals/decision-guides.html"><span class="dd-num">7</span> Decision Guides</a>
+      <a href="../fundamentals/governance.html"><span class="dd-num">8</span> Content Governance</a>
+    </div>
+  </div>
+  <span class="nav-sep"></span>
+  <div class="nav-dropdown">
+    <a href="../big-picture.html">Big Picture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../big-picture/introduction.html"><span class="dd-num">1</span> Introduction to Fabric</a>
+      <a href="../big-picture/onelake.html"><span class="dd-num">2</span> OneLake &amp; Storage</a>
+      <a href="../big-picture/lakehouse-warehouse.html"><span class="dd-num">3</span> Lakehouse &amp; Warehouse</a>
+      <a href="../big-picture/admin.html"><span class="dd-num">4</span> Administration &amp; Governance</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../fabric-iq.html">Fabric IQ &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../fabric-iq/ontology.html"><span class="dd-num">1</span> Ontology Fundamentals</a>
+      <a href="../fabric-iq/graph.html"><span class="dd-num">2</span> Graph &amp; GQL</a>
+      <a href="../fabric-iq/data-agents.html"><span class="dd-num">3</span> Data Agents</a>
+      <a href="../fabric-iq/operations-agents.html"><span class="dd-num">4</span> Operations Agents</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../data-platform.html">Data Platform &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../data-platform/spark.html"><span class="dd-num">1</span> Apache Spark &amp; Notebooks</a>
+      <a href="../data-platform/delta-lake.html"><span class="dd-num">2</span> Delta Lake Tables</a>
+      <a href="../data-platform/pipelines.html"><span class="dd-num">3</span> Pipelines &amp; Orchestration</a>
+      <a href="../data-platform/dataflows.html"><span class="dd-num">4</span> Dataflows Gen2</a>
+      <a href="../data-platform/real-time.html"><span class="dd-num">5</span> Real-Time Intelligence</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../semantic-bi.html">Semantic &amp; BI &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../semantic-bi/semantic-models.html"><span class="dd-num">1</span> Semantic Models</a>
+      <a href="../semantic-bi/dax.html"><span class="dd-num">2</span> DAX Fundamentals</a>
+      <a href="../semantic-bi/powerbi.html"><span class="dd-num">3</span> Power BI &amp; DirectLake</a>
+      <a href="../semantic-bi/data-science.html"><span class="dd-num">4</span> Data Science &amp; ML</a>
+    </div>
+  </div>
+  <div class="nav-dropdown">
+    <a href="../architecture.html">Architecture &#9662;</a>
+    <div class="dropdown-content">
+      <a href="../architecture/data-mesh.html"><span class="dd-num">1</span> Data Mesh on Fabric</a>
+      <a href="../architecture/migration.html"><span class="dd-num">2</span> Migration Patterns</a>
+      <a href="../architecture/competitive.html"><span class="dd-num">3</span> Competitive Landscape</a>
+      <a href="../architecture/ai-infused.html"><span class="dd-num">4</span> AI-Infused Analytics</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Task Flows</h1>
+    <div class="subtitle">Visual workspace feature for organizing and standardizing data project workflows</div>
+  </div>
+  <div class="badge">Module 6 Reference</div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <span class="toc-label">Sections:</span>
+  <a href="#overview">Overview</a>
+  <a href="#concepts">Key Concepts</a>
+  <a href="#task-types">Task Types</a>
+  <a href="#creating">Creating Task Flows</a>
+  <a href="#quiz">Knowledge Check</a>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="card blue">
+  <div class="card-title">Overview</div>
+  <div class="kp"><strong>Visualize work flow</strong> &mdash; task flows provide a visual representation of the work flow within a workspace, making complex data projects easier to understand</div>
+  <div class="kp"><strong>Understand item relationships</strong> &mdash; see how different Fabric items (lakehouses, notebooks, pipelines, reports) connect and depend on each other</div>
+  <div class="kp"><strong>Standardize team work</strong> &mdash; establish consistent patterns and processes so team members follow the same workflow structure</div>
+  <div class="kp"><strong>Predefined templates</strong> &mdash; Fabric offers ready-made task flow templates for common scenarios, reducing setup time and enforcing best practices</div>
+</div>
+
+<!-- KEY CONCEPTS -->
+<div id="concepts" class="card teal">
+  <div class="card-title">Key Concepts</div>
+  <div class="kp"><strong>Task flow</strong> &mdash; a collection of connected tasks that represents an end-to-end data process; lives within a workspace and maps out how work gets done</div>
+  <div class="kp"><strong>Canvas</strong> &mdash; the workspace area where you visually arrange and connect tasks; each task flow has one or more canvases for organizing different phases</div>
+  <div class="kp"><strong>Task</strong> &mdash; a single unit of work within a task flow; represents one step in the process and can be linked to a specific Fabric item</div>
+  <div class="kp"><strong>Connector</strong> &mdash; logical arrows that link tasks together on the canvas; connectors show the sequence and dependencies between tasks but do not represent actual data flow</div>
+</div>
+
+<!-- TASK TYPES TABLE -->
+<div id="task-types" class="card orange">
+  <div class="card-title">Task Types</div>
+  <table class="decision-table orange-header">
+    <tr><th>Task Type</th><th>Description</th></tr>
+    <tr><td><strong>General</strong></td><td>Generic task for any purpose not covered by specific types; useful for documentation or manual steps</td></tr>
+    <tr><td><strong>Get data</strong></td><td>Acquire data from external sources, databases, APIs, or files into the Fabric environment</td></tr>
+    <tr><td><strong>Mirror data</strong></td><td>Set up mirroring from external databases (Azure SQL, Cosmos DB, Snowflake) into OneLake</td></tr>
+    <tr><td><strong>Store data</strong></td><td>Persist data in lakehouses, warehouses, or other Fabric storage items</td></tr>
+    <tr><td><strong>Prepare data</strong></td><td>Clean, transform, and enrich raw data using notebooks, dataflows, or pipelines</td></tr>
+    <tr><td><strong>Analyze and train data</strong></td><td>Run analytics queries, build ML models, and perform exploratory data analysis</td></tr>
+    <tr><td><strong>Track data</strong></td><td>Monitor data quality, lineage, and freshness throughout the pipeline</td></tr>
+    <tr><td><strong>Visualize data</strong></td><td>Create reports, dashboards, and visual representations of processed data in Power BI</td></tr>
+    <tr><td><strong>Distribute data</strong></td><td>Share data and reports with stakeholders, teams, or external consumers</td></tr>
+    <tr><td><strong>Develop data</strong></td><td>Build and iterate on data solutions, including code development and testing</td></tr>
+  </table>
+</div>
+
+<!-- CREATING TASK FLOWS -->
+<div id="creating" class="card purple">
+  <div class="card-title">Creating Task Flows</div>
+  <div class="kp"><strong>Predefined end-to-end flows</strong> &mdash; select from built-in templates that cover common scenarios like lakehouse analytics, real-time streaming, or data warehouse projects</div>
+  <div class="kp"><strong>Create from scratch</strong> &mdash; build a custom task flow by adding tasks one at a time, connecting them with logical arrows to define your unique workflow</div>
+  <div class="kp"><strong>Import existing items</strong> &mdash; bring existing Fabric items from your workspace into a task flow to document and visualize current processes</div>
+  <div class="kp"><strong>Multiple canvases per workspace</strong> &mdash; organize complex projects across multiple canvases within a single workspace, each representing a different phase or team responsibility</div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="card red">
+  <div class="card-title">Knowledge Check</div>
+  <div class="quiz">
+    <div class="quiz-group">
+      <div class="quiz-q">What is the primary purpose of task flows in Microsoft Fabric?</div>
+      <div class="quiz-a">To automate data pipeline execution</div>
+      <div class="quiz-a">To replace notebooks and dataflows</div>
+      <div class="quiz-a correct">To visually organize and standardize data project workflows within a workspace</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What do connectors represent in a task flow?</div>
+      <div class="quiz-a">Actual data movement between items</div>
+      <div class="quiz-a correct">Logical arrows showing the sequence and dependencies between tasks</div>
+      <div class="quiz-a">API connections to external systems</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">Which task type would you use to clean and transform raw data?</div>
+      <div class="quiz-a">Store data</div>
+      <div class="quiz-a correct">Prepare data</div>
+      <div class="quiz-a">Get data</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">How can you create a new task flow?</div>
+      <div class="quiz-a">Only by using predefined templates</div>
+      <div class="quiz-a">Only by importing existing workspace items</div>
+      <div class="quiz-a correct">From a predefined template, from scratch, or by importing existing items</div>
+    </div>
+    <div class="quiz-group">
+      <div class="quiz-q">What is a canvas in the context of task flows?</div>
+      <div class="quiz-a">A Power BI report page</div>
+      <div class="quiz-a correct">The workspace area where you visually arrange and connect tasks</div>
+      <div class="quiz-a">A notebook cell for running code</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Task Flows &mdash; Fundamentals &mdash; Data &amp; AI Reference
+</div>
+
+</body>
+</html>
