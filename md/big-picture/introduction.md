@@ -33,6 +33,9 @@ Fabric is a unified *software-as-a-service* (SaaS) platform where all data is st
 
 **OneLake** is Fabric's centralized data storage architecture that enables collaboration by eliminating the need to move or copy data between systems. OneLake unifies your data across regions and clouds into a single logical lake without moving or duplicating data.
 
+![Diagram of Fabric compute engines such as Data Engineering, Data Warehouse, Data Factory, Power BI, and Real-Time Intelligence all accessing the same OneLake data storage.](../../img/introduction/onelake-architecture.png)
+*All Fabric compute engines access the same OneLake data storage — no movement or duplication needed*
+
 Key details:
 - Built on **Azure Data Lake Storage Gen2** (ADLS Gen2)
 - Supports various formats: Delta, Parquet, CSV, and JSON
@@ -130,6 +133,9 @@ These roles apply to all items in a workspace and should be reserved for collabo
 ### Discover Data with OneLake Catalog
 
 The OneLake catalog helps you find and access data sources within your organization. You only see items that have been shared with you.
+
+![Screenshot of the OneLake catalog in Microsoft Fabric showing data discovery interface.](../../img/introduction/onelake-catalog.png)
+*The OneLake catalog — discover and connect to data sources across your organization*
 
 Tips for using OneLake catalog:
 - Narrow results by workspaces or domains (if implemented)
